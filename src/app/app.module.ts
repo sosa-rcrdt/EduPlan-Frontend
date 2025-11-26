@@ -34,13 +34,21 @@ import { NgChartsModule } from 'ng2-charts';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
 import { HomeScreenComponent } from './screens/home-screen/home-screen.component';
 import { RegistroScreenComponent } from './screens/registro-screen/registro-screen.component';
+import { NavbarComponent } from './partials/navbar/navbar.component';
+import { RegistroAdminComponent } from './partials/registro-admin/registro-admin.component';
+import { RegistroAlumnosComponent } from './partials/registro-alumnos/registro-alumnos.component';
+import { RegistroMaestrosComponent } from './partials/registro-maestros/registro-maestros.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginScreenComponent,
     HomeScreenComponent,
-    RegistroScreenComponent
+    RegistroScreenComponent,
+    NavbarComponent,
+    RegistroAdminComponent,
+    RegistroAlumnosComponent,
+    RegistroMaestrosComponent
   ],
   imports: [
     BrowserModule,
