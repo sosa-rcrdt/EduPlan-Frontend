@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
-//Este import es para los servicios HTTP
+// Este import es para los servicios HTTP
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,16 +23,24 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
-//Para usar el mask
+// Para usar el mask
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
-//Cambia el idioma a español
+// Cambia el idioma a español
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { NgChartsModule } from 'ng2-charts';
 
+// Pantallas
+import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
+import { HomeScreenComponent } from './screens/home-screen/home-screen.component';
+import { RegistroScreenComponent } from './screens/registro-screen/registro-screen.component';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginScreenComponent,
+    HomeScreenComponent,
+    RegistroScreenComponent
   ],
   imports: [
     BrowserModule,

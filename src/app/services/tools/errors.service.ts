@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ErrorsService {
-
+  public unauthorized: string;
   public generic: string;
   public required: string;
   public numeric: string;
@@ -12,6 +12,7 @@ export class ErrorsService {
   public email: string;
 
   constructor() {
+    this.unauthorized = 'No se pudo iniciar sesión. Verifique sus credenciales.';
     this.generic = 'Favor de verificar el tipo de dato introducido no es válido';
     this.required = 'Campo requerido';
     this.numeric = 'Solo se aceptan valores numéricos';
