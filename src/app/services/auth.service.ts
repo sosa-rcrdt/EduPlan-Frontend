@@ -1,5 +1,7 @@
+// src/app/services/auth.service.ts
+
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -12,7 +14,6 @@ import { UserProfile } from '../models/usuario.models';
 export class AuthService {
   private readonly apiUrl = environment.url_api;
 
-  // Claves usadas en localStorage
   private readonly ACCESS_TOKEN_KEY = 'access_token';
   private readonly REFRESH_TOKEN_KEY = 'refresh_token';
   private readonly USER_ROLE_KEY = 'user_role';
@@ -46,11 +47,12 @@ export class AuthService {
   // Llama al backend en /logout/ y limpia la sesión en el frontend.
   logout(): Observable<LogoutResponse> {
     const url = `${this.apiUrl}/logout/`;
+    const headers = this.getAuthHeaders();
 
     // Limpiamos primero en el front
     this.clearSession();
 
-    return this.http.get<LogoutResponse>(url);
+    return this.http.get<LogoutResponse>(url, { headers });
   }
 
   // Devuelve el access token actual (o null si no hay).
@@ -88,7 +90,8 @@ export class AuthService {
     return !!this.getAccessToken();
   }
 
-  // Guarda access, refresh, rol y perfil en localStorage.
+  // ===== Métodos privados =====
+
   private saveSession(response: LoginResponse): void {
     this.saveAccessToken(response.access);
     this.saveRefreshToken(response.refresh);
@@ -111,11 +114,25 @@ export class AuthService {
     localStorage.setItem(this.REFRESH_TOKEN_KEY, refresh);
   }
 
-  // Limpia toda la información de sesión guardada en el navegador.
   private clearSession(): void {
     localStorage.removeItem(this.ACCESS_TOKEN_KEY);
     localStorage.removeItem(this.REFRESH_TOKEN_KEY);
     localStorage.removeItem(this.USER_ROLE_KEY);
     localStorage.removeItem(this.USER_PROFILE_KEY);
+  }
+
+  // Reusamos la misma lógica de headers que en ProfileService
+  private getAuthHeaders(): HttpHeaders {
+    const token = this.getAccessToken();
+
+    const headersConfig: { [key: string]: string } = {
+      'Content-Type': 'application/json',
+    };
+
+    if (token) {
+      headersConfig['Authorization'] = `Bearer ${token}`;
+    }
+
+    return new HttpHeaders(headersConfig);
   }
 }

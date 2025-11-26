@@ -21,20 +21,19 @@ export class ProfileService {
   ) {}
 
   // Obtiene el perfil del usuario logueado (admin, alumno o maestro)
-  getProfile(): Observable<UserProfile> {
+  getProfile(): Observable<any> {
     const url = `${this.apiUrl}/profile/me/`;
     const headers = this.getAuthHeaders();
 
-    return this.http.get<UserProfile>(url, { headers });
+    return this.http.get<any>(url, { headers });
   }
 
   // Actualiza el perfil del usuario logueado a través de /profile/me/.
-
-  updateProfile(payload: any): Observable<UserProfile> {
+  updateProfile(payload: any): Observable<any> {
     const url = `${this.apiUrl}/profile/me/`;
     const headers = this.getAuthHeaders();
 
-    return this.http.put<UserProfile>(url, payload, { headers });
+    return this.http.put<any>(url, payload, { headers });
   }
 
   // Cambia la contraseña del usuario logueado a través de /change-password/.
