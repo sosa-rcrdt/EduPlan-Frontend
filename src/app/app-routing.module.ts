@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
 import { HomeScreenComponent } from './screens/home-screen/home-screen.component';
 import { RegistroScreenComponent } from './screens/registro-screen/registro-screen.component';
+import { CambiarContrasenaScreenComponent } from './screens/cambiar-contrasena-screen/cambiar-contrasena-screen.component';
 
 const routes: Routes = [
   //Pantalla principal del login
   { path: '', component: LoginScreenComponent, pathMatch: 'full' },
   { path: 'registro', component: RegistroScreenComponent, pathMatch: 'full' },
+  { path: 'cambiar-contrasena', component: CambiarContrasenaScreenComponent, pathMatch: 'full' },
   { path: 'home', component: HomeScreenComponent, pathMatch: 'full' },
 ];
 

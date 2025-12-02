@@ -38,6 +38,7 @@ import { NavbarComponent } from './partials/navbar/navbar.component';
 import { RegistroAdminComponent } from './partials/registro-admin/registro-admin.component';
 import { RegistroAlumnosComponent } from './partials/registro-alumnos/registro-alumnos.component';
 import { RegistroMaestrosComponent } from './partials/registro-maestros/registro-maestros.component';
+import { CambiarContrasenaScreenComponent } from './screens/cambiar-contrasena-screen/cambiar-contrasena-screen.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { RegistroMaestrosComponent } from './partials/registro-maestros/registro
     NavbarComponent,
     RegistroAdminComponent,
     RegistroAlumnosComponent,
-    RegistroMaestrosComponent
+    RegistroMaestrosComponent,
+    CambiarContrasenaScreenComponent
   ],
   imports: [
     BrowserModule,
