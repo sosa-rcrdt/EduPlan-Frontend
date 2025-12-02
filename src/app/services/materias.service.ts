@@ -1,18 +1,9 @@
-// src/app/services/materias.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
-import {
-  Materia,
-  MateriaCreateRequest,
-  MateriaCreateResponse,
-  MateriaUpdateRequest,
-  MateriaDeleteResponse,
-} from '../models/materias.models';
+import { Materia, MateriaCreateRequest, MateriaCreateResponse, MateriaUpdateRequest, MateriaDeleteResponse } from '../models/materias.models';
 
 @Injectable({
   providedIn: 'root',

@@ -1,10 +1,7 @@
-// src/app/services/periodos.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import { PeriodoAcademico, PeriodoCreateRequest, PeriodoCreateResponse, PeriodoUpdateRequest, PeriodoDeleteResponse } from '../models/periodos.models';

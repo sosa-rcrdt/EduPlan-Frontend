@@ -9,7 +9,7 @@ export interface Grupo {
     update: string | null;
 }
 
-// Body para crear un nuevo grupo (/grupo/ POST)
+// Body para crear grupo (/grupo/ POST)
 export interface GrupoCreateRequest {
     nombre: string;
     semestre: number;
@@ -22,7 +22,7 @@ export interface GrupoCreateResponse {
     grupo_created_id: number;
 }
 
-// Body para actualizar un grupo (/grupos-edit/ PUT)
+// Body para actualizar grupo (/grupos-edit/ PUT)
 export interface GrupoUpdateRequest {
     id: number;
     nombre?: string;
@@ -31,7 +31,7 @@ export interface GrupoUpdateRequest {
     cupo_maximo?: number;
 }
 
-// Respuesta de borrar grupo (/grupos-edit/ DELETE)
+// Respuesta de eliminar grupo (/grupos-edit/ DELETE)
 export interface GrupoDeleteResponse {
     details: string;
 }
