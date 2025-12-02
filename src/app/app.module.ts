@@ -39,6 +39,9 @@ import { RegistroAdminComponent } from './partials/registro-admin/registro-admin
 import { RegistroAlumnosComponent } from './partials/registro-alumnos/registro-alumnos.component';
 import { RegistroMaestrosComponent } from './partials/registro-maestros/registro-maestros.component';
 import { CambiarContrasenaScreenComponent } from './screens/cambiar-contrasena-screen/cambiar-contrasena-screen.component';
+import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component';
+import { AlumnosScreenComponent } from './screens/alumnos-screen/alumnos-screen.component';
+import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-screen.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,10 @@ import { CambiarContrasenaScreenComponent } from './screens/cambiar-contrasena-s
     RegistroAdminComponent,
     RegistroAlumnosComponent,
     RegistroMaestrosComponent,
-    CambiarContrasenaScreenComponent
+    CambiarContrasenaScreenComponent,
+    AdminScreenComponent,
+    AlumnosScreenComponent,
+    MaestrosScreenComponent
   ],
   imports: [
     BrowserModule,
