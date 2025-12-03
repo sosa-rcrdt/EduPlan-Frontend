@@ -72,3 +72,31 @@ body {
     font-family: 'Nexa', sans-serif;
     text-align: left;
 }
+
+/* Texto de los radios en blanco */
+.mat-mdc-radio-button .mdc-form-field label {
+  color: white;
+}
+
+/* Radio sin seleccionar */
+.mat-mdc-radio-button {
+  --mdc-radio-unselected-icon-color: white;
+  --mdc-radio-unselected-hover-icon-color: white;
+  --mdc-radio-unselected-pressed-icon-color: white;
+}
+
+/* Radio seleccionado (usa #123142) */
+.mat-mdc-radio-button.mat-mdc-radio-checked {
+  --mdc-radio-selected-icon-color: #3B657A;
+  --mdc-radio-selected-focus-icon-color: #3B657A;
+  --mdc-radio-selected-hover-icon-color: #3B657A;
+  --mdc-radio-selected-pressed-icon-color: #3B657A;
+
+    /* Halo cuando el radio no está seleccionado (hover/focus) */
+  --mat-radio-ripple-color: rgba(208, 208, 208, 0.3);
+
+    /* Halo cuando el radio está seleccionado */
+  --mat-radio-checked-ripple-color: rgba(208, 208, 208, 0.3);
+}
+
+

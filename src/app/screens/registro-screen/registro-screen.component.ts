@@ -45,23 +45,30 @@ export class RegistroScreenComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Detectar rol desde la URL (para edición)
-    if (this.activatedRoute.snapshot.params['rol'] !== undefined) {
-      this.rol = this.activatedRoute.snapshot.params['rol'];
-      console.log('Rol detectado: ', this.rol);
-    }
-
-    // Detectar id desde la URL (si viene, es edición)
-    if (this.activatedRoute.snapshot.params['id'] !== undefined) {
-      this.editar = true;
-      this.isUpdate = true;
-      this.idUser = Number(this.activatedRoute.snapshot.params['id']);
-      console.log('ID User: ', this.idUser);
-
-      // Obtener los datos del usuario para precargar el formulario
-      this.obtenerUserByID();
-    }
+  // Detectar rol desde la URL (para edición)
+  if (this.activatedRoute.snapshot.params['rol'] !== undefined) {
+    this.rol = this.activatedRoute.snapshot.params['rol'];
+    console.log('Rol detectado: ', this.rol);
   }
+
+  // Detectar id desde la URL (si viene, es edición)
+  if (this.activatedRoute.snapshot.params['id'] !== undefined) {
+    this.editar = true;
+    this.isUpdate = true;
+    this.idUser = Number(this.activatedRoute.snapshot.params['id']);
+    console.log('ID User: ', this.idUser);
+
+    // Obtener los datos del usuario para precargar el formulario
+    this.obtenerUserByID();
+  } else {
+    this.user.tipo_usuario = 'administrador';
+    this.isAdmin = true;
+    this.isAlumno = false;
+    this.isMaestro = false;
+    this.tipo_user = 'administrador';
+  }
+}
+
 
   // Obtiene un usuario por su ID según el rol (administrador, maestro o alumno)
   public obtenerUserByID(): void {
