@@ -1,16 +1,12 @@
 <section class="login">
-
     <!-- Fondo -->
     <div class="background"></div>
 
     <!-- Card -->
     <div class="login-card">
-
         <h2 class="title">Inicio de Sesión</h2>
 
         <div class="container-inputs">
-
-        <!-- Campo correo -->
         <div class="input-group-custom">
             <div class="input-group">
             <span class="input-group-text">
@@ -32,10 +28,8 @@
             </div>
         </div>
 
-        <!-- Campo contraseña -->
         <div class="input-group-custom">
             <div class="input-group input-group-merge">
-
             <span class="input-group-text">
                 <i class="bi bi-lock-fill"></i>
             </span>
@@ -51,8 +45,11 @@
                 [ngClass]="{ 'is-invalid': errors.password }"
             />
 
-            <!-- OJO ORIGINAL con ID -->
-            <div class="input-group-text" id="show-password" data-password="false">
+            <div
+                class="input-group-text"
+                id="show-password"
+                data-password="false"
+            >
                 <i
                 *ngIf="type === 'password'"
                 class="bi bi-eye-fill eye-toggle"
@@ -64,7 +61,6 @@
                 (click)="showPassword()"
                 ></i>
             </div>
-
             </div>
 
             <div *ngIf="errors.password" class="invalid-feedback d-block">
@@ -72,7 +68,6 @@
             </div>
         </div>
 
-        <!-- Error general -->
         <div *ngIf="errors.general" class="text-danger general-error">
             {{ errors.general }}
         </div>
@@ -92,9 +87,6 @@
             ¿No tienes una cuenta?
             <span (click)="registrar()">Registrarse</span>
         </p>
-
         </div>
-
     </div>
-
 </section>

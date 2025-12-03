@@ -12,13 +12,11 @@
 .background {
   position: absolute;
   inset: 0;
-  background-image: url('/assets/images/fondo-login-escuela.jpg'); // Cambia la ruta
-  background-size: cover;
+  background-image: url('/assets/images/fondo-login-escuela.jpg'); 
   background-position: center;
   z-index: 0;
 }
 
-/* Overlay negro (oscurecer fondo) */
 .background::after {
   content: "";
   position: absolute;
@@ -86,7 +84,6 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
-/* ======= Ojo para mostrar contraseña ======= */
 .eye-toggle {
   cursor: pointer;
   font-size: 18px;
