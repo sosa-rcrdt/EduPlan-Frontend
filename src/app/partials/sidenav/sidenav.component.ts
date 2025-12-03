@@ -1,8 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { UserProfile, User } from 'src/app/models/usuario.models';
+import { EditProfileModalComponent } from 'src/app/modals/edit-profile-modal/edit-profile-modal.component';
 
 type RolUsuario = 'alumno' | 'maestro' | 'administrador' | null;
 
@@ -20,6 +21,7 @@ interface MenuItem {
 })
 export class SidenavComponent implements OnInit {
   @Output() closeSidenav = new EventEmitter<void>();
+  @ViewChild('editProfileModal') editProfileModal!: EditProfileModalComponent;
 
   profile: UserProfile = null;
   rol: RolUsuario = null;
@@ -163,6 +165,22 @@ export class SidenavComponent implements OnInit {
       this.router.navigate([item.route]);
       this.closeSidenav.emit();
     }
+  }
+
+  public openEditProfileModal(): void {
+    if (this.editProfileModal) {
+      this.editProfileModal.show();
+    }
+  }
+
+  public navigateToEditData(): void {
+    this.router.navigate(['/registro'], { queryParams: { mode: 'self-edit' } });
+    this.closeSidenav.emit();
+  }
+
+  public navigateToChangePassword(): void {
+    this.router.navigate(['/registro'], { queryParams: { mode: 'change-password' } });
+    this.closeSidenav.emit();
   }
 
   private handleLogout(): void {

@@ -48,6 +48,18 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { SolicitudesScreenComponent } from './screens/maestros-screen/solicitudes-screen/solicitudes-screen.component';
+import { PeriodosScreenComponent } from './screens/admin-screen/periodos-screen/periodos-screen.component';
+import { RegistroPeriodoScreenComponent } from './screens/admin-screen/periodos-screen/registro-periodo-screen/registro-periodo-screen.component';
+import { ConfirmationModalComponent } from './modals/confirmation-modal/confirmation-modal.component';
+import { MateriasScreenComponent } from './screens/admin-screen/materias-screen/materias-screen.component';
+import { RegistroMateriaScreenComponent } from './screens/admin-screen/materias-screen/registro-materia-screen/registro-materia-screen.component';
+import { GruposScreenComponent } from './screens/admin-screen/grupos-screen/grupos-screen.component';
+import { RegistroGrupoScreenComponent } from './screens/admin-screen/grupos-screen/registro-grupo-screen/registro-grupo-screen.component';
+import { AulasScreenComponent } from './screens/admin-screen/aulas-screen/aulas-screen.component';
+import { RegistroAulaScreenComponent } from './screens/admin-screen/aulas-screen/registro-aula-screen/registro-aula-screen.component';
+import { HorariosScreenComponent } from './screens/admin-screen/horarios-screen/horarios-screen.component';
+import { RegistroHorarioScreenComponent } from './screens/admin-screen/horarios-screen/registro-horario-screen/registro-horario-screen.component';
+import { EditProfileModalComponent } from './modals/edit-profile-modal/edit-profile-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +76,19 @@ import { SolicitudesScreenComponent } from './screens/maestros-screen/solicitude
     MaestrosScreenComponent,
     LandingPageScreenComponent,
     SidenavComponent,
-    SolicitudesScreenComponent
+    SolicitudesScreenComponent,
+    PeriodosScreenComponent,
+    RegistroPeriodoScreenComponent,
+    ConfirmationModalComponent,
+    MateriasScreenComponent,
+    RegistroMateriaScreenComponent,
+    GruposScreenComponent,
+    RegistroGrupoScreenComponent,
+    AulasScreenComponent,
+    RegistroAulaScreenComponent,
+    HorariosScreenComponent,
+    RegistroHorarioScreenComponent,
+    EditProfileModalComponent
   ],
   imports: [
     BrowserModule,

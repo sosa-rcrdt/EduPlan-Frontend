@@ -1,0 +1,26 @@
+<div class="modal fade" [id]="modalId" tabindex="-1" [attr.aria-labelledby]="modalId + 'Label'" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" [id]="modalId + 'Label'">Editar Perfil</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-3">¿Qué deseas modificar?</p>
+        <div class="d-grid gap-2">
+          <button type="button" class="btn btn-outline-primary" (click)="editData()" data-bs-dismiss="modal">
+            <i class="bi bi-person-fill me-2"></i>
+            Editar Datos de Usuario
+          </button>
+          <button type="button" class="btn btn-outline-secondary" (click)="changePassword()" data-bs-dismiss="modal">
+            <i class="bi bi-key-fill me-2"></i>
+            Cambiar Contraseña
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { AdministradoresService } from 'src/app/services/administradores.service';
+import { ProfileService } from 'src/app/services/profile.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -13,6 +14,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class RegistroAdminComponent implements OnInit {
   @Input() rol: string = '';        // 'administrador' desde el registro-screen
   @Input() datos_user: any = {};    // datos precargados cuando se edita
+  @Input() isSelfEdit: boolean = false; // modo auto-edición
 
   // Para contraseñas
   public hide_1: boolean = false;
@@ -28,11 +30,12 @@ export class RegistroAdminComponent implements OnInit {
 
   constructor(
     private administradoresService: AdministradoresService,
+    private profileService: ProfileService,
     private authService: AuthService,
     private router: Router,
     private location: Location,
     public activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Si viene un id en la URL, es edición
@@ -136,6 +139,37 @@ export class RegistroAdminComponent implements OnInit {
       return;
     }
 
+    // Si es auto-edición, usar ProfileService
+    if (this.isSelfEdit) {
+      const payload = {
+        first_name: this.admin.first_name,
+        last_name: this.admin.last_name,
+        clave_admin: this.admin.clave_admin,
+        telefono: this.admin.telefono,
+        rfc: this.admin.rfc,
+        edad: this.admin.edad ? Number(this.admin.edad) : null,
+        ocupacion: this.admin.ocupacion,
+      };
+
+      this.profileService.updateProfile(payload).subscribe({
+        next: (response) => {
+          alert('Datos actualizados correctamente');
+          // Update localStorage profile
+          this.profileService.getProfile().subscribe({
+            next: (updatedProfile) => {
+              localStorage.setItem('user_profile', JSON.stringify(updatedProfile));
+              this.router.navigate(['/home']);
+            }
+          });
+        },
+        error: () => {
+          alert('No se pudieron actualizar los datos');
+        },
+      });
+      return;
+    }
+
+    // Modo normal de edición (admin editando a otro usuario)
     const payload = {
       id: this.admin.id,
       clave_admin: this.admin.clave_admin,

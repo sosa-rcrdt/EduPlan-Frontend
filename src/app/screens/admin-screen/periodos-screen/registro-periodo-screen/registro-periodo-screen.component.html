@@ -1,0 +1,78 @@
+<div class="container-fluid">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h2>{{ esEdicion ? 'Editar Periodo Académico' : 'Nuevo Periodo Académico' }}</h2>
+    </div>
+  </div>
+
+  <div class="row justify-content-center" *ngIf="isLoading">
+    <div class="col-12 text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="mt-2 text-muted">Cargando información...</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-center" *ngIf="!isLoading">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          
+          <div class="alert alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+          </div>
+
+          <form (ngSubmit)="onSubmit()">
+            
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre del Periodo <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="nombre" name="nombre" 
+                     [(ngModel)]="periodo.nombre" required placeholder="Ej. Otoño 2023">
+            </div>
+
+            <div class="row">
+              <!-- Fecha Inicio -->
+              <div class="col-12 col-md-6 mb-3">
+                <label for="fecha_inicio" class="form-label">Fecha de Inicio <span class="text-danger">*</span></label>
+                <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" 
+                       [(ngModel)]="periodo.fecha_inicio" required>
+              </div>
+
+              <!-- Fecha Fin -->
+              <div class="col-12 col-md-6 mb-3">
+                <label for="fecha_fin" class="form-label">Fecha de Fin <span class="text-danger">*</span></label>
+                <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" 
+                       [(ngModel)]="periodo.fecha_fin" required>
+              </div>
+            </div>
+
+            <!-- Estado -->
+            <div class="mb-4">
+              <label for="estado" class="form-label">Estado</label>
+              <select class="form-select" id="estado" name="estado" [(ngModel)]="periodo.estado">
+                <option value="INACTIVO">Inactivo</option>
+                <option value="ACTIVO">Activo</option>
+              </select>
+              <div class="form-text text-warning" *ngIf="periodo.estado === 'ACTIVO'">
+                <i class="bi bi-exclamation-triangle"></i> Al marcar este periodo como ACTIVO, cualquier otro periodo activo pasará a ser INACTIVO automáticamente.
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-4">
+              <button type="button" class="btn btn-outline-secondary" (click)="cancelar()">
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                {{ esEdicion ? 'Guardar Cambios' : 'Crear Periodo' }}
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

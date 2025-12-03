@@ -11,8 +11,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./registro-alumnos.component.scss'],
 })
 export class RegistroAlumnosComponent implements OnInit {
-  @Input() rol: string = '';        // 'alumno' desde registro-screen
+  @Input() rol: string = '';        // 'alumno' desde el registro-screen
   @Input() datos_user: any = {};    // datos precargados cuando se edita
+  @Input() isSelfEdit: boolean = false; // modo auto-edición
 
   // Para contraseñas
   public hide_1: boolean = false;
@@ -32,7 +33,7 @@ export class RegistroAlumnosComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     private alumnosService: AlumnosService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Si hay id en la URL, estamos en modo edición

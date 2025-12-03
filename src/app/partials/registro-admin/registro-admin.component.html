@@ -62,28 +62,9 @@
 
             <div *ngIf="errors.last_name" class="invalid-feedback">
             {{ errors.last_name }}
-            </div>
         </div>
 
-        <div class="input-group-custom">
-            <i class="bi bi-envelope-fill icon"></i>
-
-            <div class="input-group">
-            <input 
-                type="email"
-                id="email"
-                placeholder="Correo electrónico"
-                [(ngModel)]="admin.email"
-                [disabled]="editar"
-            />
-            </div>
-
-            <div *ngIf="errors.email" class="invalid-feedback">
-            {{ errors.email }}
-            </div>
-        </div>
-
-        <div class="input-group-custom" *ngIf="!editar">
+        <div class="input-group-custom" *ngIf="!editar && !isSelfEdit">
             <i class="bi bi-lock-fill icon"></i>
 
             <div class="input-group">
@@ -106,7 +87,7 @@
             </div>
         </div>
 
-        <div class="input-group-custom" *ngIf="!editar">
+        <div class="input-group-custom" *ngIf="!editar && !isSelfEdit">
             <i class="bi bi-lock-fill icon"></i>
 
             <div class="input-group">

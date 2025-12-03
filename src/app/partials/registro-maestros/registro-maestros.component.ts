@@ -11,8 +11,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./registro-maestros.component.scss'],
 })
 export class RegistroMaestrosComponent implements OnInit {
-  @Input() rol: string = '';        // 'maestro' desde registro-screen
+  @Input() rol: string = '';        // 'maestro' desde el registro-screen
   @Input() datos_user: any = {};    // datos precargados en edición
+  @Input() isSelfEdit: boolean = false; // modo auto-edición
 
   // Para contraseñas
   public hide_1: boolean = false;
@@ -55,7 +56,7 @@ export class RegistroMaestrosComponent implements OnInit {
     private router: Router,
     private location: Location,
     public activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Si hay ID en la URL -> edición
