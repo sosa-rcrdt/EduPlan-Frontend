@@ -1,0 +1,145 @@
+/* Mobile First Landing Page Styles */
+.landing-page {
+    background-color: var(--bg-light);
+    min-height: 100vh;
+    color: var(--text-dark);
+}
+
+.page {
+    padding-top: 5rem; /* Space for fixed navbar */
+    padding-bottom: 2rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-3);
+    font-family: 'Nexa-Bold', sans-serif;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.hero-section {
+    padding: 2rem 0;
+    
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+    
+    .lead {
+        font-size: 1rem;
+        color: #666;
+    }
+}
+
+.hero-image {
+    max-width: 80%;
+    height: auto;
+    display: block;
+    margin: 2rem auto;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+.card {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background-color: #ffffff;
+        border-bottom: 1px solid #f0f0f0;
+        padding: 1.25rem;
+        font-weight: bold;
+        color: var(--color-3);
+        font-size: 1.1rem;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .card-title {
+        color: var(--color-4);
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.5rem;
+    }
+
+    .display-6 {
+        color: var(--color-1);
+        font-weight: 700;
+        font-size: 2.5rem;
+    }
+}
+
+/* Tablet and Desktop Adjustments */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .hero-section {
+        padding: 3rem 0;
+        text-align: left;
+        
+        h1 {
+            font-size: 2.5rem;
+            line-height: 1.2;
+        }
+        
+        .lead {
+            font-size: 1rem;
+        }
+        
+        .hero-image {
+            margin: 0;
+            margin-left: auto;
+            max-width: 70%;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .hero-section {
+        padding: 4rem 0;
+        text-align: left;
+        
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+        }
+        
+        .lead {
+            font-size: 1.1rem;
+        }
+        
+        .hero-image {
+            margin: 0;
+            margin-left: auto;
+        }
+    }
+}
+
+.text-danger {
+    color: #ff6b6b !important;
+}
+
+canvas {
+    max-width: 100%;
+}
