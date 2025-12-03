@@ -24,50 +24,14 @@
         </div>
       </div>
 
-      <div class="row mb-2" *ngIf="!isLoading && !errorMessage && filasCarga.length === 0">
+      <!-- Sin materias inscritas -->
+      <div
+        class="row mb-2"
+        *ngIf="!isLoading && !errorMessage && gruposCarga.length === 0"
+      >
         <div class="col-12">
           <div class="alert alert-info mb-0">
             No tienes materias inscritas en el periodo actual.
-          </div>
-        </div>
-      </div>
-
-      <!-- Tabla de carga académica -->
-      <div class="row" *ngIf="!isLoading && filasCarga.length > 0">
-        <div class="col-12">
-          <div class="table-responsive">
-            <table class="table table-sm table-striped align-middle">
-              <thead>
-                <tr>
-                  <th>Materia</th>
-                  <th>Grupo</th>
-                  <th>Día</th>
-                  <th>Hora inicio</th>
-                  <th>Hora fin</th>
-                  <th>Aula asignada</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let fila of filasCarga">
-                  <td>
-                    {{ fila.materiaNombre }}
-                    <span class="text-muted small">
-                      ({{ fila.materiaCodigo }})
-                    </span>
-                  </td>
-                  <td>
-                    {{ fila.grupoNombre }}
-                    <span class="text-muted small">
-                      - Sem {{ fila.grupoSemestre }}
-                    </span>
-                  </td>
-                  <td>{{ fila.dia }}</td>
-                  <td>{{ fila.hora_inicio }}</td>
-                  <td>{{ fila.hora_fin }}</td>
-                  <td>{{ fila.aulaTexto }}</td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
       </div>
@@ -78,6 +42,61 @@
           <div class="alert alert-danger mt-3 mb-0">
             {{ errorMessage }}
           </div>
+        </div>
+      </div>
+
+      <!-- Carga académica agrupada por materia / grupo -->
+      <div class="row" *ngIf="!isLoading && gruposCarga.length > 0">
+        <div class="col-12">
+
+          <section
+            class="card mb-3 alumno-carga-card"
+            *ngFor="let grupo of gruposCarga"
+          >
+            <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+              <div>
+                <h5 class="mb-1">
+                  {{ grupo.materiaNombre }}
+                  <span class="text-muted small" *ngIf="grupo.materiaCodigo">
+                    ({{ grupo.materiaCodigo }})
+                  </span>
+                </h5>
+                <p class="mb-0 text-muted">
+                  Grupo: {{ grupo.grupoNombre }}
+                  <span *ngIf="grupo.grupoSemestre !== null">
+                    &nbsp;|&nbsp; Semestre: {{ grupo.grupoSemestre }}
+                  </span>
+                </p>
+              </div>
+              <div class="text-muted small mt-2 mt-md-0">
+                {{ grupo.filas.length }} horario(s) asignado(s)
+              </div>
+            </div>
+
+            <div class="card-body p-2 p-md-3">
+              <div class="table-responsive mb-0">
+                <table class="table table-sm table-striped align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th>Día</th>
+                      <th>Hora inicio</th>
+                      <th>Hora fin</th>
+                      <th>Aula asignada</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let fila of grupo.filas">
+                      <td>{{ fila.dia }}</td>
+                      <td>{{ fila.hora_inicio }}</td>
+                      <td>{{ fila.hora_fin }}</td>
+                      <td>{{ fila.aulaTexto }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
         </div>
       </div>
 

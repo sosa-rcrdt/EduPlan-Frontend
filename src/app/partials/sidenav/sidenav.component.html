@@ -1,74 +1,32 @@
-<div class="sidenav" [class.expanded]="isExpanded">
-
-  <!-- Header: botón para expandir/contraer -->
-  <div class="sidenav-header">
-    <button
-      type="button"
-      class="sidenav-toggle"
-      (click)="toggleExpanded()"
-      title="Expandir / contraer menú"
-    >
-      ☰
-    </button>
-
-    <div class="sidenav-user" *ngIf="isExpanded && nombreUsuario">
-      <div class="sidenav-user-name">
-        {{ nombreUsuario }}
-      </div>
-      <div class="sidenav-user-role" *ngIf="etiquetaRol">
-        {{ etiquetaRol }}
-      </div>
+<div class="sidenav-container">
+  <!-- Header con info de usuario -->
+  <div class="sidenav-header" *ngIf="nombreUsuario">
+    <div class="user-avatar">
+      <mat-icon>account_circle</mat-icon>
+    </div>
+    <div class="user-info">
+      <div class="user-name">{{ nombreUsuario }}</div>
+      <div class="user-role">{{ etiquetaRol }}</div>
     </div>
   </div>
 
-  <!-- Lista de opciones -->
-  <nav class="sidenav-body">
-    <ul class="sidenav-list" *ngIf="menuItems.length > 0; else noMenu">
-      <li
-        class="sidenav-item"
-        *ngFor="let item of menuItems"
-      >
-        <button
-          type="button"
-          class="sidenav-link"
-          (click)="onItemClick(item)"
-        >
-          <span class="sidenav-icon">
-            {{ item.icon }}
-          </span>
-          <span
-            class="sidenav-label"
-            *ngIf="isExpanded"
-          >
-            {{ item.label }}
-          </span>
-        </button>
-      </li>
-    </ul>
+  <mat-divider></mat-divider>
 
-    <ng-template #noMenu>
-      <p class="sidenav-empty">
-        No hay opciones disponibles para tu rol.
-      </p>
-    </ng-template>
-  </nav>
+  <!-- Lista de navegación -->
+  <mat-nav-list>
+    <a mat-list-item *ngFor="let item of menuItems" (click)="onItemClick(item)">
+      <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+      <span matListItemTitle>{{ item.label }}</span>
+    </a>
+  </mat-nav-list>
 
-  <!-- Logout al final -->
-  <div class="sidenav-footer">
-    <button
-      type="button"
-      class="sidenav-logout-btn"
-      (click)="onItemClick(logoutItem)"
-    >
-      <span class="sidenav-icon">
-        {{ logoutItem.icon }}
-      </span>
-      <span
-        class="sidenav-label"
-        *ngIf="isExpanded"
-      >
-        {{ logoutItem.label }}
-      </span>
-    </button>
-  </div>
+  <mat-divider></mat-divider>
+
+  <!-- Footer / Logout -->
+  <mat-nav-list>
+    <a mat-list-item (click)="onItemClick(logoutItem)" class="logout-item">
+      <mat-icon matListItemIcon color="warn">{{ logoutItem.icon }}</mat-icon>
+      <span matListItemTitle>{{ logoutItem.label }}</span>
+    </a>
+  </mat-nav-list>
 </div>

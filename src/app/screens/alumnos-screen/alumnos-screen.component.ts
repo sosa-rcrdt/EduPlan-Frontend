@@ -4,23 +4,24 @@ import { AuthService } from 'src/app/services/auth.service';
 import { InscripcionesService } from 'src/app/services/inscripciones.service';
 import { AulasService } from 'src/app/services/aulas.service';
 
-import {
-  UserProfile,
-  User,
-} from 'src/app/models/usuario.models';
+import { UserProfile, User } from 'src/app/models/usuario.models';
 import { CargaAcademicaItem } from 'src/app/models/inscripciones.models';
 import { Aula } from 'src/app/models/aulas.models';
 
-interface FilaCarga {
+interface FilaHorarioAlumno {
+  dia: string;
+  hora_inicio: string;
+  hora_fin: string;
+  aulaTexto: string;
+}
+
+interface GrupoCargaAlumno {
   inscripcionId: number;
   materiaNombre: string;
   materiaCodigo: string;
   grupoNombre: string;
   grupoSemestre: number;
-  dia: string;
-  hora_inicio: string;
-  hora_fin: string;
-  aulaTexto: string;
+  filas: FilaHorarioAlumno[];
 }
 
 @Component({
@@ -29,27 +30,28 @@ interface FilaCarga {
   styleUrls: ['./alumnos-screen.component.scss'],
 })
 export class AlumnosScreenComponent implements OnInit {
+
   // Perfil del usuario logueado (según lo que guardas en AuthService)
-  profile: UserProfile = null;
+  public profile: UserProfile = null;
 
   // Periodo actual (nombre)
-  periodoNombre = '';
+  public periodoNombre: string = '';
 
   // Datos crudos que vienen de /inscripciones-alumno/
-  cargaAcademica: CargaAcademicaItem[] = [];
+  public cargaAcademica: CargaAcademicaItem[] = [];
 
   // Aulas en mapa por id para mostrar edificio + número
-  aulasPorId: { [id: number]: Aula } = {};
+  public aulasPorId: { [id: number]: Aula } = {};
 
-  // Filas ya procesadas para la tabla
-  filasCarga: FilaCarga[] = [];
+  // Grupos / materias con sus horarios para la vista
+  public gruposCarga: GrupoCargaAlumno[] = [];
 
   // Estado de carga y errores
-  isLoading = false;
-  errorMessage = '';
+  public isLoading: boolean = false;
+  public errorMessage: string = '';
 
   // Mapeo de día numérico → etiqueta en español
-  private readonly diasSemanaLabels = [
+  private diasSemanaLabels: string[] = [
     'Lunes',
     'Martes',
     'Miércoles',
@@ -69,8 +71,8 @@ export class AlumnosScreenComponent implements OnInit {
     this.profile = this.authService.getCurrentProfile();
 
     // Cargar catálogos base (aulas) y la carga académica del alumno
-    this.cargarAulas();
-    this.cargarCargaAcademica();
+    this.obtenerAulas();
+    this.obtenerCargaAcademica();
   }
 
   // Nombre legible del alumno para el encabezado
@@ -95,38 +97,44 @@ export class AlumnosScreenComponent implements OnInit {
     return '';
   }
 
-  // Carga todas las aulas para poder mostrar el nombre completo del aula
-  private cargarAulas(): void {
-    this.aulasService.getAulas().subscribe({
-      next: (aulas) => {
+  // ==========================
+  //   Cargar catálogos (aulas)
+  // ==========================
+  private obtenerAulas(): void {
+    this.aulasService.getAulas().subscribe(
+      (aulas) => {
         const map: { [id: number]: Aula } = {};
         aulas.forEach((aula) => {
           map[aula.id] = aula;
         });
         this.aulasPorId = map;
 
-        // Una vez que tenemos aulas, podemos reconstruir las filas si ya teníamos carga
+        // Si ya teníamos carga académica, reconstruir grupos
         if (this.cargaAcademica.length > 0) {
-          this.buildFilasCarga();
+          this.buildGruposCarga();
         }
+
+        console.log('Aulas cargadas (alumno): ', this.aulasPorId);
       },
-      error: (error) => {
+      (error) => {
         console.error('Error al cargar aulas', error);
-        // No es crítico para la pantalla; en último caso se muestra "Aula #id"
-      },
-    });
+        // No es crítico; se mostrará "Aula #id" en último caso
+      }
+    );
   }
 
-  // Carga la carga académica del alumno logueado desde /inscripciones-alumno/
-  private cargarCargaAcademica(): void {
+  // ==========================================
+  //   Cargar carga académica del alumno
+  // ==========================================
+  private obtenerCargaAcademica(): void {
     this.isLoading = true;
     this.errorMessage = '';
     this.cargaAcademica = [];
-    this.filasCarga = [];
+    this.gruposCarga = [];
     this.periodoNombre = '';
 
-    this.inscripcionesService.getCargaAcademicaAlumno().subscribe({
-      next: (items) => {
+    this.inscripcionesService.getCargaAcademicaAlumno().subscribe(
+      (items) => {
         this.cargaAcademica = items || [];
 
         // Tomar el nombre del periodo desde el primer item (si existe)
@@ -134,10 +142,12 @@ export class AlumnosScreenComponent implements OnInit {
           this.periodoNombre = this.cargaAcademica[0].periodo.nombre;
         }
 
-        this.buildFilasCarga();
+        this.buildGruposCarga();
         this.isLoading = false;
+
+        console.log('Carga académica del alumno: ', this.cargaAcademica);
       },
-      error: (error) => {
+      (error) => {
         console.error('Error al cargar carga académica del alumno', error);
 
         if (error?.error?.details) {
@@ -148,17 +158,21 @@ export class AlumnosScreenComponent implements OnInit {
         }
 
         this.isLoading = false;
-      },
-    });
+      }
+    );
   }
 
-  // Construye filas planas para la tabla a partir de la respuesta de /inscripciones-alumno/
-  private buildFilasCarga(): void {
-    const filas: FilaCarga[] = [];
+  // =========================================================
+  //   Construye grupos (materia + grupo) con sus horarios
+  // =========================================================
+  private buildGruposCarga(): void {
+    const grupos: GrupoCargaAlumno[] = [];
 
     this.cargaAcademica.forEach((item) => {
       const materia = item.materia;
       const grupo = item.grupo;
+
+      const filas: FilaHorarioAlumno[] = [];
 
       item.horarios.forEach((h) => {
         const aula = this.aulasPorId[h.aula];
@@ -171,19 +185,23 @@ export class AlumnosScreenComponent implements OnInit {
           this.diasSemanaLabels[h.dia_semana] ?? String(h.dia_semana);
 
         filas.push({
-          inscripcionId: item.inscripcion.id,
-          materiaNombre: materia.nombre,
-          materiaCodigo: materia.codigo,
-          grupoNombre: grupo.nombre,
-          grupoSemestre: grupo.semestre,
           dia,
           hora_inicio: h.hora_inicio,
           hora_fin: h.hora_fin,
           aulaTexto,
         });
       });
+
+      grupos.push({
+        inscripcionId: item.inscripcion.id,
+        materiaNombre: materia.nombre,
+        materiaCodigo: materia.codigo,
+        grupoNombre: grupo.nombre,
+        grupoSemestre: grupo.semestre,
+        filas,
+      });
     });
 
-    this.filasCarga = filas;
+    this.gruposCarga = grupos;
   }
 }

@@ -45,7 +45,10 @@ import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-scre
 import { LandingPageScreenComponent } from './screens/landing-page-screen/landing-page-screen.component';
 import { SidenavComponent } from './partials/sidenav/sidenav.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
 import { SolicitudMaestroScreenComponent } from './screens/solicitud-maestro-screen/solicitud-maestro-screen.component';
+import { MainLayoutComponent } from './layout/main-layout.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +65,8 @@ import { SolicitudMaestroScreenComponent } from './screens/solicitud-maestro-scr
     MaestrosScreenComponent,
     LandingPageScreenComponent,
     SidenavComponent,
-    SolicitudMaestroScreenComponent
+    SolicitudMaestroScreenComponent,
+    MainLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -83,11 +87,14 @@ import { SolicitudMaestroScreenComponent } from './screens/solicitud-maestro-scr
     MatDialogModule,
     MatTableModule,
     MatPaginatorModule,
+    MatPaginatorModule,
     NgChartsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule
   ],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
     provideNgxMask()
   ],
   bootstrap: [AppComponent]

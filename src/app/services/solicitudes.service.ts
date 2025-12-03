@@ -3,7 +3,15 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
-import { SolicitudCambio, SolicitudCreateRequest, SolicitudCreateResponse, SolicitudUpdateRequest, SolicitudDeleteResponse, EstadoSolicitud } from '../models/solicitudes.models';
+
+import {
+  SolicitudCambio,
+  SolicitudCreateRequest,
+  SolicitudCreateResponse,
+  SolicitudUpdateRequest,
+  SolicitudDeleteResponse,
+  EstadoSolicitud,
+} from '../models/solicitudes.models';
 
 @Injectable({
   providedIn: 'root',
@@ -95,7 +103,7 @@ export class SolicitudesService {
     return this.http.get<SolicitudCambio[]>(url, { headers, params });
   }
 
-  // Aprueba una solicitud (cambia estado a APROBADA).
+  // Aprueba una solicitud (cambia estado a APROBADA y aplica el cambio de horario).
   aprobarSolicitud(id: number): Observable<SolicitudCambio> {
     const url = `${this.apiUrl}/solicitud-aprobar/`;
     const headers = this.getAuthHeaders();

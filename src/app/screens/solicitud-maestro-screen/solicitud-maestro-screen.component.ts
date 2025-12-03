@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
 import { AuthService } from 'src/app/services/auth.service';
 import { HorariosService } from 'src/app/services/horarios.service';
 import { GruposService } from 'src/app/services/grupos.service';
 import { MateriasService } from 'src/app/services/materias.service';
 import { PeriodosService } from 'src/app/services/periodos.service';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
-
 import { UserProfile, User } from 'src/app/models/usuario.models';
 import { Horario } from 'src/app/models/horarios.models';
 import { Grupo } from 'src/app/models/grupos.models';
@@ -29,39 +27,42 @@ interface GrupoOpcionSolicitud {
   styleUrls: ['./solicitud-maestro-screen.component.scss'],
 })
 export class SolicitudMaestroScreenComponent implements OnInit {
+
   // Perfil del usuario logueado
-  profile: UserProfile = null;
+  public profile: UserProfile = null;
 
   // Periodo activo
-  periodoActivo: PeriodoAcademico | null = null;
-  periodoNombre = '';
+  public periodoActivo: PeriodoAcademico | null = null;
+  public periodoNombre: string = '';
 
   // Catálogos y horarios
-  horariosDocente: Horario[] = [];
-  gruposPorId: { [id: number]: Grupo } = {};
-  materiasPorId: { [id: number]: Materia } = {};
+  public horariosDocente: Horario[] = [];
+  public gruposPorId: { [id: number]: Grupo } = {};
+  public materiasPorId: { [id: number]: Materia } = {};
 
-  // Opciones de grupo para el formulario (solo grupos del docente)
-  opcionesGrupo: GrupoOpcionSolicitud[] = [];
+  // Opciones de grupo para el formulario
+  public opcionesGrupo: GrupoOpcionSolicitud[] = [];
 
   // Formulario
-  selectedGrupoId: number | null = null;
-  fechaPropuesta = '';
-  motivo = '';
+  public selectedGrupoId: number | null = null;
+  public diaSemanaPropuesto: number | null = null;
+  public horaInicioPropuesta: string = '';
+  public horaFinPropuesta: string = '';
+  public motivo: string = '';
 
-  isSubmitting = false;
-  formError = '';
-  formSuccess = '';
+  public isSubmitting: boolean = false;
+  public formError: string = '';
 
   // Solicitudes existentes del docente
-  solicitudes: SolicitudCambio[] = [];
-  isLoadingSolicitudes = false;
+  public solicitudes: SolicitudCambio[] = [];
+  public isLoadingSolicitudes: boolean = false;
 
-  // Estado general de carga
-  isLoadingInicial = false;
-  errorInicial = '';
+  // Estado general de carga inicial
+  public isLoadingInicial: boolean = false;
+  public errorInicial: string = '';
 
-  private readonly diasSemanaLabels = [
+  // 0 = Lunes, 1 = Martes, ...
+  public diasSemanaLabels: string[] = [
     'Lunes',
     'Martes',
     'Miércoles',
@@ -81,9 +82,9 @@ export class SolicitudMaestroScreenComponent implements OnInit {
 
   ngOnInit(): void {
     this.profile = this.authService.getCurrentProfile();
-    this.cargarCatalogosBase();
-    this.cargarPeriodoActivoYHorarios();
-    this.cargarSolicitudesDocente();
+    this.obtenerCatalogosBase();
+    this.obtenerPeriodoActivoYHorarios();
+    this.obtenerSolicitudesDocente();
   }
 
   // Nombre legible del docente
@@ -110,42 +111,47 @@ export class SolicitudMaestroScreenComponent implements OnInit {
   get esFormularioValido(): boolean {
     return (
       !!this.selectedGrupoId &&
-      !!this.fechaPropuesta &&
+      this.diaSemanaPropuesto !== null &&
+      this.diaSemanaPropuesto !== undefined &&
+      !!this.horaInicioPropuesta &&
+      !!this.horaFinPropuesta &&
       this.motivo.trim().length >= 10
     );
   }
 
-  // ==== CARGA INICIAL ====
-
-  private cargarCatalogosBase(): void {
+  private obtenerCatalogosBase(): void {
     // Materias
-    this.materiasService.getMaterias().subscribe({
-      next: (materias) => {
+    this.materiasService.getMaterias().subscribe(
+      (materias) => {
         const map: { [id: number]: Materia } = {};
         materias.forEach((m) => (map[m.id] = m));
         this.materiasPorId = map;
         this.buildOpcionesGrupo();
+
+        console.log('Materias cargadas (solicitud maestro): ', this.materiasPorId);
       },
-      error: (error) => {
+      (error) => {
         console.error('Error al cargar materias', error);
-      },
-    });
+      }
+    );
 
     // Grupos
-    this.gruposService.getGrupos().subscribe({
-      next: (grupos) => {
+    this.gruposService.getGrupos().subscribe(
+      (grupos) => {
         const map: { [id: number]: Grupo } = {};
         grupos.forEach((g) => (map[g.id] = g));
         this.gruposPorId = map;
         this.buildOpcionesGrupo();
+
+        console.log('Grupos cargados (solicitud maestro): ', this.gruposPorId);
       },
-      error: (error) => {
+      (error) => {
         console.error('Error al cargar grupos', error);
-      },
-    });
+      }
+    );
   }
 
-  private cargarPeriodoActivoYHorarios(): void {
+  private obtenerPeriodoActivoYHorarios(): void {
     this.isLoadingInicial = true;
     this.errorInicial = '';
     this.periodoActivo = null;
@@ -153,35 +159,38 @@ export class SolicitudMaestroScreenComponent implements OnInit {
     this.horariosDocente = [];
     this.opcionesGrupo = [];
 
-    this.periodosService.getPeriodoActivo().subscribe({
-      next: (periodo) => {
+    this.periodosService.getPeriodoActivo().subscribe(
+      (periodo) => {
         this.periodoActivo = periodo;
         this.periodoNombre = periodo?.nombre || '';
 
         const periodoId = periodo?.id;
-        this.horariosService.getHorariosDocente({ periodo_id: periodoId }).subscribe({
-          next: (horarios) => {
+        this.horariosService.getHorariosDocente({ periodo_id: periodoId }).subscribe(
+          (horarios) => {
             this.horariosDocente = horarios || [];
             this.buildOpcionesGrupo();
             this.isLoadingInicial = false;
+
+            console.log('Horarios del docente (solicitud): ', this.horariosDocente);
           },
-          error: (error) => {
+          (error) => {
             console.error('Error al cargar horarios del docente', error);
             this.errorInicial =
               'No se pudo cargar tus horarios para el periodo activo.';
             this.isLoadingInicial = false;
-          },
-        });
+          }
+        );
       },
-      error: (error) => {
+      (error) => {
         console.error('Error al obtener periodo activo', error);
         this.errorInicial =
           'No se pudo obtener el periodo académico activo.';
         this.isLoadingInicial = false;
-      },
-    });
+      }
+    );
   }
 
+  // Construye las opciones de grupo para el combo
   private buildOpcionesGrupo(): void {
     if (!this.horariosDocente || this.horariosDocente.length === 0) {
       this.opcionesGrupo = [];
@@ -221,27 +230,25 @@ export class SolicitudMaestroScreenComponent implements OnInit {
     this.opcionesGrupo = opciones;
   }
 
-  // ==== SOLICITUDES EXISTENTES ====
-
-  private cargarSolicitudesDocente(): void {
+  private obtenerSolicitudesDocente(): void {
     this.isLoadingSolicitudes = true;
-    this.solicitudesService.getSolicitudesDocente().subscribe({
-      next: (solicitudes) => {
+
+    this.solicitudesService.getSolicitudesDocente().subscribe(
+      (solicitudes) => {
         this.solicitudes = solicitudes || [];
         this.isLoadingSolicitudes = false;
+
+        console.log('Solicitudes del docente: ', this.solicitudes);
       },
-      error: (error) => {
+      (error) => {
         console.error('Error al cargar solicitudes del docente', error);
         this.isLoadingSolicitudes = false;
-      },
-    });
+      }
+    );
   }
 
-  // ==== FORMULARIO ====
-
-  onSubmit(): void {
+  public onSubmit(): void {
     this.formError = '';
-    this.formSuccess = '';
 
     if (!this.esFormularioValido || !this.selectedGrupoId) {
       this.formError =
@@ -257,22 +264,31 @@ export class SolicitudMaestroScreenComponent implements OnInit {
 
     const payload: SolicitudCreateRequest = {
       grupo: this.selectedGrupoId,
-      fecha_propuesta: this.fechaPropuesta,
+      dia_semana_propuesto: this.diaSemanaPropuesto as number,
+      hora_inicio_propuesta: this.horaInicioPropuesta,
+      hora_fin_propuesta: this.horaFinPropuesta,
       motivo: this.motivo.trim(),
     };
 
     this.isSubmitting = true;
 
-    this.solicitudesService.crearSolicitud(payload).subscribe({
-      next: () => {
+    this.solicitudesService.crearSolicitud(payload).subscribe(
+      () => {
         this.isSubmitting = false;
-        this.formSuccess = 'Solicitud enviada correctamente.';
+
+        // Aviso al estilo de tu profe
+        alert('Solicitud enviada correctamente.');
+
+        // Limpiar campos del formulario
         this.motivo = '';
-        this.fechaPropuesta = '';
-        // Opcional: mantener seleccionado el mismo grupo
-        this.cargarSolicitudesDocente();
+        this.diaSemanaPropuesto = null;
+        this.horaInicioPropuesta = '';
+        this.horaFinPropuesta = '';
+
+        // Recargar listado de solicitudes
+        this.obtenerSolicitudesDocente();
       },
-      error: (error) => {
+      (error) => {
         console.error('Error al crear solicitud de cambio', error);
         this.isSubmitting = false;
 
@@ -282,13 +298,11 @@ export class SolicitudMaestroScreenComponent implements OnInit {
           this.formError =
             'Ocurrió un error al enviar la solicitud. Intenta nuevamente más tarde.';
         }
-      },
-    });
+      }
+    );
   }
 
-  // ==== HELPERS PARA LA TABLA DE SOLICITUDES ====
-
-  getGrupoDisplay(grupoId: number): string {
+  public getGrupoDisplay(grupoId: number): string {
     const grupo = this.gruposPorId[grupoId];
     if (!grupo) {
       return `Grupo #${grupoId}`;
@@ -300,10 +314,31 @@ export class SolicitudMaestroScreenComponent implements OnInit {
     return `${materiaParte} - ${grupo.nombre}`;
   }
 
-  getEstadoLabel(estado: EstadoSolicitud): string {
+  public getEstadoLabel(estado: EstadoSolicitud): string {
     if (estado === 'PENDIENTE') return 'Pendiente';
     if (estado === 'APROBADA') return 'Aprobada';
     if (estado === 'RECHAZADA') return 'Rechazada';
     return estado;
+  }
+
+  public getDiaLabel(diaIndex: number | null): string {
+    if (diaIndex === null || diaIndex === undefined) {
+      return '—';
+    }
+    return this.diasSemanaLabels[diaIndex] ?? String(diaIndex);
+  }
+
+  public getHorarioPropuesto(sol: SolicitudCambio): string {
+    const inicio = sol.hora_inicio_propuesta;
+    const fin = sol.hora_fin_propuesta;
+
+    if (!inicio || !fin) {
+      return '—';
+    }
+
+    const i = inicio.substring(0, 5);
+    const f = fin.substring(0, 5);
+
+    return `${i} - ${f}`;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/services/auth.service';
@@ -8,7 +8,7 @@ type RolUsuario = 'alumno' | 'maestro' | 'administrador' | null;
 
 interface MenuItem {
   label: string;
-  icon: string;           // aquí usaremos emojis como iconos
+  icon: string;           // Material Icon name
   route?: string;         // ruta a navegar
   action?: 'logout';      // acción especial
 }
@@ -19,19 +19,18 @@ interface MenuItem {
   styleUrls: ['./sidenav.component.scss'],
 })
 export class SidenavComponent implements OnInit {
+  @Output() closeSidenav = new EventEmitter<void>();
+
   profile: UserProfile = null;
   rol: RolUsuario = null;
 
-  // collapsed = solo iconos, expanded = iconos + texto
-  isExpanded = false;
-
   menuItems: MenuItem[] = [];
-  logoutItem: MenuItem = { label: 'Cerrar sesión', icon: '⏻', action: 'logout' };
+  logoutItem: MenuItem = { label: 'Cerrar sesión', icon: 'logout', action: 'logout' };
 
   constructor(
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.profile = this.authService.getCurrentProfile();
@@ -64,8 +63,8 @@ export class SidenavComponent implements OnInit {
     if (this.rol === 'alumno') {
       items.push({
         label: 'Mi carga académica',
-        icon: '📚',
-        route: '/home/alumno/carga',
+        icon: 'school',
+        route: '/home', // Alumno home es su carga
       });
     }
 
@@ -73,13 +72,13 @@ export class SidenavComponent implements OnInit {
       items.push(
         {
           label: 'Mis horarios',
-          icon: '📅',
-          route: 'home',
+          icon: 'event_note',
+          route: '/home',
         },
         {
           label: 'Solicitudes de cambio',
-          icon: '✏️',
-          route: 'solicitud-maestro',
+          icon: 'edit_note',
+          route: '/solicitud-maestro',
         }
       );
     }
@@ -88,37 +87,37 @@ export class SidenavComponent implements OnInit {
       items.push(
         {
           label: 'Dashboard',
-          icon: '📊',
-          route: '/home/admin/dashboard',
+          icon: 'dashboard',
+          route: '/home',
         },
         {
           label: 'Periodos',
-          icon: '📆',
+          icon: 'calendar_today',
           route: '/home/admin/periodos',
         },
         {
           label: 'Materias',
-          icon: '📘',
+          icon: 'book',
           route: '/home/admin/materias',
         },
         {
           label: 'Grupos',
-          icon: '👥',
+          icon: 'groups',
           route: '/home/admin/grupos',
         },
         {
           label: 'Aulas',
-          icon: '🏫',
+          icon: 'meeting_room',
           route: '/home/admin/aulas',
         },
         {
           label: 'Horarios',
-          icon: '⏰',
+          icon: 'schedule',
           route: '/home/admin/horarios',
         },
         {
           label: 'Reportes',
-          icon: '📈',
+          icon: 'bar_chart',
           route: '/home/admin/reportes',
         }
       );
@@ -153,18 +152,16 @@ export class SidenavComponent implements OnInit {
     return '';
   }
 
-  toggleExpanded(): void {
-    this.isExpanded = !this.isExpanded;
-  }
-
   onItemClick(item: MenuItem): void {
     if (item.action === 'logout') {
       this.handleLogout();
+      this.closeSidenav.emit();
       return;
     }
 
     if (item.route) {
       this.router.navigate([item.route]);
+      this.closeSidenav.emit();
     }
   }
 

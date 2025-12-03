@@ -6,15 +6,25 @@ import { RegistroScreenComponent } from './screens/registro-screen/registro-scre
 import { CambiarContrasenaScreenComponent } from './screens/cambiar-contrasena-screen/cambiar-contrasena-screen.component';
 import { LandingPageScreenComponent } from './screens/landing-page-screen/landing-page-screen.component';
 import { SolicitudMaestroScreenComponent } from './screens/solicitud-maestro-screen/solicitud-maestro-screen.component';
+import { MainLayoutComponent } from './layout/main-layout.component';
 
 const routes: Routes = [
-  //Pantalla principal del login
+  // Rutas públicas (sin sidenav)
   { path: '', component: LandingPageScreenComponent, pathMatch: 'full' },
-  { path: 'login', component: LoginScreenComponent, pathMatch: 'full'},
+  { path: 'login', component: LoginScreenComponent, pathMatch: 'full' },
   { path: 'registro', component: RegistroScreenComponent, pathMatch: 'full' },
   { path: 'cambiar-contrasena', component: CambiarContrasenaScreenComponent, pathMatch: 'full' },
-  { path: 'home', component: HomeScreenComponent, pathMatch: 'full' },
-  { path: 'solicitud-maestro', component: SolicitudMaestroScreenComponent, pathMatch: 'full' },
+
+  // Rutas privadas (con sidenav)
+  {
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      { path: 'home', component: HomeScreenComponent },
+      { path: 'solicitud-maestro', component: SolicitudMaestroScreenComponent },
+      // Aquí irán las rutas de admin más adelante
+    ]
+  }
 ];
 
 @NgModule({
