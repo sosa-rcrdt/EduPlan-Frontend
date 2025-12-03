@@ -1,0 +1,178 @@
+<mat-sidenav-container class="home-container">
+
+  <!-- Sidenav fijo a la izquierda, ocupando toda la altura -->
+  <mat-sidenav
+    class="home-sidenav"
+    mode="side"
+    position="start"
+    opened="true"
+  >
+    <app-sidenav></app-sidenav>
+  </mat-sidenav>
+
+  <!-- Contenido principal, se arrima a la derecha automáticamente -->
+  <mat-sidenav-content>
+
+    <div class="wrapper">
+        <div class="section-maestros-solicitud">
+            <div class="body-maestros-solicitud">
+
+            <!-- Encabezado -->
+            <div class="row mb-3">
+                <div class="col-12">
+                <h2 class="mb-1">Solicitud de cambio de horario</h2>
+
+                <p class="text-muted" *ngIf="nombreDocente">
+                    Docente: <strong>{{ nombreDocente }}</strong>
+                </p>
+
+                <p class="text-muted" *ngIf="periodoNombre">
+                    Periodo académico: <strong>{{ periodoNombre }}</strong>
+                </p>
+                </div>
+            </div>
+
+            <!-- Mensaje de error inicial (periodo / horarios) -->
+            <div class="row mb-2" *ngIf="errorInicial">
+                <div class="col-12">
+                <div class="alert alert-danger mb-0">
+                    {{ errorInicial }}
+                </div>
+                </div>
+            </div>
+
+            <!-- Formulario de solicitud -->
+            <div class="row mb-4" *ngIf="!errorInicial">
+                <div class="col-12 col-md-8">
+
+                <h5 class="mb-3">Nueva solicitud</h5>
+
+                <div class="mb-3">
+                    <label class="form-label">Grupo / Materia</label>
+                    <select
+                    class="form-select"
+                    [(ngModel)]="selectedGrupoId"
+                    name="grupo"
+                    [disabled]="isLoadingInicial || opcionesGrupo.length === 0"
+                    >
+                    <option [ngValue]="null">
+                        -- Selecciona uno de tus grupos --
+                    </option>
+                    <option
+                        *ngFor="let opcion of opcionesGrupo"
+                        [ngValue]="opcion.grupoId"
+                    >
+                        {{ opcion.display }}
+                    </option>
+                    </select>
+                    <div class="form-text" *ngIf="opcionesGrupo.length === 0 && !isLoadingInicial">
+                    No se encontraron grupos asignados en el periodo activo.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Fecha propuesta</label>
+                    <input
+                    type="date"
+                    class="form-control"
+                    name="fecha_propuesta"
+                    [(ngModel)]="fechaPropuesta"
+                    [disabled]="isLoadingInicial"
+                    />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Motivo del cambio</label>
+                    <textarea
+                    class="form-control"
+                    rows="4"
+                    name="motivo"
+                    [(ngModel)]="motivo"
+                    [disabled]="isLoadingInicial"
+                    placeholder="Describe brevemente por qué necesitas el cambio de horario..."
+                    ></textarea>
+                    <div class="form-text">
+                    Mínimo 10 caracteres.
+                    </div>
+                </div>
+
+                <!-- Mensajes de error / éxito del formulario -->
+                <div class="mb-2" *ngIf="formError">
+                    <div class="alert alert-danger mb-0">
+                    {{ formError }}
+                    </div>
+                </div>
+
+                <div class="mb-2" *ngIf="formSuccess">
+                    <div class="alert alert-success mb-0">
+                    {{ formSuccess }}
+                    </div>
+                </div>
+
+                <button
+                    class="btn btn-primary"
+                    type="button"
+                    (click)="onSubmit()"
+                    [disabled]="isSubmitting || isLoadingInicial"
+                >
+                    {{ isSubmitting ? 'Enviando...' : 'Enviar solicitud' }}
+                </button>
+                </div>
+            </div>
+
+            <!-- Listado de solicitudes del docente -->
+            <div class="row">
+                <div class="col-12">
+                <h5 class="mb-3">Mis solicitudes enviadas</h5>
+
+                <div *ngIf="isLoadingSolicitudes" class="text-muted">
+                    Cargando solicitudes...
+                </div>
+
+                <div
+                    *ngIf="!isLoadingSolicitudes && solicitudes.length === 0"
+                    class="alert alert-light"
+                >
+                    Aún no has enviado solicitudes de cambio de horario.
+                </div>
+
+                <div
+                    class="table-responsive"
+                    *ngIf="!isLoadingSolicitudes && solicitudes.length > 0"
+                >
+                    <table class="table table-sm table-striped align-middle">
+                    <thead>
+                        <tr>
+                        <th>Grupo / Materia</th>
+                        <th>Fecha propuesta</th>
+                        <th>Motivo</th>
+                        <th>Estado</th>
+                        <th>Fecha resolución</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let sol of solicitudes">
+                        <td>
+                            {{ getGrupoDisplay(sol.grupo) }}
+                        </td>
+                        <td>{{ sol.fecha_propuesta }}</td>
+                        <td>{{ sol.motivo }}</td>
+                        <td>{{ getEstadoLabel(sol.estado) }}</td>
+                        <td>
+                            {{ sol.fecha_resolucion || '—' }}
+                        </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

@@ -1,0 +1,74 @@
+<div class="sidenav" [class.expanded]="isExpanded">
+
+  <!-- Header: botón para expandir/contraer -->
+  <div class="sidenav-header">
+    <button
+      type="button"
+      class="sidenav-toggle"
+      (click)="toggleExpanded()"
+      title="Expandir / contraer menú"
+    >
+      ☰
+    </button>
+
+    <div class="sidenav-user" *ngIf="isExpanded && nombreUsuario">
+      <div class="sidenav-user-name">
+        {{ nombreUsuario }}
+      </div>
+      <div class="sidenav-user-role" *ngIf="etiquetaRol">
+        {{ etiquetaRol }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de opciones -->
+  <nav class="sidenav-body">
+    <ul class="sidenav-list" *ngIf="menuItems.length > 0; else noMenu">
+      <li
+        class="sidenav-item"
+        *ngFor="let item of menuItems"
+      >
+        <button
+          type="button"
+          class="sidenav-link"
+          (click)="onItemClick(item)"
+        >
+          <span class="sidenav-icon">
+            {{ item.icon }}
+          </span>
+          <span
+            class="sidenav-label"
+            *ngIf="isExpanded"
+          >
+            {{ item.label }}
+          </span>
+        </button>
+      </li>
+    </ul>
+
+    <ng-template #noMenu>
+      <p class="sidenav-empty">
+        No hay opciones disponibles para tu rol.
+      </p>
+    </ng-template>
+  </nav>
+
+  <!-- Logout al final -->
+  <div class="sidenav-footer">
+    <button
+      type="button"
+      class="sidenav-logout-btn"
+      (click)="onItemClick(logoutItem)"
+    >
+      <span class="sidenav-icon">
+        {{ logoutItem.icon }}
+      </span>
+      <span
+        class="sidenav-label"
+        *ngIf="isExpanded"
+      >
+        {{ logoutItem.label }}
+      </span>
+    </button>
+  </div>
+</div>

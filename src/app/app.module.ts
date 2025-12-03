@@ -43,7 +43,9 @@ import { AdminScreenComponent } from './screens/admin-screen/admin-screen.compon
 import { AlumnosScreenComponent } from './screens/alumnos-screen/alumnos-screen.component';
 import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-screen.component';
 import { LandingPageScreenComponent } from './screens/landing-page-screen/landing-page-screen.component';
-
+import { SidenavComponent } from './partials/sidenav/sidenav.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { SolicitudMaestroScreenComponent } from './screens/solicitud-maestro-screen/solicitud-maestro-screen.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +60,9 @@ import { LandingPageScreenComponent } from './screens/landing-page-screen/landin
     AdminScreenComponent,
     AlumnosScreenComponent,
     MaestrosScreenComponent,
-    LandingPageScreenComponent
+    LandingPageScreenComponent,
+    SidenavComponent,
+    SolicitudMaestroScreenComponent
   ],
   imports: [
     BrowserModule,
@@ -80,6 +84,7 @@ import { LandingPageScreenComponent } from './screens/landing-page-screen/landin
     MatTableModule,
     MatPaginatorModule,
     NgChartsModule,
+    MatSidenavModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},

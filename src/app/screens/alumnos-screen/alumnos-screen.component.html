@@ -1,1 +1,86 @@
-<p>alumnos-screen works!</p>
+<div class="wrapper">
+  <div class="section-alumnos">
+    <div class="body-alumnos">
+
+      <!-- Encabezado -->
+      <div class="row mb-3">
+        <div class="col-12">
+          <h2 class="mb-1">Mi carga académica</h2>
+
+          <p class="text-muted" *ngIf="nombreAlumno">
+            Alumno: <strong>{{ nombreAlumno }}</strong>
+          </p>
+
+          <p class="text-muted" *ngIf="periodoNombre">
+            Periodo académico: <strong>{{ periodoNombre }}</strong>
+          </p>
+        </div>
+      </div>
+
+      <!-- Estado de carga -->
+      <div class="row mb-2" *ngIf="isLoading">
+        <div class="col-12 text-center">
+          <span class="text-muted">Cargando mi carga académica...</span>
+        </div>
+      </div>
+
+      <div class="row mb-2" *ngIf="!isLoading && !errorMessage && filasCarga.length === 0">
+        <div class="col-12">
+          <div class="alert alert-info mb-0">
+            No tienes materias inscritas en el periodo actual.
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla de carga académica -->
+      <div class="row" *ngIf="!isLoading && filasCarga.length > 0">
+        <div class="col-12">
+          <div class="table-responsive">
+            <table class="table table-sm table-striped align-middle">
+              <thead>
+                <tr>
+                  <th>Materia</th>
+                  <th>Grupo</th>
+                  <th>Día</th>
+                  <th>Hora inicio</th>
+                  <th>Hora fin</th>
+                  <th>Aula asignada</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let fila of filasCarga">
+                  <td>
+                    {{ fila.materiaNombre }}
+                    <span class="text-muted small">
+                      ({{ fila.materiaCodigo }})
+                    </span>
+                  </td>
+                  <td>
+                    {{ fila.grupoNombre }}
+                    <span class="text-muted small">
+                      - Sem {{ fila.grupoSemestre }}
+                    </span>
+                  </td>
+                  <td>{{ fila.dia }}</td>
+                  <td>{{ fila.hora_inicio }}</td>
+                  <td>{{ fila.hora_fin }}</td>
+                  <td>{{ fila.aulaTexto }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensaje de error general -->
+      <div class="row" *ngIf="errorMessage">
+        <div class="col-12">
+          <div class="alert alert-danger mt-3 mb-0">
+            {{ errorMessage }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

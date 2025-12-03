@@ -5,6 +5,7 @@ import { HomeScreenComponent } from './screens/home-screen/home-screen.component
 import { RegistroScreenComponent } from './screens/registro-screen/registro-screen.component';
 import { CambiarContrasenaScreenComponent } from './screens/cambiar-contrasena-screen/cambiar-contrasena-screen.component';
 import { LandingPageScreenComponent } from './screens/landing-page-screen/landing-page-screen.component';
+import { SolicitudMaestroScreenComponent } from './screens/solicitud-maestro-screen/solicitud-maestro-screen.component';
 
 const routes: Routes = [
   //Pantalla principal del login
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'registro', component: RegistroScreenComponent, pathMatch: 'full' },
   { path: 'cambiar-contrasena', component: CambiarContrasenaScreenComponent, pathMatch: 'full' },
   { path: 'home', component: HomeScreenComponent, pathMatch: 'full' },
+  { path: 'solicitud-maestro', component: SolicitudMaestroScreenComponent, pathMatch: 'full' },
 ];
 
 @NgModule({
