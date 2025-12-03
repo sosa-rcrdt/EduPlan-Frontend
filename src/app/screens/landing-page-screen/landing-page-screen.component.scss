@@ -1,0 +1,64 @@
+.landing-page {
+    background-color: var(--color-2);
+    min-height: 100vh;
+    color: #ffffff;
+}
+
+.page {
+    padding-top: 2rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-5);
+    font-family: 'Nexa-Bold', sans-serif;
+}
+
+p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+.card {
+    background-color: var(--color-3);
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    transition: transform 0.2s ease-in-out;
+
+    &:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-header {
+        background-color: var(--color-1);
+        border-bottom: 1px solid var(--color-4);
+        border-radius: 12px 12px 0 0;
+        color: var(--color-5);
+        font-weight: bold;
+        padding: 1rem;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .card-title {
+        color: var(--color-5);
+        font-size: 1.2rem;
+    }
+
+    .display-6 {
+        color: var(--color-4);
+        font-weight: bold;
+    }
+}
+
+.text-danger {
+    color: #ff6b6b !important;
+}
+
+canvas {
+    max-width: 100%;
+}

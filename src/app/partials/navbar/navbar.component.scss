@@ -3,7 +3,7 @@
   //height: 100vh;
 }
 .bg-light{
-  background-color: #003B5C!important;
+  background-color: var(--color-3)!important;
 }
 
 .navbar{
@@ -16,7 +16,7 @@
   font-family: Nexa;
   text-align: center;
   opacity: 1;
-  color: #FFFFFF;
+  color: var(--color-5);
   margin: 0 0 0 0!important;
 }
 .nav-link{
@@ -25,7 +25,7 @@
   text-align: center;
   opacity: 1;
   font-weight: bold;
-  color: #FFFFFF;
+  color: var(--color-5);
   margin: 0 0 0 0!important;
 }
 
@@ -38,7 +38,7 @@ li a {
 
 /* Change the link color on hover */
 li a:hover {
-  background-color: #0092B8;
+  background-color: var(--color-4);
   color: #FFFFFF;
   margin: 0;
 }
@@ -58,24 +58,24 @@ li a:hover {
   color: #FFFFFF;
 }
 .active {
-  background-color: #03aed8;
+  background-color: var(--color-4);
   margin: 0 0 0 0!important;
 }
 
 .bi-person-circle{
   font-size: 20pt;
-  color: #FFFFFF;
+  color: var(--color-5);
 }
 .dropdown-toggle{
   font-size: 15pt;
-  color: #FFFFFF;
+  color: var(--color-5);
 }
 .dropdown-menu[data-bs-popper] {
   right: 0!important;
   left: auto;
 }
 .navbar-toggler-icon{
-  color: #FFFFFF;
+  color: var(--color-5);
 }
 .navbar-toggler-icon {
   vertical-align: 0;

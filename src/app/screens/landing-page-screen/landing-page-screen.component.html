@@ -7,11 +7,11 @@
     <main class="page container py-4">
 
         <!-- Hero de bienvenida -->
-        <section class="mb-4">
+        <section class="mb-5">
         <div class="row align-items-center">
             <div class="col-md-7">
-            <h1 class="mb-3">Bienvenido a EduPlan</h1>
-            <p class="mb-3">
+            <h1 class="display-4 mb-3">Bienvenido a EduPlan</h1>
+            <p class="lead mb-4">
                 EduPlan es un sistema de gestión académica que facilita la
                 planeación de horarios de grupos, aulas y docentes, optimizando el
                 uso de espacios y permitiendo visualizar rápidamente el estado del
@@ -25,13 +25,18 @@
             </div>
 
             <div class="col-md-5 mt-4 mt-md-0">
-            <div class="card">
+            <div class="card h-100">
                 <div class="card-header">
                 <strong>Estado general del sistema</strong>
                 </div>
                 <div class="card-body">
                 <ng-container *ngIf="loading">
-                    <p class="mb-0">Cargando resumen del periodo...</p>
+                    <div class="d-flex align-items-center">
+                        <div class="spinner-border text-light me-2" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mb-0">Cargando resumen del periodo...</p>
+                    </div>
                 </ng-container>
 
                 <ng-container *ngIf="error">
@@ -47,19 +52,18 @@
                 </ng-container>
 
                 <ng-container *ngIf="summary">
-                    <p class="mb-1">
-                    <strong>Periodo activo:</strong>
-                    {{ summary.periodo_activo?.nombre }}
-                    </p>
-                    <p class="mb-1">
-                    <strong>Fechas:</strong>
-                    {{ summary.periodo_activo?.fecha_inicio }} –
-                    {{ summary.periodo_activo?.fecha_fin }}
-                    </p>
-                    <p class="mb-0">
-                    <strong>Estado:</strong>
-                    {{ summary.periodo_activo?.estado }}
-                    </p>
+                    <div class="mb-3">
+                        <strong class="d-block text-muted mb-1" style="color: var(--color-5)!important;">Periodo activo:</strong>
+                        <span class="h5">{{ summary.periodo_activo?.nombre }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <strong class="d-block text-muted mb-1" style="color: var(--color-5)!important;">Fechas:</strong>
+                        <span>{{ summary.periodo_activo?.fecha_inicio }} – {{ summary.periodo_activo?.fecha_fin }}</span>
+                    </div>
+                    <div class="mb-0">
+                        <strong class="d-block text-muted mb-1" style="color: var(--color-5)!important;">Estado:</strong>
+                        <span class="badge bg-success">{{ summary.periodo_activo?.estado }}</span>
+                    </div>
                 </ng-container>
                 </div>
             </div>
@@ -68,13 +72,13 @@
         </section>
 
         <!-- Tarjetas de métricas del periodo -->
-        <section *ngIf="summary" class="mb-4">
-        <h2 class="mb-3">Resumen del periodo académico</h2>
-        <div class="row g-3">
+        <section *ngIf="summary" class="mb-5">
+        <h2 class="mb-4 text-center">Resumen del periodo académico</h2>
+        <div class="row g-4">
             <div class="col-sm-6 col-md-3">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                <h5 class="card-title mb-1">Grupos con horario</h5>
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                <h5 class="card-title mb-2">Grupos con horario</h5>
                 <p class="display-6 mb-0">
                     {{ summary.total_grupos_con_horario }}
                 </p>
@@ -83,9 +87,9 @@
             </div>
 
             <div class="col-sm-6 col-md-3">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                <h5 class="card-title mb-1">Aulas usadas</h5>
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                <h5 class="card-title mb-2">Aulas usadas</h5>
                 <p class="display-6 mb-0">
                     {{ summary.total_aulas_usadas }}
                 </p>
@@ -94,9 +98,9 @@
             </div>
 
             <div class="col-sm-6 col-md-3">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                <h5 class="card-title mb-1">Docentes con horario</h5>
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                <h5 class="card-title mb-2">Docentes con horario</h5>
                 <p class="display-6 mb-0">
                     {{ summary.total_docentes_con_horario }}
                 </p>
@@ -105,9 +109,9 @@
             </div>
 
             <div class="col-sm-6 col-md-3">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                <h5 class="card-title mb-1">Aulas disponibles</h5>
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                <h5 class="card-title mb-2">Aulas disponibles</h5>
                 <p class="display-6 mb-0">
                     {{ summary.aulas_disponibles }}
                 </p>
@@ -118,8 +122,8 @@
         </section>
 
         <!-- Gráficas del periodo (basadas en /public/summary/) -->
-        <section *ngIf="summary" class="mb-4">
-        <div class="row g-3">
+        <section *ngIf="summary" class="mb-5">
+        <div class="row g-4">
 
             <!-- Barra: resumen general -->
             <div class="col-md-6">
@@ -127,7 +131,7 @@
                 <div class="card-header">
                 <strong>Distribución general del periodo</strong>
                 </div>
-                <div class="card-body d-flex justify-content-center">
+                <div class="card-body d-flex justify-content-center align-items-center" style="min-height: 300px;">
                 <canvas
                     baseChart
                     type="bar"
@@ -145,7 +149,7 @@
                 <div class="card-header">
                 <strong>Uso de aulas</strong>
                 </div>
-                <div class="card-body d-flex justify-content-center">
+                <div class="card-body d-flex justify-content-center align-items-center" style="min-height: 300px;">
                 <canvas
                     baseChart
                     type="doughnut"
