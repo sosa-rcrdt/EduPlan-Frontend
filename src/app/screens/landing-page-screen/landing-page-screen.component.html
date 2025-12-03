@@ -1,167 +1,140 @@
 <div class="landing-page">
-    <!-- Navbar simple (logo + login/registro) -->
+    <!-- Navbar -->
     <header>
         <app-navbar></app-navbar>
     </header>
 
-    <main class="page container py-4">
+    <main class="page container">
 
         <!-- Hero de bienvenida -->
-        <section class="mb-5">
-        <div class="row align-items-center">
-            <div class="col-md-7">
-            <h1 class="display-4 mb-3">Bienvenido a EduPlan</h1>
-            <p class="lead mb-4">
-                EduPlan es un sistema de gestión académica que facilita la
-                planeación de horarios de grupos, aulas y docentes, optimizando el
-                uso de espacios y permitiendo visualizar rápidamente el estado del
-                periodo académico actual.
-            </p>
-            <p class="mb-4">
-                Desde aquí podrás consultar la información del periodo en curso,
-                revisar el uso de aulas y docencia, y acceder al sistema para
-                administrar o registrar usuarios.
-            </p>
+        <section class="hero-section mb-5">
+            <div class="row align-items-center flex-column-reverse flex-md-row">
+                <div class="col-md-6">
+                    <h1 class="mb-3">Bienvenido a EduPlan</h1>
+                    <p class="lead mb-4">
+                        Gestión académica simplificada. Planea horarios, optimiza espacios y visualiza el estado de tu institución en tiempo real.
+                    </p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <a href="#dashboard-section" class="btn btn-primary btn-lg px-4 me-md-2" style="background-color: var(--color-4); border: none;">Saber más</a>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center">
+                    <img src="assets/images/Birrete1.png" alt="EduPlan Birrete" class="hero-image img-fluid">
+                </div>
             </div>
+        </section>
 
-            <div class="col-md-5 mt-4 mt-md-0">
-            <div class="card h-100">
-                <div class="card-header">
-                <strong>Estado general del sistema</strong>
+        <!-- Estado del Sistema -->
+        <section id="dashboard-section" class="mb-5">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-header bg-transparent border-0">
+                    <i class="bi bi-activity me-2"></i>Estado del sistema
                 </div>
                 <div class="card-body">
-                <ng-container *ngIf="loading">
-                    <div class="d-flex align-items-center">
-                        <div class="spinner-border text-light me-2" role="status">
-                            <span class="visually-hidden">Loading...</span>
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <ng-container *ngIf="loading">
+                                <div class="d-flex align-items-center text-muted">
+                                    <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                                    <span>Actualizando información...</span>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="error">
+                                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                    <div>{{ error }}</div>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="summary">
+                                <div class="d-flex flex-wrap justify-content-between align-items-center">
+                                    <div class="mb-2 mb-md-0">
+                                        <small class="text-muted d-block">Periodo Activo</small>
+                                        <span class="h5 mb-0 text-dark">{{ summary.periodo_activo?.nombre }}</span>
+                                    </div>
+                                    <div class="mb-2 mb-md-0">
+                                        <small class="text-muted d-block">Vigencia</small>
+                                        <span class="text-dark">{{ summary.periodo_activo?.fecha_inicio }} — {{ summary.periodo_activo?.fecha_fin }}</span>
+                                    </div>
+                                    <div>
+                                        <span class="badge rounded-pill bg-success px-3 py-2">{{ summary.periodo_activo?.estado }}</span>
+                                    </div>
+                                </div>
+                            </ng-container>
                         </div>
-                        <p class="mb-0">Cargando resumen del periodo...</p>
                     </div>
-                </ng-container>
-
-                <ng-container *ngIf="error">
-                    <p class="mb-0 text-danger">
-                    {{ error }}
-                    </p>
-                </ng-container>
-
-                <ng-container *ngIf="!loading && !error && !summary">
-                    <p class="mb-0">
-                    No hay un periodo académico activo actualmente.
-                    </p>
-                </ng-container>
-
-                <ng-container *ngIf="summary">
-                    <div class="mb-3">
-                        <strong class="d-block text-muted mb-1" style="color: var(--color-5)!important;">Periodo activo:</strong>
-                        <span class="h5">{{ summary.periodo_activo?.nombre }}</span>
-                    </div>
-                    <div class="mb-3">
-                        <strong class="d-block text-muted mb-1" style="color: var(--color-5)!important;">Fechas:</strong>
-                        <span>{{ summary.periodo_activo?.fecha_inicio }} – {{ summary.periodo_activo?.fecha_fin }}</span>
-                    </div>
-                    <div class="mb-0">
-                        <strong class="d-block text-muted mb-1" style="color: var(--color-5)!important;">Estado:</strong>
-                        <span class="badge bg-success">{{ summary.periodo_activo?.estado }}</span>
-                    </div>
-                </ng-container>
                 </div>
             </div>
-            </div>
-        </div>
         </section>
 
-        <!-- Tarjetas de métricas del periodo -->
+        <!-- Tarjetas de métricas -->
         <section *ngIf="summary" class="mb-5">
-        <h2 class="mb-4 text-center">Resumen del periodo académico</h2>
-        <div class="row g-4">
-            <div class="col-sm-6 col-md-3">
-            <div class="card h-100 text-center">
-                <div class="card-body">
-                <h5 class="card-title mb-2">Grupos con horario</h5>
-                <p class="display-6 mb-0">
-                    {{ summary.total_grupos_con_horario }}
-                </p>
+            <h3 class="mb-4 text-center text-md-start">Resumen Académico</h3>
+            <div class="row g-4">
+                <div class="col-6 col-lg-3">
+                    <div class="card h-100 text-center p-3">
+                        <div class="card-body p-0">
+                            <div class="text-muted mb-2"><i class="bi bi-people-fill fs-4"></i></div>
+                            <h6 class="card-title text-muted">Grupos</h6>
+                            <p class="display-6 mb-0">{{ summary.total_grupos_con_horario }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="card h-100 text-center p-3">
+                        <div class="card-body p-0">
+                            <div class="text-muted mb-2"><i class="bi bi-building fs-4"></i></div>
+                            <h6 class="card-title text-muted">Aulas Usadas</h6>
+                            <p class="display-6 mb-0">{{ summary.total_aulas_usadas }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="card h-100 text-center p-3">
+                        <div class="card-body p-0">
+                            <div class="text-muted mb-2"><i class="bi bi-person-badge-fill fs-4"></i></div>
+                            <h6 class="card-title text-muted">Docentes</h6>
+                            <p class="display-6 mb-0">{{ summary.total_docentes_con_horario }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="card h-100 text-center p-3">
+                        <div class="card-body p-0">
+                            <div class="text-muted mb-2"><i class="bi bi-door-open-fill fs-4"></i></div>
+                            <h6 class="card-title text-muted">Disponibles</h6>
+                            <p class="display-6 mb-0">{{ summary.aulas_disponibles }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>
-
-            <div class="col-sm-6 col-md-3">
-            <div class="card h-100 text-center">
-                <div class="card-body">
-                <h5 class="card-title mb-2">Aulas usadas</h5>
-                <p class="display-6 mb-0">
-                    {{ summary.total_aulas_usadas }}
-                </p>
-                </div>
-            </div>
-            </div>
-
-            <div class="col-sm-6 col-md-3">
-            <div class="card h-100 text-center">
-                <div class="card-body">
-                <h5 class="card-title mb-2">Docentes con horario</h5>
-                <p class="display-6 mb-0">
-                    {{ summary.total_docentes_con_horario }}
-                </p>
-                </div>
-            </div>
-            </div>
-
-            <div class="col-sm-6 col-md-3">
-            <div class="card h-100 text-center">
-                <div class="card-body">
-                <h5 class="card-title mb-2">Aulas disponibles</h5>
-                <p class="display-6 mb-0">
-                    {{ summary.aulas_disponibles }}
-                </p>
-                </div>
-            </div>
-            </div>
-        </div>
         </section>
 
-        <!-- Gráficas del periodo (basadas en /public/summary/) -->
+        <!-- Gráficas -->
         <section *ngIf="summary" class="mb-5">
-        <div class="row g-4">
-
-            <!-- Barra: resumen general -->
-            <div class="col-md-6">
-            <div class="card h-100">
-                <div class="card-header">
-                <strong>Distribución general del periodo</strong>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="card h-100">
+                        <div class="card-header bg-white border-0 pt-4 px-4">
+                            <h5 class="mb-0">Distribución General</h5>
+                        </div>
+                        <div class="card-body d-flex justify-content-center align-items-center" style="min-height: 300px;">
+                            <canvas baseChart type="bar" [data]="barSummaryData" [options]="barSummaryOptions" [plugins]="barSummaryPlugins"></canvas>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body d-flex justify-content-center align-items-center" style="min-height: 300px;">
-                <canvas
-                    baseChart
-                    type="bar"
-                    [data]="barSummaryData"
-                    [options]="barSummaryOptions"
-                    [plugins]="barSummaryPlugins"
-                ></canvas>
-                </div>
-            </div>
-            </div>
-
-            <!-- Doughnut: uso de aulas -->
-            <div class="col-md-6">
-            <div class="card h-100">
-                <div class="card-header">
-                <strong>Uso de aulas</strong>
-                </div>
-                <div class="card-body d-flex justify-content-center align-items-center" style="min-height: 300px;">
-                <canvas
-                    baseChart
-                    type="doughnut"
-                    [data]="doughnutAulasData"
-                    [options]="doughnutAulasOptions"
-                    [plugins]="doughnutAulasPlugins"
-                ></canvas>
+                <div class="col-lg-6">
+                    <div class="card h-100">
+                        <div class="card-header bg-white border-0 pt-4 px-4">
+                            <h5 class="mb-0">Ocupación de Aulas</h5>
+                        </div>
+                        <div class="card-body d-flex justify-content-center align-items-center" style="min-height: 300px;">
+                            <canvas baseChart type="doughnut" [data]="doughnutAulasData" [options]="doughnutAulasOptions" [plugins]="doughnutAulasPlugins"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>
-
-        </div>
         </section>
 
     </main>
