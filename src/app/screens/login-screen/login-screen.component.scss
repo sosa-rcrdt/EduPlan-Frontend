@@ -1,0 +1,144 @@
+/* ======= Fondo ======= */
+.login {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/images/fondo-login-escuela.jpg'); // Cambia la ruta
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+/* Overlay negro (oscurecer fondo) */
+.background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1;
+}
+
+/* ======= CARD ======= */
+.login-card {
+  width: 480px;
+  padding: 55px 50px;
+  border-radius: 20px;
+  backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  z-index: 2;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+/* ======= Título ======= */
+.login-card .title {
+  font-size: 30px;
+  margin-bottom: 28px;
+  font-weight: 700;
+}
+
+/* ======= Inputs ======= */
+/* Contenedor con espacio fijo para que el error NO mueva el input */
+.input-group-custom {
+  position: relative;
+  margin-bottom: 36px;
+}
+
+.input-group {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  overflow: hidden;
+  height: 48px;
+  align-items: center;
+}
+
+.input-group-text {
+  background: transparent !important;
+  border: none !important;
+  color: white;
+  padding-left: 18px;
+  font-size: 18px;
+}
+
+/* Input */
+.form-control {
+  background: transparent !important;
+  border: none !important;
+  color: white !important;
+  height: 48px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ======= Ojo para mostrar contraseña ======= */
+.eye-toggle {
+  cursor: pointer;
+  font-size: 18px;
+  color: white;
+  margin-right: 10px;
+}
+
+/* ======= Validaciones ======= */
+.invalid-feedback {
+  position: absolute;
+  bottom: -18px;
+  left: 8px;
+  font-size: 13px;
+  color: #ff6b6b !important;
+  margin: 0;
+  line-height: 1;
+}
+
+.general-error {
+  margin-top: -10px;
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+
+/* ======= Botón ======= */
+.btn-login {
+  width: 100%;
+  height: 50px;
+  border-radius: 30px;
+  border: none;
+  font-size: 17px;
+  cursor: pointer;
+  background: white;
+  color: #20130a ;
+  font-weight: 600;
+  transition: 0.3s ease;
+  margin-top: 5px;
+}
+
+.btn-login:hover {
+  background: #dcecff;
+}
+
+/* ======= Registro ======= */
+.signup-text {
+  margin-top: 25px;
+  font-size: 14px;
+  color: white;
+}
+
+.signup-text span {
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
