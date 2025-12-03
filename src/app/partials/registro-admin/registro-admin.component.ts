@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './registro-admin.component.html',
   styleUrls: ['./registro-admin.component.scss'],
 })
-export class RegistroAdminComponent implements OnInit {
+export class RegistroAdminComponent implements OnInit, OnChanges {
   @Input() rol: string = '';        // 'administrador' desde el registro-screen
   @Input() datos_user: any = {};    // datos precargados cuando se edita
   @Input() isSelfEdit: boolean = false; // modo auto-edición
@@ -63,6 +63,14 @@ export class RegistroAdminComponent implements OnInit {
 
     this.token = this.authService.getAccessToken() || '';
     console.log('Admin (form): ', this.admin);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Reactively update admin when datos_user changes from parent
+    if (changes['datos_user'] && changes['datos_user'].currentValue) {
+      this.admin = { ...changes['datos_user'].currentValue };
+      console.log('Admin actualizado desde ngOnChanges: ', this.admin);
+    }
   }
 
   // Muestra/oculta la contraseña principal

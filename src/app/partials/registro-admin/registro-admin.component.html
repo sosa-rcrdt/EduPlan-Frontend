@@ -1,208 +1,228 @@
-<div class="wrapper">
-    <div class="section-registro">
-        <div class="body-registro admin-form-wrapper">
+\u003cdiv class=\"wrapper\"\u003e
+    \u003cdiv class=\"section-registro\"\u003e
+        \u003cdiv class=\"body-registro admin-form-wrapper\"\u003e
 
-        <!-- Título -->
-        <div class="row mt-3 mb-3">
-            <div class="form-group col-24 text-center">
-            <h2 class="form-title" for="tipo_usuario">
+        \u003c!-- Título --\u003e
+        \u003cdiv class=\"row mt-3 mb-3\"\u003e
+            \u003cdiv class=\"form-group col-24 text-center\"\u003e
+            \u003ch2 class=\"form-title\" for=\"tipo_usuario\"\u003e
                 Ingresa los datos del administrador
-            </h2>
-            </div>
-        </div>
+            \u003c/h2\u003e
+            \u003c/div\u003e
+        \u003c/div\u003e
 
-        <div class="input-group-custom">
-            <i class="bi bi-credit-card-2-front icon"></i>
+        \u003cdiv class=\"input-group-custom\"\u003e
+            \u003ci class=\"bi bi-credit-card-2-front icon\"\u003e\u003c/i\u003e
 
-            <div class="input-group">
-            <input 
-                type="text"
-                id="id_admin"
-                placeholder="ID de administrador"
-                [(ngModel)]="admin.clave_admin"
-                name="id"
-            />
-            </div>
+            \u003cdiv class=\"input-group\"\u003e
+            \u003cinput 
+                type=\"text\"
+                id=\"id_admin\"
+                placeholder=\"ID de administrador\"
+                [(ngModel)]=\"admin.clave_admin\"
+                name=\"id\"
+            /\u003e
+            \u003c/div\u003e
 
-            <div *ngIf="errors.clave_admin" class="invalid-feedback">
+            \u003cdiv *ngIf=\"errors.clave_admin\" class=\"invalid-feedback\"\u003e
             {{ errors.clave_admin }}
-            </div>
-        </div>
+            \u003c/div\u003e
+        \u003c/div\u003e
 
-        <div class="input-group-custom">
-            <i class="bi bi-person-fill icon"></i>
+        \u003cdiv class=\"input-group-custom\"\u003e
+            \u003ci class=\"bi bi-person-fill icon\"\u003e\u003c/i\u003e
 
-            <div class="input-group">
-            <input 
-                type="text"
-                id="nombre"
-                placeholder="Nombre"
-                [(ngModel)]="admin.first_name"
-                (keypress)="soloLetras($event)"
-            />
-            </div>
+            \u003cdiv class=\"input-group\"\u003e
+            \u003cinput 
+                type=\"text\"
+                id=\"nombre\"
+                placeholder=\"Nombre\"
+                [(ngModel)]=\"admin.first_name\"
+                (keypress)=\"soloLetras($event)\"
+            /\u003e
+            \u003c/div\u003e
 
-            <div *ngIf="errors.first_name" class="invalid-feedback">
+            \u003cdiv *ngIf=\"errors.first_name\" class=\"invalid-feedback\"\u003e
             {{ errors.first_name }}
-            </div>
-        </div>
+            \u003c/div\u003e
+        \u003c/div\u003e
 
-        <div class="input-group-custom">
-            <i class="bi bi-people-fill icon"></i>
+        \u003cdiv class=\"input-group-custom\"\u003e
+            \u003ci class=\"bi bi-people-fill icon\"\u003e\u003c/i\u003e
 
-            <div class="input-group">
-            <input 
-                type="text"
-                id="apellidos"
-                placeholder="Apellidos"
-                [(ngModel)]="admin.last_name"
-                (keypress)="soloLetras($event)"
-            />
-            </div>
+            \u003cdiv class=\"input-group\"\u003e
+            \u003cinput 
+                type=\"text\"
+                id=\"apellidos\"
+                placeholder=\"Apellidos\"
+                [(ngModel)]=\"admin.last_name\"
+                (keypress)=\"soloLetras($event)\"
+            /\u003e
+            \u003c/div\u003e
 
-            <div *ngIf="errors.last_name" class="invalid-feedback">
+            \u003cdiv *ngIf=\"errors.last_name\" class=\"invalid-feedback\"\u003e
             {{ errors.last_name }}
-        </div>
+            \u003c/div\u003e
+        \u003c/div\u003e
 
-        <div class="input-group-custom" *ngIf="!editar && !isSelfEdit">
-            <i class="bi bi-lock-fill icon"></i>
+        \u003c!-- Correo electrónico --\u003e
+        \u003cdiv class=\"input-group-custom\"\u003e
+            \u003ci class=\"bi bi-envelope-fill icon\"\u003e\u003c/i\u003e
 
-            <div class="input-group">
-            <input 
-                id="password"
-                placeholder="Contraseña"
-                [(ngModel)]="admin.password"
-                [type]="inputType_1"
-            />
-            </div>
+            \u003cdiv class=\"input-group\"\u003e
+            \u003cinput 
+                type=\"email\"
+                id=\"email\"
+                placeholder=\"Correo electrónico\"
+                [(ngModel)]=\"admin.email\"
+                [readonly]=\"editar || isSelfEdit\"
+            /\u003e
+            \u003c/div\u003e
 
-            <i
-            class="bi eye-toggle"
-            [ngClass]="hide_1 ? 'bi-eye-slash-fill' : 'bi-eye-fill'"
-            (click)="showPassword()"
-            ></i>
+            \u003cdiv *ngIf=\"errors.email\" class=\"invalid-feedback\"\u003e
+            {{ errors.email }}
+            \u003c/div\u003e
+        \u003c/div\u003e
 
-            <div *ngIf="errors.password" class="invalid-feedback">
+        \u003cdiv class=\"input-group-custom\" *ngIf=\"!editar && !isSelfEdit\"\u003e
+            \u003ci class=\"bi bi-lock-fill icon\"\u003e\u003c/i\u003e
+
+            \u003cdiv class=\"input-group\"\u003e
+            \u003cinput 
+                id=\"password\"
+                placeholder=\"Contraseña\"
+                [(ngModel)]=\"admin.password\"
+                [type]=\"inputType_1\"
+            /\u003e
+            \u003c/div\u003e
+
+            \u003ci
+            class=\"bi eye-toggle\"
+            [ngClass]=\"hide_1 ? 'bi-eye-slash-fill' : 'bi-eye-fill'\"
+            (click)=\"showPassword()\"
+            \u003e\u003c/i\u003e
+
+            \u003cdiv *ngIf=\"errors.password\" class=\"invalid-feedback\"\u003e
             {{ errors.password }}
-            </div>
-        </div>
+            \u003c/div\u003e
+        \u003c/div\u003e
 
-        <div class="input-group-custom" *ngIf="!editar && !isSelfEdit">
-            <i class="bi bi-lock-fill icon"></i>
+        \u003cdiv class=\"input-group-custom\" *ngIf=\"!editar && !isSelfEdit\"\u003e
+            \u003ci class=\"bi bi-lock-fill icon\"\u003e\u003c/i\u003e
 
-            <div class="input-group">
-            <input 
-                id="password_confirm"
-                placeholder="Confirmar contraseña"
-                [(ngModel)]="admin.confirmar_password"
-                [type]="inputType_2"
-            />
-            </div>
+            \u003cdiv class=\"input-group\"\u003e
+            \u003cinput 
+                id=\"password_confirm\"
+                placeholder=\"Confirmar contraseña\"
+                [(ngModel)]=\"admin.confirmar_password\"
+                [type]=\"inputType_2\"
+            /\u003e
+            \u003c/div\u003e
 
-            <i
-            class="bi eye-toggle"
-            [ngClass]="hide_2 ? 'bi-eye-slash-fill' : 'bi-eye-fill'"
-            (click)="showPwdConfirmar()"
-            ></i>
+            \u003ci
+            class=\"bi eye-toggle\"
+            [ngClass]=\"hide_2 ? 'bi-eye-slash-fill' : 'bi-eye-fill'\"
+            (click)=\"showPwdConfirmar()\"
+            \u003e\u003c/i\u003e
 
-            <div *ngIf="errors.confirmar_password" class="invalid-feedback">
+            \u003cdiv *ngIf=\"errors.confirmar_password\" class=\"invalid-feedback\"\u003e
             {{ errors.confirmar_password }}
-            </div>
-        </div>
+            \u003c/div\u003e
+        \u003c/div\u003e
 
-        <div class="input-group-custom">
-            <i class="bi bi-telephone-fill icon"></i>
+        \u003cdiv class=\"input-group-custom\"\u003e
+            \u003ci class=\"bi bi-telephone-fill icon\"\u003e\u003c/i\u003e
 
-            <div class="input-group">
-            <input 
-                id="telefono"
-                placeholder="Teléfono"
-                [(ngModel)]="admin.telefono"
-                mask="(000) 000-0000"
-            />
-            </div>
+            \u003cdiv class=\"input-group\"\u003e
+            \u003cinput 
+                id=\"telefono\"
+                placeholder=\"Teléfono\"
+                [(ngModel)]=\"admin.telefono\"
+                mask=\"(000) 000-0000\"
+            /\u003e
+            \u003c/div\u003e
 
-            <div *ngIf="errors.telefono" class="invalid-feedback">
+            \u003cdiv *ngIf=\"errors.telefono\" class=\"invalid-feedback\"\u003e
             {{ errors.telefono }}
-            </div>
-        </div>
+            \u003c/div\u003e
+        \u003c/div\u003e
 
-        <div class="input-group-custom">
-            <i class="bi bi-file-earmark-person-fill icon"></i>
+        \u003cdiv class=\"input-group-custom\"\u003e
+            \u003ci class=\"bi bi-file-earmark-person-fill icon\"\u003e\u003c/i\u003e
 
-            <div class="input-group">
-            <input 
-                id="rfc"
-                placeholder="RFC"
-                [(ngModel)]="admin.rfc"
-                minlength="12"
-                maxlength="13"
-                style="text-transform: uppercase;"
-            />
-            </div>
+            \u003cdiv class=\"input-group\"\u003e
+            \u003cinput 
+                id=\"rfc\"
+                placeholder=\"RFC\"
+                [(ngModel)]=\"admin.rfc\"
+                minlength=\"12\"
+                maxlength=\"13\"
+                style=\"text-transform: uppercase;\"
+            /\u003e
+            \u003c/div\u003e
 
-            <div *ngIf="errors.rfc" class="invalid-feedback">
+            \u003cdiv *ngIf=\"errors.rfc\" class=\"invalid-feedback\"\u003e
             {{ errors.rfc }}
-            </div>
-        </div>
+            \u003c/div\u003e
+        \u003c/div\u003e
 
-        <div class="input-group-custom">
-            <i class="bi bi-calendar3 icon"></i>
+        \u003cdiv class=\"input-group-custom\"\u003e
+            \u003ci class=\"bi bi-calendar3 icon\"\u003e\u003c/i\u003e
 
-            <div class="input-group">
-            <input 
-                id="edad"
-                placeholder="Edad"
-                [(ngModel)]="admin.edad"
-                mask="00"
-            />
-            </div>
+            \u003cdiv class=\"input-group\"\u003e
+            \u003cinput 
+                id=\"edad\"
+                placeholder=\"Edad\"
+                [(ngModel)]=\"admin.edad\"
+                mask=\"00\"
+            /\u003e
+            \u003c/div\u003e
 
-            <div *ngIf="errors.edad" class="invalid-feedback">
+            \u003cdiv *ngIf=\"errors.edad\" class=\"invalid-feedback\"\u003e
             {{ errors.edad }}
-            </div>
-        </div>
+            \u003c/div\u003e
+        \u003c/div\u003e
 
-        <div class="input-group-custom">
-            <i class="bi bi-briefcase-fill icon"></i>
+        \u003cdiv class=\"input-group-custom\"\u003e
+            \u003ci class=\"bi bi-briefcase-fill icon\"\u003e\u003c/i\u003e
 
-            <div class="input-group">
-            <input 
-                id="ocupacion"
-                placeholder="Ocupación"
-                [(ngModel)]="admin.ocupacion"
-            />
-            </div>
+            \u003cdiv class=\"input-group\"\u003e
+            \u003cinput 
+                id=\"ocupacion\"
+                placeholder=\"Ocupación\"
+                [(ngModel)]=\"admin.ocupacion\"
+            /\u003e
+            \u003c/div\u003e
 
-            <div *ngIf="errors.ocupacion" class="invalid-feedback">
+            \u003cdiv *ngIf=\"errors.ocupacion\" class=\"invalid-feedback\"\u003e
             {{ errors.ocupacion }}
-            </div>
-        </div>
+            \u003c/div\u003e
+        \u003c/div\u003e
         
-        <div class="section-buttons">
-            <button class="btn btn-danger" (click)="regresar()">
+        \u003cdiv class=\"section-buttons\"\u003e
+            \u003cbutton class=\"btn btn-danger\" (click)=\"regresar()\"\u003e
             Cancelar
-            </button>
+            \u003c/button\u003e
 
-            <button
-            *ngIf="!editar"
-            class="btn btn-primary"
-            type="submit"
-            (click)="registrar()"
-            >
+            \u003cbutton
+            *ngIf=\"!editar\"
+            class=\"btn btn-primary\"
+            type=\"submit\"
+            (click)=\"registrar()\"
+            \u003e
             Registrar
-            </button>
+            \u003c/button\u003e
 
-            <button
-            *ngIf="editar"
-            class="btn btn-primary"
-            type="submit"
-            (click)="actualizar()"
-            >
+            \u003cbutton
+            *ngIf=\"editar\"
+            class=\"btn btn-primary\"
+            type=\"submit\"
+            (click)=\"actualizar()\"
+            \u003e
             Actualizar
-            </button>
-        </div>
+            \u003c/button\u003e
+        \u003c/div\u003e
 
-        </div>
-    </div>
-</div>
+        \u003c/div\u003e
+    \u003c/div\u003e
+\u003c/div\u003e
