@@ -1,5 +1,3 @@
-// src/app/services/auth.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -89,8 +87,6 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!this.getAccessToken();
   }
-
-  // ===== Métodos privados =====
 
   private saveSession(response: LoginResponse): void {
     this.saveAccessToken(response.access);

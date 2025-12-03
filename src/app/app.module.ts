@@ -42,6 +42,7 @@ import { CambiarContrasenaScreenComponent } from './screens/cambiar-contrasena-s
 import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component';
 import { AlumnosScreenComponent } from './screens/alumnos-screen/alumnos-screen.component';
 import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-screen.component';
+import { LandingPageScreenComponent } from './screens/landing-page-screen/landing-page-screen.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-scre
     CambiarContrasenaScreenComponent,
     AdminScreenComponent,
     AlumnosScreenComponent,
-    MaestrosScreenComponent
+    MaestrosScreenComponent,
+    LandingPageScreenComponent
   ],
   imports: [
     BrowserModule,

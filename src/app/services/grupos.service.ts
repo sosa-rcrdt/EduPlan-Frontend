@@ -1,18 +1,10 @@
-// src/app/services/grupos.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
-import {
-  Grupo,
-  GrupoCreateRequest,
-  GrupoCreateResponse,
-  GrupoUpdateRequest,
-  GrupoDeleteResponse,
-} from '../models/grupos.models';
+import { Grupo, GrupoCreateRequest, GrupoCreateResponse, GrupoUpdateRequest, GrupoDeleteResponse } from '../models/grupos.models';
+import { Horario } from '../models/horarios.models';
 
 @Injectable({
   providedIn: 'root',
@@ -25,33 +17,33 @@ export class GruposService {
     private authService: AuthService
   ) {}
 
-  // Devuelve la lista de grupos con filtros opcionales (materia, semestre, búsqueda).
-  getGrupos(
-    materia_id?: number,
-    semestre?: number,
-    search?: string
-  ): Observable<Grupo[]> {
+  // Obtiene el listado de grupos (con filtros opcionales por materia, semestre y búsqueda).
+  getGrupos(options?: {
+    materia_id?: number;
+    semestre?: number;
+    search?: string;
+  }): Observable<Grupo[]> {
     const url = `${this.apiUrl}/grupos/`;
     const headers = this.getAuthHeaders();
 
     let params = new HttpParams();
 
-    if (materia_id != null) {
-      params = params.set('materia_id', String(materia_id));
+    if (options?.materia_id != null) {
+      params = params.set('materia_id', String(options.materia_id));
     }
 
-    if (semestre != null) {
-      params = params.set('semestre', String(semestre));
+    if (options?.semestre != null) {
+      params = params.set('semestre', String(options.semestre));
     }
 
-    if (search) {
-      params = params.set('search', search);
+    if (options?.search) {
+      params = params.set('search', options.search);
     }
 
     return this.http.get<Grupo[]>(url, { headers, params });
   }
 
-  // Obtiene un grupo por su ID.
+  // Obtiene la información de un grupo por su ID.
   getGrupoById(id: number): Observable<Grupo> {
     const url = `${this.apiUrl}/grupo/`;
     const headers = this.getAuthHeaders();
@@ -69,7 +61,7 @@ export class GruposService {
     return this.http.post<GrupoCreateResponse>(url, payload, { headers });
   }
 
-  // Actualiza un grupo existente.
+  // Actualiza los datos de un grupo existente.
   actualizarGrupo(payload: GrupoUpdateRequest): Observable<Grupo> {
     const url = `${this.apiUrl}/grupos-edit/`;
     const headers = this.getAuthHeaders();
@@ -77,7 +69,7 @@ export class GruposService {
     return this.http.put<Grupo>(url, payload, { headers });
   }
 
-  // Elimina un grupo por ID.
+  // Elimina un grupo por su ID.
   eliminarGrupo(id: number): Observable<GrupoDeleteResponse> {
     const url = `${this.apiUrl}/grupos-edit/`;
     const headers = this.getAuthHeaders();
@@ -87,15 +79,14 @@ export class GruposService {
     return this.http.delete<GrupoDeleteResponse>(url, { headers, params });
   }
 
-  // Devuelve los horarios asociados a un grupo (usa /grupo-horarios/).
-  getHorariosDeGrupo(grupoId: number): Observable<any[]> {
+  // Obtiene los horarios asociados a un grupo específico.
+  getHorariosDeGrupo(grupoId: number): Observable<Horario[]> {
     const url = `${this.apiUrl}/grupo-horarios/`;
     const headers = this.getAuthHeaders();
 
     const params = new HttpParams().set('grupo_id', String(grupoId));
 
-    // Más adelante se puede tipar con una interfaz Horario cuando tengas horarios.models.ts
-    return this.http.get<any[]>(url, { headers, params });
+    return this.http.get<Horario[]>(url, { headers, params });
   }
 
   // Construye los headers con Authorization: Bearer <token>.
