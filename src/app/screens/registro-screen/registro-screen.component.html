@@ -1,64 +1,64 @@
 <div class="registro-wrapper">
 
-  <!-- FONDO + OVERLAY -->
-  <div class="background"></div>
+    <!-- FONDO + OVERLAY -->
+    <div class="background"></div>
 
-  <!-- CONTENEDOR PRINCIPAL -->
-  <div class="registro-container">
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="registro-container">
 
-    <!-- LOGO SUPERIOR -->
-    <div class="logo-container">
-      <img src="/assets/images/Birrete2.png" class="logo-img" alt="logo">
-      <img src="/assets/images/Letras_EduPlan2.png" class="logo-text" alt="logo texto">
+        <!-- LOGO SUPERIOR -->
+        <div class="logo-container">
+        <img src="/assets/images/Birrete2.png" class="logo-img" alt="logo">
+        <img src="/assets/images/Letras_EduPlan2.png" class="logo-text" alt="logo texto">
+        </div>
+
+        <!-- CARD: SELECCIÓN DE TIPO DE USUARIO -->
+        <div class="card card-roles">
+
+        <h3 class="card-title">Tipo de Usuario</h3>
+
+        <mat-radio-group
+            [(ngModel)]="user.tipo_usuario"
+            (change)="radioChange($event)"
+            [disabled]="editar"
+            class="radio-group"
+        >
+            <mat-radio-button value="administrador">Administrador</mat-radio-button>
+            <mat-radio-button value="alumno">Alumno</mat-radio-button>
+            <mat-radio-button value="maestro">Maestro</mat-radio-button>
+        </mat-radio-group>
+
+        </div>
+
+        <!-- CARD DEL FORMULARIO -->
+        <div class="card card-form">
+
+        <!-- FORMULARIO ADMIN -->
+        <section *ngIf="isAdmin">
+            <app-registro-admin
+            [rol]="tipo_user"
+            [datos_user]="user"
+            ></app-registro-admin>
+        </section>
+
+        <!-- FORMULARIO ALUMNO -->
+        <section *ngIf="isAlumno">
+            <app-registro-alumnos
+            [rol]="tipo_user"
+            [datos_user]="user"
+            ></app-registro-alumnos>
+        </section>
+
+        <!-- FORMULARIO MAESTRO -->
+        <section *ngIf="isMaestro">
+            <app-registro-maestros
+            [rol]="tipo_user"
+            [datos_user]="user"
+            ></app-registro-maestros>
+        </section>
+
+        </div>
+
     </div>
-
-    <!-- CARD: SELECCIÓN DE TIPO DE USUARIO -->
-    <div class="card card-roles">
-
-      <h3 class="card-title">Tipo de Usuario</h3>
-
-      <mat-radio-group
-        [(ngModel)]="user.tipo_usuario"
-        (change)="radioChange($event)"
-        [disabled]="editar"
-        class="radio-group"
-      >
-        <mat-radio-button value="administrador">Administrador</mat-radio-button>
-        <mat-radio-button value="alumno">Alumno</mat-radio-button>
-        <mat-radio-button value="maestro">Maestro</mat-radio-button>
-      </mat-radio-group>
-
-    </div>
-
-    <!-- CARD DEL FORMULARIO -->
-    <div class="card card-form">
-
-      <!-- FORMULARIO ADMIN -->
-      <section *ngIf="isAdmin">
-        <app-registro-admin
-          [rol]="tipo_user"
-          [datos_user]="user"
-        ></app-registro-admin>
-      </section>
-
-      <!-- FORMULARIO ALUMNO -->
-      <section *ngIf="isAlumno">
-        <app-registro-alumnos
-          [rol]="tipo_user"
-          [datos_user]="user"
-        ></app-registro-alumnos>
-      </section>
-
-      <!-- FORMULARIO MAESTRO -->
-      <section *ngIf="isMaestro">
-        <app-registro-maestros
-          [rol]="tipo_user"
-          [datos_user]="user"
-        ></app-registro-maestros>
-      </section>
-
-    </div>
-
-  </div>
 
 </div>
