@@ -43,7 +43,12 @@ import { AdminScreenComponent } from './screens/admin-screen/admin-screen.compon
 import { AlumnosScreenComponent } from './screens/alumnos-screen/alumnos-screen.component';
 import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-screen.component';
 import { LandingPageScreenComponent } from './screens/landing-page-screen/landing-page-screen.component';
-
+import { SidenavComponent } from './partials/sidenav/sidenav.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { SolicitudMaestroScreenComponent } from './screens/solicitud-maestro-screen/solicitud-maestro-screen.component';
+import { MainLayoutComponent } from './layout/main-layout.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +63,10 @@ import { LandingPageScreenComponent } from './screens/landing-page-screen/landin
     AdminScreenComponent,
     AlumnosScreenComponent,
     MaestrosScreenComponent,
-    LandingPageScreenComponent
+    LandingPageScreenComponent,
+    SidenavComponent,
+    SolicitudMaestroScreenComponent,
+    MainLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -79,10 +87,14 @@ import { LandingPageScreenComponent } from './screens/landing-page-screen/landin
     MatDialogModule,
     MatTableModule,
     MatPaginatorModule,
+    MatPaginatorModule,
     NgChartsModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule
   ],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
     provideNgxMask()
   ],
   bootstrap: [AppComponent]
