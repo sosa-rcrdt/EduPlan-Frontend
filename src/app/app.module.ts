@@ -47,8 +47,7 @@ import { SidenavComponent } from './partials/sidenav/sidenav.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
-import { SolicitudMaestroScreenComponent } from './screens/solicitud-maestro-screen/solicitud-maestro-screen.component';
-import { MainLayoutComponent } from './layout/main-layout.component';
+import { SolicitudesScreenComponent } from './screens/maestros-screen/solicitudes-screen/solicitudes-screen.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,8 +64,7 @@ import { MainLayoutComponent } from './layout/main-layout.component';
     MaestrosScreenComponent,
     LandingPageScreenComponent,
     SidenavComponent,
-    SolicitudMaestroScreenComponent,
-    MainLayoutComponent
+    SolicitudesScreenComponent
   ],
   imports: [
     BrowserModule,

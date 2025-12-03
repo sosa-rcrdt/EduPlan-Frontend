@@ -64,7 +64,7 @@ export class SidenavComponent implements OnInit {
       items.push({
         label: 'Mi carga académica',
         icon: 'school',
-        route: '/home', // Alumno home es su carga
+        route: '/home',
       });
     }
 
@@ -78,7 +78,7 @@ export class SidenavComponent implements OnInit {
         {
           label: 'Solicitudes de cambio',
           icon: 'edit_note',
-          route: '/solicitud-maestro',
+          route: '/home/solicitudes',
         }
       );
     }
@@ -93,32 +93,32 @@ export class SidenavComponent implements OnInit {
         {
           label: 'Periodos',
           icon: 'calendar_today',
-          route: '/home/admin/periodos',
+          route: '/home/periodos',
         },
         {
           label: 'Materias',
           icon: 'book',
-          route: '/home/admin/materias',
+          route: '/home/materias',
         },
         {
           label: 'Grupos',
           icon: 'groups',
-          route: '/home/admin/grupos',
+          route: '/home/grupos',
         },
         {
           label: 'Aulas',
           icon: 'meeting_room',
-          route: '/home/admin/aulas',
+          route: '/home/aulas',
         },
         {
           label: 'Horarios',
           icon: 'schedule',
-          route: '/home/admin/horarios',
+          route: '/home/horarios',
         },
         {
           label: 'Reportes',
           icon: 'bar_chart',
-          route: '/home/admin/reportes',
+          route: '/home/reportes',
         }
       );
     }

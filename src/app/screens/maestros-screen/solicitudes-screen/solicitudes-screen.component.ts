@@ -22,11 +22,11 @@ interface GrupoOpcionSolicitud {
 }
 
 @Component({
-  selector: 'app-solicitud-maestro-screen',
-  templateUrl: './solicitud-maestro-screen.component.html',
-  styleUrls: ['./solicitud-maestro-screen.component.scss'],
+  selector: 'app-solicitudes-screen',
+  templateUrl: './solicitudes-screen.component.html',
+  styleUrls: ['./solicitudes-screen.component.scss'],
 })
-export class SolicitudMaestroScreenComponent implements OnInit {
+export class SolicitudesScreenComponent implements OnInit {
 
   // Perfil del usuario logueado
   public profile: UserProfile = null;
@@ -78,7 +78,7 @@ export class SolicitudMaestroScreenComponent implements OnInit {
     private materiasService: MateriasService,
     private periodosService: PeriodosService,
     private solicitudesService: SolicitudesService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.profile = this.authService.getCurrentProfile();

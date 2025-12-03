@@ -1,7 +1,25 @@
-.home-container {
-  height: 100vh; // para que el sidenav ocupe toda la altura
+.main-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.home-sidenav {
+.main-sidenav {
+  width: 250px;
+  background-color: #f5f5f5;
   border-right: 1px solid #ddd;
+}
+
+.main-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.content-wrapper {
+  padding: 20px;
+  height: calc(100vh - 64px); /* Restar altura del toolbar */
+  overflow-y: auto;
+  background-color: #fafafa;
 }
