@@ -38,15 +38,38 @@
     font-display: swap;
 }
 
+
+:root {
+    --color-1: #20130a;
+    --color-2: #142026;
+    --color-3: #123142;
+    --color-4: #3b657a;
+    --color-5: #e9f0c9;
+    --bg-light: #f8f9fa;
+    --text-dark: #20130a;
+}
+
 html, body { height: 100%; }
-body { margin: 0; font-family: Nexa; }
+body { 
+    margin: 0; 
+    font-family: 'Nexa', sans-serif; 
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+}
+
+.glass-effect {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
 
 .invalid-feedback {
     display: block!important;
     width: 100%;
     font-size: 0.75rem;
     color: #ff5b5b;
-    font-family: Nexa;
+    font-family: 'Nexa', sans-serif;
     text-align: left;
 }
 

@@ -1,18 +1,19 @@
-<div class="wrapper">
-    <div class="section-home">
-        <div class="body-home">
-        <!-- Home para el admin -->
-        <section class="home-admin" *ngIf="rol == 'administrador'">
-            <app-admin-screen></app-admin-screen>
-        </section>
-        <!-- Home para el alumno -->
-        <section class="home-alumno" *ngIf="rol == 'alumno'">
-            <app-alumnos-screen></app-alumnos-screen>
-        </section>
-        <!-- Home para el maestro -->
-        <section class="home-maestro" *ngIf="rol == 'maestro'">
-            <app-maestros-screen></app-maestros-screen>
-        </section>
-        </div>
+<mat-sidenav-container class="main-container" autosize>
+  <mat-sidenav #sidenav mode="over" opened="false" class="main-sidenav">
+    <app-sidenav (closeSidenav)="sidenav.close()"></app-sidenav>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <!-- Toolbar superior para abrir el menú -->
+    <mat-toolbar color="primary" class="main-toolbar">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>EduPlan</span>
+    </mat-toolbar>
+
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
     </div>
-</div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

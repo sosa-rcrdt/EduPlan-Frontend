@@ -1,0 +1,32 @@
+<div class="sidenav-container">
+  <!-- Header con info de usuario -->
+  <div class="sidenav-header" *ngIf="nombreUsuario">
+    <div class="user-avatar">
+      <mat-icon>account_circle</mat-icon>
+    </div>
+    <div class="user-info">
+      <div class="user-name">{{ nombreUsuario }}</div>
+      <div class="user-role">{{ etiquetaRol }}</div>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Lista de navegación -->
+  <mat-nav-list>
+    <a mat-list-item *ngFor="let item of menuItems" (click)="onItemClick(item)">
+      <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+      <span matListItemTitle>{{ item.label }}</span>
+    </a>
+  </mat-nav-list>
+
+  <mat-divider></mat-divider>
+
+  <!-- Footer / Logout -->
+  <mat-nav-list>
+    <a mat-list-item (click)="onItemClick(logoutItem)" class="logout-item">
+      <mat-icon matListItemIcon color="warn">{{ logoutItem.icon }}</mat-icon>
+      <span matListItemTitle>{{ logoutItem.label }}</span>
+    </a>
+  </mat-nav-list>
+</div>

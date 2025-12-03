@@ -1,82 +1,65 @@
-.wrapper{
-  width: 100vw;
-  //height: 100vh;
-}
-.bg-light{
-  background-color: #003B5C!important;
-}
-
-.navbar{
-  padding: 0 0 0 0!important;
+/* Mobile First Navbar Styles */
+.wrapper {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
 }
 
-.navbar-brand{
-  padding-left: 20px;
-  font-size: 28px;
-  font-family: Nexa;
-  text-align: center;
-  opacity: 1;
-  color: #FFFFFF;
-  margin: 0 0 0 0!important;
-}
-.nav-link{
-  font-size: 20px;
-  font-family: Nexa;
-  text-align: center;
-  opacity: 1;
-  font-weight: bold;
-  color: #FFFFFF;
-  margin: 0 0 0 0!important;
+.navbar {
+  padding: 0.5rem 1rem !important;
+  background-color: var(--color-3) !important; /* Darkest blue */
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
 }
 
-li a {
-  display: block;
-  text-decoration: none;
-  cursor: pointer;
-  text-transform: capitalize;
+.navbar-toggler {
+  border: none;
+  padding: 0.25rem 0.5rem;
+  
+  &:focus {
+    box-shadow: none;
+  }
 }
 
-/* Change the link color on hover */
-li a:hover {
-  background-color: #0092B8;
-  color: #FFFFFF;
-  margin: 0;
-}
-
-.navbar-expand-lg .navbar-nav .nav-link {
-  padding-top: 1.2rem;
-  padding-bottom: 1.2rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
-  font-size: 20px;
-  font-family: Nexa;
-  text-align: center;
-  opacity: 1;
-  font-weight: bold;
-  color: #FFFFFF;
-}
-.active {
-  background-color: #03aed8;
-  margin: 0 0 0 0!important;
-}
-
-.bi-person-circle{
-  font-size: 20pt;
-  color: #FFFFFF;
-}
-.dropdown-toggle{
-  font-size: 15pt;
-  color: #FFFFFF;
-}
-.dropdown-menu[data-bs-popper] {
-  right: 0!important;
-  left: auto;
-}
-.navbar-toggler-icon{
-  color: #FFFFFF;
-}
 .navbar-toggler-icon {
-  vertical-align: 0;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(233, 240, 201, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+.nav-link {
+  font-family: 'Nexa', sans-serif;
+  font-size: 1.1rem;
+  color: var(--color-5) !important; /* Light text */
+  font-weight: 600;
+  padding: 1rem 0;
+  text-align: center;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #ffffff !important;
+    background-color: transparent !important;
+  }
+}
+
+/* Desktop Styles (>= 992px) */
+@media (min-width: 992px) {
+  .navbar {
+    padding: 0.5rem 2rem !important;
+  }
+
+  .navbar-collapse {
+    justify-content: flex-end;
+  }
+
+  .nav-link {
+    padding: 0.5rem 1.5rem;
+    margin-left: 0.5rem;
+    border-radius: 20px;
+
+    &:hover {
+      background-color: var(--color-5) !important;
+      color: var(--color-3) !important;
+    }
+  }
 }
