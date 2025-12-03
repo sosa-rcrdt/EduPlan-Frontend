@@ -1,0 +1,111 @@
+/* Reutiliza los estilos base del formulario de administrador para alumnos */
+
+/* Wrapper de cada campo */
+.input-group-custom {
+  width: 100%;
+  margin-bottom: 36px;
+  position: relative;
+}
+
+/* Contenedor que envuelve al input */
+.input-group {
+  width: 100%;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+/* Estilo de inputs de texto y fecha */
+.input-group input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: white;
+  font-size: 15px;
+}
+
+/* Placeholder */
+.input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Icono */
+.icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: white;
+}
+
+/* Icono para mostrar/ocultar contraseña */
+.eye-toggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  cursor: pointer;
+  color: white;
+}
+
+/* Mensajes de error */
+.invalid-feedback {
+  display: block;
+  margin-top: 6px;
+  margin-left: 5px;
+  font-size: 13px;
+  color: #ff6b6b !important;
+}
+
+/* Posicionamiento absoluto para errores en inputs */
+.input-group-custom {
+  position: relative;
+  margin-bottom: 35px;
+}
+
+.invalid-feedback {
+  position: absolute;
+  left: 5px;
+  bottom: -18px;
+  margin: 0;
+  font-size: 13px;
+  color: #ff6b6b !important;
+}
+
+/* Sección de botones */
+.section-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.section-buttons .btn {
+  width: 45%;
+  height: 48px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.btn.btn-primary {
+  background-color: #e9f0c9  !important;
+  border: none;
+  color: #3b657a !important;
+}
+
+.btn.btn-danger {
+  background-color: #3b657a  !important;
+  border: none;
+}

@@ -181,24 +181,21 @@ export class RegistroMaestrosComponent implements OnInit {
     });
   }
 
-  // Checkbox de materias
-  public checkboxChange(event: any): void {
-    const value = event.source.value;
-
+  // Checkbox de materias para el nuevo formulario
+  public checkboxChange(event: any, nombre: string): void {
+    const checked = (event.target as HTMLInputElement).checked;
     if (!Array.isArray(this.maestro.materias_json)) {
       this.maestro.materias_json = [];
     }
-
-    if (event.checked) {
-      if (!this.maestro.materias_json.includes(value)) {
-        this.maestro.materias_json.push(value);
+    if (checked) {
+      if (!this.maestro.materias_json.includes(nombre)) {
+        this.maestro.materias_json.push(nombre);
       }
     } else {
       this.maestro.materias_json = this.maestro.materias_json.filter(
-        (materia: string) => materia !== value
+        (materia: string) => materia !== nombre
       );
     }
-
     console.log('Array materias: ', this.maestro.materias_json);
   }
 
