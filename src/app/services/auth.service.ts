@@ -17,9 +17,9 @@ export class AuthService {
   private readonly USER_ROLE_KEY = 'user_role';
   private readonly USER_PROFILE_KEY = 'user_profile';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  // Realiza el login contra /token/ y guarda la sesión en localStorage.
+  // Realiza el login contra /token/ y guarda la sesión.
   login(payload: LoginRequest): Observable<LoginResponse> {
     const url = `${this.apiUrl}/token/`;
 
@@ -48,8 +48,7 @@ export class AuthService {
     const headers = this.getAuthHeaders();
     const refresh_token = this.getRefreshToken();
 
-    // Limpiamos primero en el front (o podríamos esperar a la respuesta, 
-    // pero por UX suele ser mejor limpiar inmediato o en el subscribe)
+    // Limpiamos primero en el front
     this.clearSession();
 
     return this.http.post<LogoutResponse>(url, { refresh_token }, { headers });

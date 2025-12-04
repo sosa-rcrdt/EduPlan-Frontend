@@ -67,10 +67,6 @@ export class PeticionesScreenComponent implements OnInit {
   }
 
   rechazarSolicitud(solicitud: SolicitudCambio, motivo?: string): void {
-    // Si viene con motivo, es rechazo automático (no pide confirmación manual, o sí? 
-    // El código original pedía confirmación SOLO si no había motivo.
-    // Si hay motivo (conflicto), se rechaza directo.
-
     if (motivo) {
       this.ejecutarRechazo(solicitud, motivo);
       return;

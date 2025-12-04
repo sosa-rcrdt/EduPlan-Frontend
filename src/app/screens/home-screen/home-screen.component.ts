@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HomeScreenComponent implements OnInit {
 
   public rol: UserRole = "";
-  public showDashboard: boolean = true; // Mostrar dashboard solo en ruta base /home
+  public showDashboard: boolean = true;
 
   constructor(
     private auth: AuthService,
@@ -23,10 +23,8 @@ export class HomeScreenComponent implements OnInit {
     this.rol = this.auth.getCurrentRole();
     console.log("Rol: ", this.rol);
 
-    // Detectar si estamos en la ruta base /home o en una subruta
     this.checkRoute();
 
-    // Suscribirse a cambios de ruta
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
@@ -35,7 +33,7 @@ export class HomeScreenComponent implements OnInit {
   }
 
   private checkRoute(): void {
-    // Mostrar dashboard solo si estamos en /home exactamente (sin subrutas)
+    // Mostrar horarios solo si estamos en /home exactamente (sin subrutas)
     const url = this.router.url;
     this.showDashboard = (url === '/home' || url === '/home/');
   }

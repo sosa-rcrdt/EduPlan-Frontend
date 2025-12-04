@@ -22,12 +22,12 @@
 }
 
 .btn-primary {
-  background-color: var(--color-4); // #3b657a
+  background-color: var(--color-4);
   border-color: var(--color-4);
   color: white;
 
   &:hover {
-    background-color: var(--color-3); // #123142
+    background-color: var(--color-3);
     border-color: var(--color-3);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(59, 101, 122, 0.3);

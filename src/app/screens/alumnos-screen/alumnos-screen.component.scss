@@ -1,7 +1,6 @@
-// Landing Page Style - Alumnos Screen
 .wrapper {
   min-height: 100vh;
-  background-color: var(--bg-light); // #f8f9fa
+  background-color: var(--bg-light);
   padding: 1.5rem;
   position: relative;
   font-family: 'Nexa', sans-serif;
@@ -22,7 +21,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-left: 5px solid var(--color-4); // Accent strip
+  border-left: 5px solid var(--color-4);
   position: relative;
   overflow: hidden;
 

@@ -22,6 +22,7 @@ import { PeticionesScreenComponent } from './screens/peticiones-screen/peticione
 import { AuthGuard } from './shared/guards/auth.guard';
 import { LoginGuard } from './shared/guards/login.guard';
 import { RoleGuard } from './shared/guards/role.guard';
+import { ReportesScreenComponent } from './screens/admin-screen/reportes-screen/reportes-screen.component';
 
 const routes: Routes = [
   // Rutas públicas (sin sidenav)
@@ -29,16 +30,14 @@ const routes: Routes = [
   { path: 'login', component: LoginScreenComponent, pathMatch: 'full', canActivate: [LoginGuard] },
   { path: 'registro', component: RegistroScreenComponent, pathMatch: 'full', canActivate: [LoginGuard] },
 
-  // Rutas privadas (con sidenav integrado en home)
   {
     path: 'home',
     component: HomeScreenComponent,
     canActivate: [AuthGuard],
     children: [
-      // No default route - home component shows dashboard based on role
       { path: 'solicitudes', component: SolicitudesScreenComponent },
 
-      // Rutas de Admin (aplanadas)
+      // Rutas de Admin
       { path: 'periodos', component: PeriodosScreenComponent, canActivate: [RoleGuard], data: { expectedRole: 'administrador' } },
       { path: 'periodos/registro', component: RegistroPeriodoScreenComponent, canActivate: [RoleGuard], data: { expectedRole: 'administrador' } },
       { path: 'periodos/registro/:id', component: RegistroPeriodoScreenComponent, canActivate: [RoleGuard], data: { expectedRole: 'administrador' } },
@@ -62,7 +61,7 @@ const routes: Routes = [
       { path: 'inscripciones/registro', component: RegistroInscripcionScreenComponent, canActivate: [RoleGuard], data: { expectedRole: 'administrador' } },
       { path: 'inscripciones/registro/:id', component: RegistroInscripcionScreenComponent, canActivate: [RoleGuard], data: { expectedRole: 'administrador' } },
 
-      { path: 'reportes', component: AdminScreenComponent, canActivate: [RoleGuard], data: { expectedRole: 'administrador' } },
+      { path: 'reportes', component: ReportesScreenComponent, canActivate: [RoleGuard], data: { expectedRole: 'administrador' } },
       { path: 'peticiones', component: PeticionesScreenComponent, canActivate: [RoleGuard], data: { expectedRole: 'administrador' } },
     ]
   }

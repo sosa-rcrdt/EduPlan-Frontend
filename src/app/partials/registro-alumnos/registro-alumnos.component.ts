@@ -12,9 +12,9 @@ import { ProfileService } from 'src/app/services/profile.service';
   styleUrls: ['./registro-alumnos.component.scss'],
 })
 export class RegistroAlumnosComponent implements OnInit, OnChanges {
-  @Input() rol: string = '';        // 'alumno' desde el registro-screen
-  @Input() datos_user: any = {};    // datos precargados cuando se edita
-  @Input() isSelfEdit: boolean = false; // modo auto-edición
+  @Input() rol: string = '';
+  @Input() datos_user: any = {};
+  @Input() isSelfEdit: boolean = false;
 
   // Para contraseñas
   public hide_1: boolean = false;
@@ -50,7 +50,7 @@ export class RegistroAlumnosComponent implements OnInit, OnChanges {
       // Normalizar fecha_nacimiento si viene como "YYYY-MM-DDTHH:mm:ssZ"
       if (this.alumno.fecha_nacimiento) {
         const parts = (this.alumno.fecha_nacimiento as string).split('T');
-        this.alumno.fecha_nacimiento = parts[0]; // "YYYY-MM-DD"
+        this.alumno.fecha_nacimiento = parts[0];
       }
     } else if (this.isSelfEdit) {
       this.editar = true;
@@ -58,7 +58,7 @@ export class RegistroAlumnosComponent implements OnInit, OnChanges {
       // Normalizar fecha_nacimiento si viene como "YYYY-MM-DDTHH:mm:ssZ"
       if (this.alumno.fecha_nacimiento) {
         const parts = (this.alumno.fecha_nacimiento as string).split('T');
-        this.alumno.fecha_nacimiento = parts[0]; // "YYYY-MM-DD"
+        this.alumno.fecha_nacimiento = parts[0];
       }
     } else {
       // Alta nueva: inicializamos el objeto alumno
@@ -84,11 +84,9 @@ export class RegistroAlumnosComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // Reactively update alumno when datos_user changes from parent
     if (changes['datos_user'] && changes['datos_user'].currentValue) {
       this.alumno = { ...changes['datos_user'].currentValue };
 
-      // Normalizar fecha_nacimiento si viene como "YYYY-MM-DDTHH:mm:ssZ"
       if (this.alumno.fecha_nacimiento) {
         const parts = (this.alumno.fecha_nacimiento as string).split('T');
         this.alumno.fecha_nacimiento = parts[0];

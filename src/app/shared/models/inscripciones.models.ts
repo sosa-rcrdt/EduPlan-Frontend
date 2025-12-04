@@ -8,9 +8,9 @@ export type InscripcionEstado = 'ACTIVA' | 'BAJA';
 // Representa lo que devuelve InscripcionSerializer (__all__)
 export interface Inscripcion {
     id: number;
-    alumno: number;   // id de Alumnos
-    grupo: number;    // id de Grupo
-    periodo: number;  // id de PeriodoAcademico
+    alumno: number;
+    grupo: number;
+    periodo: number;
     estado: InscripcionEstado;
     creation: string | null;
     update: string | null;

@@ -1,6 +1,6 @@
 /* --- HEADER igual al modal de editar --- */
 .custom-header {
-  background-color: white; /* igual que editar perfil */
+  background-color: white;
   border-bottom: 1px solid #ddd;
   padding: 1rem 1.25rem;
 }
@@ -8,7 +8,7 @@
 /* --- TEXTOS --- */
 .modal-title {
   font-family: 'Nexa-Bold';
-  color: var(--color-3); // mismo color que el titulo de editar perfil
+  color: var(--color-3);
 }
 
 /* --- MODAL --- */
@@ -38,7 +38,7 @@
 
 /* botón principal (confirmar) */
 .btn-primary {
-  background-color: var(--color-4); // azul del modal editar
+  background-color: var(--color-4);
   border-color: var(--color-4);
   color: white;
 
@@ -70,9 +70,9 @@
   justify-content: flex-end;
   align-items: center;
   gap: 1rem;
-  flex-wrap: nowrap !important; /* >>> Esto evita que se bajen <<< */
+  flex-wrap: nowrap !important;
 }
 
 .footer-row .btn {
-  white-space: nowrap; /* opcional: evita que se parta el texto */
+  white-space: nowrap;
 }

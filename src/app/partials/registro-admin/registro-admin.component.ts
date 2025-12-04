@@ -12,9 +12,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./registro-admin.component.scss'],
 })
 export class RegistroAdminComponent implements OnInit, OnChanges {
-  @Input() rol: string = '';        // 'administrador' desde el registro-screen
-  @Input() datos_user: any = {};    // datos precargados cuando se edita
-  @Input() isSelfEdit: boolean = false; // modo auto-edición
+  @Input() rol: string = '';
+  @Input() datos_user: any = {};
+  @Input() isSelfEdit: boolean = false;
 
   // Para contraseñas
   public hide_1: boolean = false;
@@ -69,7 +69,6 @@ export class RegistroAdminComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // Reactively update admin when datos_user changes from parent
     if (changes['datos_user'] && changes['datos_user'].currentValue) {
       this.admin = { ...changes['datos_user'].currentValue };
       console.log('Admin actualizado desde ngOnChanges: ', this.admin);
@@ -165,7 +164,6 @@ export class RegistroAdminComponent implements OnInit, OnChanges {
       this.profileService.updateProfile(payload).subscribe({
         next: (response) => {
           alert('Datos actualizados correctamente');
-          // Update localStorage profile
           this.profileService.getProfile().subscribe({
             next: (updatedProfile) => {
               localStorage.setItem('user_profile', JSON.stringify(updatedProfile));

@@ -1,56 +1,89 @@
 .container-fluid {
-    padding: 20px;
-    background-color: #f5f5f5;
-    min-height: 100vh;
+  min-height: calc(100vh - 80px);
+  background-color: var(--bg-light);
+  padding: 1.5rem;
+  font-family: 'Nexa', sans-serif;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .title {
+    font-family: 'Nexa-Bold', sans-serif;
+    color: var(--color-3);
+    font-size: 1.75rem;
+    margin: 0;
   }
-  
-  .content {
-    max-width: 1200px;
-    margin: 0 auto;
+}
+
+// Mat-Table Styling adapted to match alumnos-screen
+.table-container {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+
+  table {
+    width: 100%;
   }
-  
-  .header-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  
-    .title {
-      font-size: 24px;
-      font-weight: 500;
-      color: #333;
-      margin: 0;
-    }
+
+  th.mat-header-cell {
+    background-color: #f9f9f9;
+    color: var(--color-4);
+    font-family: 'Nexa-Bold', sans-serif;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #eee;
   }
-  
-  .table-container {
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-  
-    table {
-      width: 100%;
-    }
-  
-    th.mat-header-cell {
-      background-color: #f8f9fa;
-      color: #555;
-      font-weight: 600;
-      font-size: 14px;
-    }
-  
-    td.mat-cell {
-      color: #333;
-      font-size: 14px;
-    }
-  }
-  
-  .status-active {
-      color: green;
+
+  td.mat-cell {
+    padding: 1rem 1.5rem;
+    color: var(--text-dark);
+    font-family: 'Nexa', sans-serif;
+    border-bottom: 1px solid #f5f5f5;
+    font-size: 14px;
+
+    &:first-of-type {
       font-weight: bold;
+      color: var(--color-3);
+    }
   }
+
+  tr.mat-row:hover {
+    background-color: #fcfcfc;
+  }
+}
+
+.status-active {
+    color: var(--color-4);
+    font-weight: bold;
+    font-family: 'Nexa-Bold', sans-serif;
+}
+
+.status-baja {
+    color: var(--color-3);
+    font-weight: bold;
+    font-family: 'Nexa-Bold', sans-serif;
+    opacity: 0.7;
+}
+
+// Buttons (Mat-Button overrides if needed, or standard classes)
+button[mat-raised-button] {
+  font-family: 'Nexa-Bold', sans-serif;
+  background-color: var(--color-4) !important;
+  color: white !important;
   
-  .status-baja {
-      color: red;
-      font-weight: bold;
+  &:hover {
+    background-color: var(--color-3) !important;
   }
+}

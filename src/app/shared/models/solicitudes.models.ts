@@ -20,7 +20,6 @@ export interface SolicitudCambio {
 }
 
 // Body para crear solicitud (/solicitud/ POST)
-// El docente se toma del usuario autenticado en el backend.
 export interface SolicitudCreateRequest {
     grupo: number;
     dia_semana_original: number;

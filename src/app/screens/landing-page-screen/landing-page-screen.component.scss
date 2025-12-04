@@ -1,4 +1,3 @@
-/* Mobile First Landing Page Styles */
 .landing-page {
     background-color: var(--bg-light);
     min-height: 100vh;
@@ -6,7 +5,7 @@
 }
 
 .page {
-    padding-top: 5rem; /* Space for fixed navbar */
+    padding-top: 5rem;
     padding-bottom: 2rem;
 }
 
@@ -92,7 +91,6 @@ p {
     }
 }
 
-/* Tablet and Desktop Adjustments */
 @media (min-width: 768px) and (max-width: 1199px) {
     .hero-section {
         padding: 3rem 0;

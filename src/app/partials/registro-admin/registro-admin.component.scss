@@ -75,14 +75,14 @@
 
 .section-buttons {
   display: flex;
-  justify-content: center; /* <-- centra los botones */
+  justify-content: center;
   align-items: center;
-  gap: 12px;               /* espacio entre botones */
+  gap: 12px;
   margin-top: 25px;
 }
 
 .section-buttons .btn {
-  width: 45%;              /* tamaño uniforme de cada botón */
+  width: 45%;
   height: 48px;
   border-radius: 12px;
   font-weight: 600;

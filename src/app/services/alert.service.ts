@@ -8,11 +8,6 @@ export class AlertService {
 
     constructor(private snackBar: MatSnackBar) { }
 
-    /**
-     * Show success message (green)
-     * @param message Message to display
-     * @param duration Duration in milliseconds (default: 3000)
-     */
     success(message: string, duration: number = 3000): void {
         this.snackBar.open(message, 'Cerrar', {
             duration: duration,
@@ -22,11 +17,6 @@ export class AlertService {
         });
     }
 
-    /**
-     * Show error message (red)
-     * @param message Message to display
-     * @param duration Duration in milliseconds (default: 4000)
-     */
     error(message: string, duration: number = 4000): void {
         this.snackBar.open(message, 'Cerrar', {
             duration: duration,
@@ -36,11 +26,6 @@ export class AlertService {
         });
     }
 
-    /**
-     * Show warning message (orange)
-     * @param message Message to display
-     * @param duration Duration in milliseconds (default: 3500)
-     */
     warning(message: string, duration: number = 3500): void {
         this.snackBar.open(message, 'Cerrar', {
             duration: duration,
@@ -50,11 +35,6 @@ export class AlertService {
         });
     }
 
-    /**
-     * Show info message (blue)
-     * @param message Message to display
-     * @param duration Duration in milliseconds (default: 3000)
-     */
     info(message: string, duration: number = 3000): void {
         this.snackBar.open(message, 'Cerrar', {
             duration: duration,

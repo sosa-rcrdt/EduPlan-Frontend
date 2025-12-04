@@ -8,22 +8,20 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
-  // Ir a la landing (ajusta el path al que tengas en tu routing)
+  // Ir a la landing
   goLanding(): void {
     this.router.navigate(['']);
   }
 
-  // Ir a la pantalla de login (tu login-screen actual)
+  // Ir a la pantalla de login
   goLogin(): void {
-    // En tu proyecto actual el login está en la raíz ('/')
     this.router.navigate(['login']);
   }
 
   // Ir a la pantalla de registro de usuarios
   goRegistro(): void {
-    // Has estado usando 'registro-usuarios' como path del registro
     this.router.navigate(['registro']);
   }
 }

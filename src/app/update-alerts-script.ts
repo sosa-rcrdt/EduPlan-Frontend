@@ -1,16 +1,3 @@
-// Script to batch update all remaining alert() calls to AlertService
-// This TypeScript file documents the changes needed for all remaining components
-
-/* 
- * Pattern for each component:
- * 1. Add import: import { AlertService } from 'src/app/services/alert.service';
- * 2. Inject in constructor: private alertService: AlertService
- * 3. Replace alert() calls:
- *    - Success operations: this.alertService.success("Message")
- *    - Error operations: this.alertService.error("Message")
- *    - Warnings: this.alertService.warning("Message")
- */
-
 const componentsToUpdate = [
     // Materias
     {

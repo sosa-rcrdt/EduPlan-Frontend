@@ -1,66 +1,110 @@
-<div class="container-fluid dashboard-container">
-    <div class="header-section">
-      <h1 class="title">Dashboard de Reportes</h1>
+<div class="reportes-container">
+  <div class="container-fluid py-4">
+    
+    <!-- Header con selector de período -->
+    <div class="header-section mb-4">
+      <h2 class="screen-title">Reportes Académicos</h2>
       
       <mat-form-field appearance="outline" class="periodo-selector">
-        <mat-label>Periodo Académico</mat-label>
+        <mat-label>Período Académico</mat-label>
         <mat-select [(value)]="periodo_seleccionado" (selectionChange)="onPeriodoChange()">
           <mat-option *ngFor="let p of lista_periodos" [value]="p.id">
-            {{ p.nombre }} ({{ p.estado }})
+            {{ p.nombre }} - {{ p.estado }}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-  
-    <div class="charts-grid">
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando reportes...</span>
+      </div>
+      <p class="mt-2 text-muted">Generando reportes...</p>
+    </div>
+
+    <!-- Reportes Grid -->
+    <div *ngIf="!isLoading && periodo_seleccionado" class="charts-grid">
       
-      <!-- Chart 1: Uso de Aulas -->
+      <!-- 1. Reporte por Aula: Uso total de horas por semana -->
       <div class="chart-card mat-elevation-z4">
-        <div class="chart-container">
-          <canvas baseChart
-            [data]="barChartData"
-            [options]="barChartOptions"
-            [type]="barChartType">
-          </canvas>
+        <div class="chart-header">
+          <h5 class="chart-title">
+            <i class="bi bi-door-closed me-2"></i>
+            Uso de Aulas
+          </h5>
+          <p class="chart-subtitle">Horas totales de ocupación por semana</p>
         </div>
-      </div>
-  
-      <!-- Chart 2: Carga Docente -->
-      <div class="chart-card mat-elevation-z4">
         <div class="chart-container">
           <canvas baseChart
-            [data]="docenteChartData"
-            [options]="docenteChartOptions"
-            [type]="barChartType">
-          </canvas>
-        </div>
-      </div>
-  
-      <!-- Chart 3: Por Grupo (Cupo/Carga) -->
-      <div class="chart-card mat-elevation-z4">
-        <div class="chart-container">
-          <canvas baseChart
-            [data]="grupoChartData"
-            [options]="grupoChartOptions"
-            [type]="barChartType">
+            [data]="aulasChartData"
+            [options]="aulasChartOptions"
+            [type]="aulasChartType">
           </canvas>
         </div>
       </div>
 
-      <!-- Chart 4: Resumen Periodo -->
+      <!-- 2. Reporte por Docente: Carga académica (grupos y horas) -->
       <div class="chart-card mat-elevation-z4">
-        <div class="chart-container pie-container">
+        <div class="chart-header">
+          <h5 class="chart-title">
+            <i class="bi bi-person-workspace me-2"></i>
+            Carga Académica por Docente
+          </h5>
+          <p class="chart-subtitle">Grupos asignados y horas semanales</p>
+        </div>
+        <div class="chart-container">
           <canvas baseChart
-            [data]="pieChartData"
-            [options]="pieChartOptions"
-            [type]="pieChartType">
+            [data]="docenteChartData"
+            [options]="docenteChartOptions"
+            [type]="aulasChartType">
           </canvas>
         </div>
       </div>
-  
+
+      <!-- 3. Reporte por Grupo: Materias y horarios asignados -->
+      <div class="chart-card mat-elevation-z4">
+        <div class="chart-header">
+          <h5 class="chart-title">
+            <i class="bi bi-people me-2"></i>
+            Horarios por Grupo
+          </h5>
+          <p class="chart-subtitle">Horas semanales asignadas (Top 10 grupos)</p>
+        </div>
+        <div class="chart-container">
+          <canvas baseChart
+            [data]="grupoChartData"
+            [options]="grupoChartOptions"
+            [type]="aulasChartType">
+          </canvas>
+        </div>
+      </div>
+
+      <!-- 4. Reporte por Período: Ocupación general y distribución -->
+      <div class="chart-card mat-elevation-z4">
+        <div class="chart-header">
+          <h5 class="chart-title">
+            <i class="bi bi-calendar-range me-2"></i>
+            Distribución del Período
+          </h5>
+          <p class="chart-subtitle">Ocupación general y distribución de recursos</p>
+        </div>
+        <div class="chart-container pie-container">
+          <canvas baseChart
+            [data]="periodoChartData"
+            [options]="periodoChartOptions"
+            [type]="periodoChartType">
+          </canvas>
+        </div>
+      </div>
+
     </div>
-  
-    <div *ngIf="!periodo_seleccionado" class="no-data">
-      <p>Seleccione un periodo o cree uno nuevo para ver reportes.</p>
+
+    <!-- Escenario de vacío -->
+    <div *ngIf="!periodo_seleccionado && !isLoading" class="alert alert-info text-center mt-5">
+      <i class="bi bi-info-circle fs-3 d-block mb-2"></i>
+      <p class="mb-0">Seleccione un período académico para visualizar los reportes</p>
     </div>
+
   </div>
+</div>

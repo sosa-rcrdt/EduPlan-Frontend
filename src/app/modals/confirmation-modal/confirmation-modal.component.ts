@@ -14,7 +14,7 @@ export class ConfirmationModalComponent implements OnInit, AfterViewInit, OnDest
     @Input() message: string = '¿Estás seguro de realizar esta acción?';
     @Input() btnConfirmText: string = 'Confirmar';
     @Input() btnCancelText: string = 'Cancelar';
-    @Input() btnConfirmColor: string = 'btn-danger'; // btn-primary, btn-danger, etc.
+    @Input() btnConfirmColor: string = 'btn-danger';
 
     @Output() onConfirm = new EventEmitter<void>();
     @Output() onCancel = new EventEmitter<void>();

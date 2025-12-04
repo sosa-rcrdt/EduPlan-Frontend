@@ -19,21 +19,17 @@ export class EditProfileModalComponent implements OnInit, AfterViewInit, OnDestr
     }
 
     ngAfterViewInit(): void {
-        // Mover el modal al body para evitar problemas de z-index/backdrop
         document.body.appendChild(this.elementRef.nativeElement);
     }
 
     ngOnDestroy(): void {
-        // Limpiar el elemento del DOM al destruir el componente
         this.elementRef.nativeElement.remove();
-        // Asegurar que el backdrop también se elimine si el modal estaba abierto
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
     }
 
     public editData(): void {
         this.hide();
-        // Emit after modal is hidden
         setTimeout(() => {
             this.onEditData.emit();
         }, 300);
@@ -41,7 +37,6 @@ export class EditProfileModalComponent implements OnInit, AfterViewInit, OnDestr
 
     public changePassword(): void {
         this.hide();
-        // Emit after modal is hidden
         setTimeout(() => {
             this.onChangePassword.emit();
         }, 300);

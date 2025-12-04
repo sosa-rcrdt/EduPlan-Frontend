@@ -8,7 +8,7 @@
 
 .navbar {
   padding: 0.5rem 1rem !important;
-  background-color: var(--color-3) !important; /* Darkest blue */
+  background-color: var(--color-3) !important;
   backdrop-filter: blur(10px);
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
@@ -30,7 +30,7 @@
 .nav-link {
   font-family: 'Nexa', sans-serif;
   font-size: 1.1rem;
-  color: var(--color-5) !important; /* Light text */
+  color: var(--color-5) !important;
   font-weight: 600;
   padding: 1rem 0;
   text-align: center;

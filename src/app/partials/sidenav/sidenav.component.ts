@@ -10,9 +10,9 @@ type RolUsuario = 'alumno' | 'maestro' | 'administrador' | null;
 
 interface MenuItem {
   label: string;
-  icon: string;           // Material Icon name
-  route?: string;         // ruta a navegar
-  action?: 'logout' | 'notificaciones';      // acción especial
+  icon: string;
+  route?: string;
+  action?: 'logout' | 'notificaciones';
 }
 
 @Component({
@@ -42,7 +42,7 @@ export class SidenavComponent implements OnInit {
     this.buildMenuForRole();
   }
 
-  // Obtiene el rol desde AuthService o localStorage
+  // Obtiene el rol desde AuthService
   private getRolFromAuth(): RolUsuario {
     const anyAuth = this.authService as any;
 
@@ -102,7 +102,7 @@ export class SidenavComponent implements OnInit {
     if (this.rol === 'administrador') {
       items.push(
         {
-          label: 'Dashboard',
+          label: 'Horarios',
           icon: 'dashboard',
           route: '/home',
         },

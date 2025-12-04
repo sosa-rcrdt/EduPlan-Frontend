@@ -1,6 +1,3 @@
-/* Reutiliza los estilos base del formulario de administrador para maestros */
-
-/* Wrapper de cada campo */
 .input-group-custom {
   width: 100%;
   margin-bottom: 36px;
@@ -46,7 +43,7 @@
 
 /* Personalización del menú desplegable */
 .input-group select option {
-  color: rgba(0, 0, 0, 0.7);                  /* Texto blanco en todas las opciones */
+  color: rgba(0, 0, 0, 0.7);
 }
 
 
@@ -140,7 +137,7 @@
   margin-right: 8px;
   width: 16px;
   height: 16px;
-  accent-color: #0d6efd; /* color primario similar al admin para checkbox */
+  accent-color: #0d6efd;
 }
 
 .checkbox-group span {
@@ -159,7 +156,7 @@
 }
 
 .materias-section .invalid-feedback {
-  position: static;     /* restablece el posicionamiento para que no sea absoluto */
+  position: static;
   margin-left: 5px;
   margin-top: 4px;
 }

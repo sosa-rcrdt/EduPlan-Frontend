@@ -1,6 +1,3 @@
-/* Reutiliza los estilos base del formulario de administrador para alumnos */
-
-/* Wrapper de cada campo */
 .input-group-custom {
   width: 100%;
   margin-bottom: 36px;
@@ -32,7 +29,6 @@
   font-size: 15px;
 }
 
-/* Placeholder */
 .input-group input::placeholder {
   color: rgba(255, 255, 255, 0.8);
 }

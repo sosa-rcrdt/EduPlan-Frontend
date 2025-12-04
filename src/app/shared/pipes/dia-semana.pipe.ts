@@ -10,12 +10,6 @@ export class DiaSemanaPipe implements PipeTransform {
 
         const dia = Number(value);
 
-        // Asumiendo 1 = Lunes, 7 = Domingo (ajustar según backend)
-        // O 0 = Lunes? Revisemos convención. 
-        // En muchos sistemas 0=Domingo, 1=Lunes.
-        // En Python weekday() es 0=Lunes.
-        // Asumiremos 1=Lunes por ahora, si sale mal ajustamos.
-
         switch (dia) {
             case 0: return 'Lunes';
             case 1: return 'Martes';

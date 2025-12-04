@@ -12,9 +12,9 @@ import { ProfileService } from 'src/app/services/profile.service';
   styleUrls: ['./registro-maestros.component.scss'],
 })
 export class RegistroMaestrosComponent implements OnInit, OnChanges {
-  @Input() rol: string = '';        // 'maestro' desde el registro-screen
-  @Input() datos_user: any = {};    // datos precargados en edición
-  @Input() isSelfEdit: boolean = false; // modo auto-edición
+  @Input() rol: string = '';
+  @Input() datos_user: any = {};
+  @Input() isSelfEdit: boolean = false;
 
   // Para contraseñas
   public hide_1: boolean = false;
@@ -61,7 +61,7 @@ export class RegistroMaestrosComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
-    // Si hay ID en la URL -> edición
+    // Si hay ID en la URL entonces es edición
     if (this.activatedRoute.snapshot.params['id'] !== undefined) {
       this.editar = true;
       this.idUser = Number(this.activatedRoute.snapshot.params['id']);
@@ -70,7 +70,6 @@ export class RegistroMaestrosComponent implements OnInit, OnChanges {
       // Datos llegan desde el registro-screen
       this.maestro = { ...this.datos_user };
 
-      // Normalizar fecha_nacimiento si viene con "T"
       if (this.maestro.fecha_nacimiento) {
         const parts = (this.maestro.fecha_nacimiento as string).split('T');
         this.maestro.fecha_nacimiento = parts[0];
@@ -85,7 +84,6 @@ export class RegistroMaestrosComponent implements OnInit, OnChanges {
     } else if (this.isSelfEdit) {
       this.editar = true;
       this.maestro = { ...this.datos_user };
-      // Normalizar fecha_nacimiento si viene con "T"
       if (this.maestro.fecha_nacimiento) {
         const parts = (this.maestro.fecha_nacimiento as string).split('T');
         this.maestro.fecha_nacimiento = parts[0];
@@ -121,11 +119,9 @@ export class RegistroMaestrosComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // Reactively update maestro when datos_user changes from parent
     if (changes['datos_user'] && changes['datos_user'].currentValue) {
       this.maestro = { ...changes['datos_user'].currentValue };
 
-      // Normalizar fecha_nacimiento si viene con "T"
       if (this.maestro.fecha_nacimiento) {
         const parts = (this.maestro.fecha_nacimiento as string).split('T');
         this.maestro.fecha_nacimiento = parts[0];

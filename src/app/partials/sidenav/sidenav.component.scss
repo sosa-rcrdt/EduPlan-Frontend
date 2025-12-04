@@ -21,7 +21,7 @@
   background: linear-gradient(to bottom, #ffffff 0%, #fcfcfc 100%);
   border-bottom: 1px solid rgba(0,0,0,0.05);
   margin-bottom: 1rem;
-  position: relative; // Crucial for absolute button
+  position: relative;
 
   .user-avatar {
     mat-icon {
@@ -100,14 +100,12 @@ mat-nav-list {
     position: relative;
     overflow: hidden;
 
-    // Icon styling
     mat-icon {
       color: #999;
       margin-right: 12px;
       transition: all 0.2s;
     }
 
-    // Hover State
     &:hover {
       background-color: rgba(59, 101, 122, 0.05);
       color: var(--color-3);
@@ -117,7 +115,6 @@ mat-nav-list {
       }
     }
 
-    // Active State
     &.active-link, &:active {
       background-color: rgba(59, 101, 122, 0.1);
       color: var(--color-3);
@@ -127,7 +124,6 @@ mat-nav-list {
         color: var(--color-4);
       }
 
-      // Active Indicator
       &::before {
         content: '';
         position: absolute;
