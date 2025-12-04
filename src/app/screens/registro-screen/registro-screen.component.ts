@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { AdministradoresService } from 'src/app/services/administradores.service';
 import { AlumnosService } from 'src/app/services/alumnos.service';
@@ -47,8 +48,9 @@ export class RegistroScreenComponent implements OnInit {
     private maestrosService: MaestrosService,
     private alumnosService: AlumnosService,
     private profileService: ProfileService,
-    private authService: AuthService
-  ) { }
+    private authService: AuthService,
+    private location: Location
+) { }
 
   ngOnInit(): void {
     // Check for query params to determine mode
@@ -215,6 +217,11 @@ export class RegistroScreenComponent implements OnInit {
       this.tipo_user = 'maestro';
     }
   }
+
+  public volver(): void {
+    this.location.back();
+  }
+
 
   public submitPasswordChange(): void {
     this.errors = {};
