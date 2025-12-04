@@ -19,6 +19,8 @@ import { InscripcionesScreenComponent } from './screens/admin-screen/inscripcion
 import { RegistroInscripcionScreenComponent } from './screens/admin-screen/inscripciones-screen/registro-inscripcion-screen/registro-inscripcion-screen.component';
 import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component';
 import { ReportesScreenComponent } from './screens/admin-screen/reportes-screen/reportes-screen.component';
+import { AlumnosScreenComponent } from './screens/alumnos-screen/alumnos-screen.component';
+import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-screen.component';
 
 const routes: Routes = [
   // Rutas públicas (sin sidenav)
@@ -32,7 +34,9 @@ const routes: Routes = [
     path: 'home',
     component: HomeScreenComponent,
     children: [
-      { path: '', component: AdminScreenComponent }, // Dashboard principal (muestra según rol)
+      { path: '', component: AdminScreenComponent }, // Dashboard principal (redirige según rol)
+      { path: 'alumnos', component: AlumnosScreenComponent },
+      { path: 'maestros', component: MaestrosScreenComponent },
       { path: 'solicitudes', component: SolicitudesScreenComponent },
 
       // Rutas de Admin (aplanadas)
