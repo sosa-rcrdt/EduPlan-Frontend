@@ -41,8 +41,14 @@
   outline: none;
   color: white;
   font-size: 15px;
-  appearance: none;
+  appearance: none; 
 }
+
+/* Personalización del menú desplegable */
+.input-group select option {
+  color: rgba(0, 0, 0, 0.7);                  /* Texto blanco en todas las opciones */
+}
+
 
 /* Color de placeholder */
 .input-group input::placeholder,
@@ -150,4 +156,10 @@
 .btn.btn-danger {
   background-color: #3b657a  !important;
   border: none;
+}
+
+.materias-section .invalid-feedback {
+  position: static;     /* restablece el posicionamiento para que no sea absoluto */
+  margin-left: 5px;
+  margin-top: 4px;
 }
