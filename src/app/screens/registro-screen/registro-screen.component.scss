@@ -14,7 +14,7 @@
 
 /* FONDO + OVERLAY */
 .background {
-  position: absolute;
+  position: fixed;
   inset: 0;
   background-image: url('/assets/images/fondo-login-escuela.jpg');
   background-size: cover;
