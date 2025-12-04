@@ -41,6 +41,18 @@ export class RegistroScreenComponent implements OnInit {
   public newPassword: string = '';
   public confirmPassword: string = '';
 
+  /**
+   * Variables used to control the visibility of each password field in the
+   * change password form. These follow the same pattern used in the
+   * registration forms: a type string set to 'password' or 'text' that
+   * determines whether the characters are masked. Clicking on the eye
+   * icon toggles the value between the two. See toggleCurrent(),
+   * toggleNew() and toggleConfirm() below.
+   */
+  public typeCurrent: string = 'password';
+  public typeNew: string = 'password';
+  public typeConfirm: string = 'password';
+
   constructor(
     public activatedRoute: ActivatedRoute,
     private router: Router,
@@ -216,6 +228,29 @@ export class RegistroScreenComponent implements OnInit {
       this.isMaestro = true;
       this.tipo_user = 'maestro';
     }
+  }
+
+  /**
+   * Toggle the visibility of the current password field. When the field
+   * type is 'password', clicking the eye icon will switch it to 'text'
+   * revealing the characters. Clicking again will switch it back.
+   */
+  public toggleCurrent(): void {
+    this.typeCurrent = this.typeCurrent === 'password' ? 'text' : 'password';
+  }
+
+  /**
+   * Toggle the visibility of the new password field.
+   */
+  public toggleNew(): void {
+    this.typeNew = this.typeNew === 'password' ? 'text' : 'password';
+  }
+
+  /**
+   * Toggle the visibility of the confirm password field.
+   */
+  public toggleConfirm(): void {
+    this.typeConfirm = this.typeConfirm === 'password' ? 'text' : 'password';
   }
 
   public volver(): void {
