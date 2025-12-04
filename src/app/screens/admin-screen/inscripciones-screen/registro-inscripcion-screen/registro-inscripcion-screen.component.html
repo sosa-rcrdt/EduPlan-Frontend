@@ -1,0 +1,88 @@
+<div class="wrapper">
+    <div class="section-registro">
+      <div class="body-registro">
+        <div class="row mt-3 mb-3">
+          <div class="form-group col-12 text-center">
+            <h2 class="form-title">
+              {{ editar ? 'Editar Inscripción' : 'Nueva Inscripción' }}
+            </h2>
+          </div>
+        </div>
+  
+        <form [formGroup]="form">
+          
+          <!-- Periodo -->
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Periodo Académico</mat-label>
+            <mat-select formControlName="periodo_id">
+              <mat-option *ngFor="let periodo of lista_periodos" [value]="periodo.id">
+                {{ periodo.nombre }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('periodo_id')?.hasError('required')">
+              El periodo es requerido
+            </mat-error>
+          </mat-form-field>
+  
+          <!-- Alumno (Autocomplete) -->
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Alumno</mat-label>
+            <input type="text"
+                   matInput
+                   [formControl]="alumnoControl"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayAlumno" (optionSelected)="onAlumnoSelected($event)">
+              <mat-option *ngFor="let alumno of filteredAlumnos | async" [value]="alumno">
+                {{ alumno.user.first_name }} {{ alumno.user.last_name }} ({{ alumno.matricula }})
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="form.get('alumno_id')?.hasError('required')">
+              El alumno es requerido
+            </mat-error>
+          </mat-form-field>
+  
+          <!-- Materia (Filtro para Grupo) -->
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Materia</mat-label>
+            <mat-select formControlName="materia_id" (selectionChange)="onMateriaChange($event.value)">
+              <mat-option *ngFor="let materia of lista_materias" [value]="materia.id">
+                {{ materia.nombre }} ({{ materia.codigo }})
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('materia_id')?.hasError('required')">
+              La materia es requerida para seleccionar grupo
+            </mat-error>
+          </mat-form-field>
+  
+          <!-- Grupo -->
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Grupo</mat-label>
+            <mat-select formControlName="grupo_id">
+              <mat-option *ngFor="let grupo of lista_grupos" [value]="grupo.id">
+                {{ grupo.nombre }} (Cupo: {{ grupo.cupo_maximo }})
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('grupo_id')?.hasError('required')">
+              El grupo es requerido
+            </mat-error>
+          </mat-form-field>
+  
+          <!-- Estado (Solo edición) -->
+          <mat-form-field appearance="outline" class="w-100 mb-3" *ngIf="editar">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="estado">
+              <mat-option value="ACTIVA">ACTIVA</mat-option>
+              <mat-option value="BAJA">BAJA</mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <div class="section-buttons">
+            <button class="btn btn-danger" (click)="regresar()">Cancelar</button>
+            <button *ngIf="!editar" class="btn btn-primary" (click)="registrar()" [disabled]="form.invalid">Registrar</button>
+            <button *ngIf="editar" class="btn btn-primary" (click)="actualizar()" [disabled]="form.invalid">Actualizar</button>
+          </div>
+  
+        </form>
+      </div>
+    </div>
+  </div>

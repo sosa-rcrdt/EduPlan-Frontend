@@ -1,0 +1,56 @@
+.container-fluid {
+    padding: 20px;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+  }
+  
+  .content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  
+    .title {
+      font-size: 24px;
+      font-weight: 500;
+      color: #333;
+      margin: 0;
+    }
+  }
+  
+  .table-container {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+  
+    table {
+      width: 100%;
+    }
+  
+    th.mat-header-cell {
+      background-color: #f8f9fa;
+      color: #555;
+      font-weight: 600;
+      font-size: 14px;
+    }
+  
+    td.mat-cell {
+      color: #333;
+      font-size: 14px;
+    }
+  }
+  
+  .status-active {
+      color: green;
+      font-weight: bold;
+  }
+  
+  .status-baja {
+      color: red;
+      font-weight: bold;
+  }

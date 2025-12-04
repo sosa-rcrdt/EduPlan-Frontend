@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Este import es para los servicios HTTP
 import { HttpClientModule } from '@angular/common/http';
@@ -22,6 +22,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 // Para usar el mask
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
@@ -59,6 +60,8 @@ import { AulasScreenComponent } from './screens/admin-screen/aulas-screen/aulas-
 import { RegistroAulaScreenComponent } from './screens/admin-screen/aulas-screen/registro-aula-screen/registro-aula-screen.component';
 import { RegistroHorarioScreenComponent } from './screens/admin-screen/registro-horario-screen/registro-horario-screen.component';
 import { EditProfileModalComponent } from './modals/edit-profile-modal/edit-profile-modal.component';
+import { InscripcionesScreenComponent } from './screens/admin-screen/inscripciones-screen/inscripciones-screen.component';
+import { RegistroInscripcionScreenComponent } from './screens/admin-screen/inscripciones-screen/registro-inscripcion-screen/registro-inscripcion-screen.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,7 +89,9 @@ import { EditProfileModalComponent } from './modals/edit-profile-modal/edit-prof
     AulasScreenComponent,
     RegistroAulaScreenComponent,
     RegistroHorarioScreenComponent,
-    EditProfileModalComponent
+    EditProfileModalComponent,
+    InscripcionesScreenComponent,
+    RegistroInscripcionScreenComponent
   ],
   imports: [
     BrowserModule,
@@ -96,6 +101,7 @@ import { EditProfileModalComponent } from './modals/edit-profile-modal/edit-prof
     MatDividerModule,
     MatButtonModule,
     FormsModule,
+    ReactiveFormsModule,
     MatRadioModule,
     MatInputModule,
     HttpClientModule,
@@ -111,7 +117,8 @@ import { EditProfileModalComponent } from './modals/edit-profile-modal/edit-prof
     NgChartsModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
+    MatAutocompleteModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },

@@ -15,6 +15,8 @@ import { RegistroGrupoScreenComponent } from './screens/admin-screen/grupos-scre
 import { AulasScreenComponent } from './screens/admin-screen/aulas-screen/aulas-screen.component';
 import { RegistroAulaScreenComponent } from './screens/admin-screen/aulas-screen/registro-aula-screen/registro-aula-screen.component';
 import { RegistroHorarioScreenComponent } from './screens/admin-screen/registro-horario-screen/registro-horario-screen.component';
+import { InscripcionesScreenComponent } from './screens/admin-screen/inscripciones-screen/inscripciones-screen.component';
+import { RegistroInscripcionScreenComponent } from './screens/admin-screen/inscripciones-screen/registro-inscripcion-screen/registro-inscripcion-screen.component';
 import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component';
 
 const routes: Routes = [
@@ -51,6 +53,11 @@ const routes: Routes = [
 
       { path: 'horarios/registro', component: RegistroHorarioScreenComponent },
       { path: 'horarios/registro/:id', component: RegistroHorarioScreenComponent },
+
+      { path: 'inscripciones', component: InscripcionesScreenComponent },
+      { path: 'inscripciones/registro', component: RegistroInscripcionScreenComponent },
+      { path: 'inscripciones/registro/:id', component: RegistroInscripcionScreenComponent },
+
       { path: 'reportes', component: AdminScreenComponent },
     ]
   }
