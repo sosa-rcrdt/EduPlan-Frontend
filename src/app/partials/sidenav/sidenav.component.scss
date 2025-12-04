@@ -157,3 +157,24 @@ mat-nav-list {
     }
   }
 }
+
+/* Forzar que el texto NO se corte */
+mat-nav-list a[mat-list-item] span[matListItemTitle] {
+  white-space: normal !important; /* permite que el texto baje de línea */
+  overflow: visible !important;
+  text-overflow: unset !important;
+  line-height: 1.3;
+}
+
+/* Ajustar íconos para que no ocupen demasiado */
+mat-icon[matListItemIcon] {
+  min-width: 32px;
+  margin-right: 12px;
+  color: var(--color-3);
+}
+
+/* Opcional: más espacio entre items */
+mat-list-item {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
