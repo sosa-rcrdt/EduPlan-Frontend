@@ -40,7 +40,6 @@
 
 .content-wrapper {
   padding: 20px;
-  height: calc(100vh - 64px); /* Restar altura del toolbar */
-  overflow-y: auto;
+  flex: 1;
   background-color: #fafafa;
 }

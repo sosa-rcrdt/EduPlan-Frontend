@@ -23,6 +23,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 // Para usar el mask
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
@@ -120,7 +121,8 @@ import { ReportesScreenComponent } from './screens/admin-screen/reportes-screen/
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSnackBarModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },

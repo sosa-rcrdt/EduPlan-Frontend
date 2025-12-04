@@ -34,9 +34,7 @@ const routes: Routes = [
     path: 'home',
     component: HomeScreenComponent,
     children: [
-      { path: '', component: AdminScreenComponent }, // Dashboard principal (redirige según rol)
-      { path: 'alumnos', component: AlumnosScreenComponent },
-      { path: 'maestros', component: MaestrosScreenComponent },
+      // No default route - home component shows dashboard based on role
       { path: 'solicitudes', component: SolicitudesScreenComponent },
 
       // Rutas de Admin (aplanadas)

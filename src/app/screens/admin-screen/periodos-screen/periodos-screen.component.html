@@ -46,7 +46,6 @@
               <td>{{ periodo.id }}</td>
               <td class="fw-bold">
                 {{ periodo.nombre }}
-                <span *ngIf="periodo.estado === 'ACTIVO'" class="badge bg-success ms-2">ACTIVO</span>
               </td>
               <td>{{ periodo.fecha_inicio | date:'dd/MM/yyyy' }}</td>
               <td>{{ periodo.fecha_fin | date:'dd/MM/yyyy' }}</td>

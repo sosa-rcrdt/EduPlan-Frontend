@@ -166,3 +166,39 @@ body {
 .modal {
     z-index: 1060 !important;
 }
+
+/* Snackbar Styles - Alert Notifications */
+.snackbar-success {
+  color: white !important;
+  
+  .mat-mdc-button {
+    color: white !important;
+  }
+}
+
+.snackbar-error {
+  background-color: #f44336 !important;
+  color: white !important;
+  
+  .mat-mdc-button {
+    color: white !important;
+  }
+}
+
+.snackbar-warning {
+  background-color: #ff9800 !important;
+  color: white !important;
+  
+  .mat-mdc-button {
+    color: white !important;
+  }
+}
+
+.snackbar-info {
+  background-color: #2196f3 !important;
+  color: white !important;
+  
+  .mat-mdc-button {
+    color: white !important;
+  }
+}

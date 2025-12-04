@@ -13,6 +13,12 @@
     </mat-toolbar>
 
     <div class="content-wrapper">
+      <!-- Mostrar dashboard según el rol del usuario (solo en ruta base /home) -->
+      <app-admin-screen *ngIf="showDashboard && rol === 'administrador'"></app-admin-screen>
+      <app-alumnos-screen *ngIf="showDashboard && rol === 'alumno'"></app-alumnos-screen>
+      <app-maestros-screen *ngIf="showDashboard && rol === 'maestro'"></app-maestros-screen>
+      
+      <!-- Router outlet para subrutas (periodos, materias, grupos, etc.) -->
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

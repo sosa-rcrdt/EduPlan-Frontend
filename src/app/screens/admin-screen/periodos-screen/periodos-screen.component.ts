@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { PeriodosService } from 'src/app/services/periodos.service';
 import { PeriodoAcademico } from 'src/app/models/periodos.models';
 import { ConfirmationModalComponent } from 'src/app/modals/confirmation-modal/confirmation-modal.component';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
     selector: 'app-periodos-screen',
@@ -19,7 +20,8 @@ export class PeriodosScreenComponent implements OnInit {
 
     constructor(
         private periodosService: PeriodosService,
-        private router: Router
+        private router: Router,
+        private alertService: AlertService
     ) { }
 
     ngOnInit(): void {
@@ -58,14 +60,14 @@ export class PeriodosScreenComponent implements OnInit {
             this.periodosService.eliminarPeriodo(this.idPeriodoEliminar).subscribe(
                 (response) => {
                     this.deleteModal.hide();
-                    alert("Periodo eliminado correctamente");
+                    this.alertService.success("Periodo eliminado correctamente");
                     this.obtenerPeriodos();
                     this.idPeriodoEliminar = null;
                 },
                 (error) => {
                     console.error("Error al eliminar periodo", error);
                     this.deleteModal.hide();
-                    alert("No se pudo eliminar el periodo. Intenta nuevamente.");
+                    this.alertService.error("No se pudo eliminar el periodo. Intenta nuevamente");
                 }
             );
         }

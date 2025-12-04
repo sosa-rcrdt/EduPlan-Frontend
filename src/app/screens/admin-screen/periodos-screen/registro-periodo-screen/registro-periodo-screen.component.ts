@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PeriodosService } from 'src/app/services/periodos.service';
 import { PeriodoAcademico, PeriodoCreateRequest, PeriodoUpdateRequest } from 'src/app/models/periodos.models';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
     selector: 'app-registro-periodo-screen',
@@ -28,7 +29,8 @@ export class RegistroPeriodoScreenComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private periodosService: PeriodosService
+        private periodosService: PeriodosService,
+        private alertService: AlertService
     ) { }
 
     ngOnInit(): void {
@@ -95,7 +97,7 @@ export class RegistroPeriodoScreenComponent implements OnInit {
         this.periodosService.crearPeriodo(payload).subscribe(
             (response) => {
                 this.isSubmitting = false;
-                alert("Periodo creado correctamente.");
+                this.alertService.success("Periodo creado correctamente");
                 this.router.navigate(['/home/periodos']);
             },
             (error) => {
@@ -124,7 +126,7 @@ export class RegistroPeriodoScreenComponent implements OnInit {
         this.periodosService.actualizarPeriodo(payload).subscribe(
             (response) => {
                 this.isSubmitting = false;
-                alert("Periodo actualizado correctamente.");
+                this.alertService.success("Periodo actualizado correctamente");
                 this.router.navigate(['/home/periodos']);
             },
             (error) => {

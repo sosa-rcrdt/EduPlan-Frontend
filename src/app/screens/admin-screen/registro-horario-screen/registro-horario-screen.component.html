@@ -39,12 +39,28 @@
 
               <div class="col-12 col-md-6 mb-3">
                 <label for="grupo" class="form-label">Grupo <span class="text-danger">*</span></label>
-                <select class="form-select" id="grupo" name="grupo" [(ngModel)]="horario.grupo" required>
+                <select class="form-select" id="grupo" name="grupo" [(ngModel)]="horario.grupo" (ngModelChange)="onGrupoChange()" required>
                   <option [ngValue]="null" disabled>Selecciona un grupo</option>
-                  <option *ngFor="let grupo of grupos" [value]="grupo.id">
+                  <option *ngFor="let grupo of grupos" [ngValue]="grupo.id">
                     {{ grupo.nombre }} - Semestre {{ grupo.semestre }}
                   </option>
                 </select>
+              </div>
+            </div>
+
+            <!-- Materia (aparece después de seleccionar grupo) -->
+            <div class="row" *ngIf="horario.grupo">
+              <div class="col-12 mb-3">
+                <label for="materia" class="form-label">Materia <span class="text-danger">*</span></label>
+                <select class="form-select" id="materia" name="materia" [(ngModel)]="horario.materia" required>
+                  <option [ngValue]="null" disabled>Selecciona una materia</option>
+                  <option *ngFor="let materia of materiasFiltered" [ngValue]="materia.id">
+                    {{ materia.nombre }}
+                  </option>
+                </select>
+                <small class="form-text text-muted" *ngIf="materiasFiltered.length === 0 && horario.grupo">
+                  No hay materias disponibles para este grupo
+                </small>
               </div>
             </div>
 
@@ -54,7 +70,7 @@
                 <label for="aula" class="form-label">Aula <span class="text-danger">*</span></label>
                 <select class="form-select" id="aula" name="aula" [(ngModel)]="horario.aula" required>
                   <option [ngValue]="null" disabled>Selecciona un aula</option>
-                  <option *ngFor="let aula of aulas" [value]="aula.id">
+                  <option *ngFor="let aula of aulas" [ngValue]="aula.id">
                     {{ aula.edificio }}-{{ aula.numero }} (Cap: {{ aula.capacidad }})
                   </option>
                 </select>
@@ -64,7 +80,7 @@
                 <label for="dia_semana" class="form-label">Día de la Semana <span class="text-danger">*</span></label>
                 <select class="form-select" id="dia_semana" name="dia_semana" [(ngModel)]="horario.dia_semana" required>
                   <option [ngValue]="null" disabled>Selecciona un día</option>
-                  <option *ngFor="let dia of diasSemana" [value]="dia.value">
+                  <option *ngFor="let dia of diasSemana" [ngValue]="dia.value">
                     {{ dia.label }}
                   </option>
                 </select>
@@ -92,7 +108,7 @@
                 <label for="docente" class="form-label">Docente <span class="text-danger">*</span></label>
                 <select class="form-select" id="docente" name="docente" [(ngModel)]="horario.docente" required>
                   <option [ngValue]="null" disabled>Selecciona un docente</option>
-                  <option *ngFor="let maestro of maestros" [value]="maestro.id">
+                  <option *ngFor="let maestro of maestros" [ngValue]="maestro.id">
                     {{ maestro.user.first_name }} {{ maestro.user.last_name }}
                   </option>
                 </select>
