@@ -1,0 +1,32 @@
+<div class="modal fade" [id]="modalId" tabindex="-1" [attr.aria-labelledby]="modalId + 'Label'" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- HEADER conservando colores dinámicos -->
+      <div class="modal-header custom-header">
+        <h5 class="modal-title" [id]="modalId + 'Label'">{{ title }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+
+      <!-- BODY con estilo limpio -->
+      <div class="modal-body">
+        {{ message }}
+      </div>
+
+      <!-- FOOTER con botones estilizados -->
+      <div class="modal-footer footer-row">
+        <button type="button" class="btn btn-secondary" (click)="cancel()">
+          {{ btnCancelText }}
+        </button>
+
+        <button type="button"
+                class="btn btn-primary"
+                (click)="confirm()">
+          {{ btnConfirmText }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

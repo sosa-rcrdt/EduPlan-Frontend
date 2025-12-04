@@ -3,8 +3,8 @@
     <div class="body-admin-horarios">
 
       <!-- Encabezado -->
-      <div class="row mb-3">
-        <div class="col-12">
+      <div class="row mb-3 align-items-center">
+        <div class="col-12 col-md-6">
           <h2 class="mb-1">Horarios del sistema</h2>
 
           <p class="text-muted" *ngIf="name_user">
@@ -20,6 +20,12 @@
             &nbsp;|&nbsp;
             Grupos con horario: <strong>{{ gruposHorarios.length }}</strong>
           </p>
+        </div>
+        
+        <div class="col-12 col-md-6 text-md-end mt-3 mt-md-0">
+          <button class="btn btn-primary" (click)="irARegistroHorario()">
+            <i class="bi bi-plus-lg me-1"></i> Nuevo Horario
+          </button>
         </div>
       </div>
 
@@ -82,6 +88,7 @@
                       <th>Hora inicio</th>
                       <th>Hora fin</th>
                       <th>Aula</th>
+                      <th class="text-end">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -90,6 +97,14 @@
                       <td>{{ fila.hora_inicio }}</td>
                       <td>{{ fila.hora_fin }}</td>
                       <td>{{ fila.aulaTexto }}</td>
+                      <td class="text-end">
+                        <button class="btn btn-sm btn-outline-primary me-2" (click)="editarHorario(fila.id)" title="Editar">
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" (click)="confirmarEliminacion(fila.id)" title="Eliminar">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -103,3 +118,15 @@
     </div>
   </div>
 </div>
+
+<!-- Modal de Confirmación de Eliminación -->
+<app-confirmation-modal
+  #deleteModal
+  [modalId]="'modalEliminarHorario'"
+  [title]="'Eliminar Horario'"
+  [message]="'¿Estás seguro de que deseas eliminar este horario? Esta acción no se puede deshacer.'"
+  [btnConfirmText]="'Eliminar'"
+  [btnCancelText]="'Cancelar'"
+  [btnConfirmColor]="'btn-danger'"
+  (onConfirm)="eliminarHorario()"
+></app-confirmation-modal>

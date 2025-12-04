@@ -31,7 +31,7 @@ interface GrupoCargaAlumno {
 })
 export class AlumnosScreenComponent implements OnInit {
 
-  // Perfil del usuario logueado (según lo que guardas en AuthService)
+  // Perfil del usuario logueado
   public profile: UserProfile = null;
 
   // Periodo actual (nombre)
@@ -64,18 +64,15 @@ export class AlumnosScreenComponent implements OnInit {
     private authService: AuthService,
     private inscripcionesService: InscripcionesService,
     private aulasService: AulasService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    // Perfil guardado en localStorage por AuthService
     this.profile = this.authService.getCurrentProfile();
-
-    // Cargar catálogos base (aulas) y la carga académica del alumno
-    this.obtenerAulas();
-    this.obtenerCargaAcademica();
+    this.cargarAulas();
+    this.cargarCargaAcademica();
   }
 
-  // Nombre legible del alumno para el encabezado
+  // Nombre legible del alumno
   get nombreAlumno(): string {
     if (!this.profile) {
       return '';
@@ -83,12 +80,10 @@ export class AlumnosScreenComponent implements OnInit {
 
     const p: any = this.profile as any;
 
-    // Caso Alumno: viene un "user" anidado
     if (p.user && p.user.first_name !== undefined) {
       return `${p.user.first_name} ${p.user.last_name}`.trim();
     }
 
-    // Caso User simple
     if ((this.profile as User).first_name !== undefined) {
       const u = this.profile as User;
       return `${u.first_name} ${u.last_name}`.trim();
@@ -97,111 +92,98 @@ export class AlumnosScreenComponent implements OnInit {
     return '';
   }
 
-  // ==========================
-  //   Cargar catálogos (aulas)
-  // ==========================
-  private obtenerAulas(): void {
+  private cargarAulas(): void {
     this.aulasService.getAulas().subscribe(
       (aulas) => {
         const map: { [id: number]: Aula } = {};
-        aulas.forEach((aula) => {
-          map[aula.id] = aula;
-        });
+        aulas.forEach((a) => (map[a.id] = a));
         this.aulasPorId = map;
-
-        // Si ya teníamos carga académica, reconstruir grupos
-        if (this.cargaAcademica.length > 0) {
-          this.buildGruposCarga();
-        }
-
-        console.log('Aulas cargadas (alumno): ', this.aulasPorId);
       },
       (error) => {
         console.error('Error al cargar aulas', error);
-        // No es crítico; se mostrará "Aula #id" en último caso
       }
     );
   }
 
-  // ==========================================
-  //   Cargar carga académica del alumno
-  // ==========================================
-  private obtenerCargaAcademica(): void {
+  private cargarCargaAcademica(): void {
     this.isLoading = true;
     this.errorMessage = '';
     this.cargaAcademica = [];
     this.gruposCarga = [];
-    this.periodoNombre = '';
 
     this.inscripcionesService.getCargaAcademicaAlumno().subscribe(
-      (items) => {
-        this.cargaAcademica = items || [];
+      (carga) => {
+        this.cargaAcademica = carga || [];
 
-        // Tomar el nombre del periodo desde el primer item (si existe)
+        // Extraer nombre del periodo (si viene en el primer item)
         if (this.cargaAcademica.length > 0) {
-          this.periodoNombre = this.cargaAcademica[0].periodo.nombre;
+          const primerItem = this.cargaAcademica[0];
+          this.periodoNombre = primerItem.periodo?.nombre || '';
         }
 
+        // Construir grupos para la vista
         this.buildGruposCarga();
-        this.isLoading = false;
 
-        console.log('Carga académica del alumno: ', this.cargaAcademica);
+        this.isLoading = false;
       },
       (error) => {
-        console.error('Error al cargar carga académica del alumno', error);
-
-        if (error?.error?.details) {
-          this.errorMessage = error.error.details;
-        } else {
-          this.errorMessage =
-            'Ocurrió un error al cargar tu carga académica. Intenta nuevamente más tarde.';
-        }
-
+        console.error('Error al cargar carga académica', error);
+        this.errorMessage =
+          'No se pudo cargar tu carga académica. Intenta nuevamente más tarde.';
         this.isLoading = false;
       }
     );
   }
 
-  // =========================================================
-  //   Construye grupos (materia + grupo) con sus horarios
-  // =========================================================
   private buildGruposCarga(): void {
     const grupos: GrupoCargaAlumno[] = [];
 
     this.cargaAcademica.forEach((item) => {
-      const materia = item.materia;
-      const grupo = item.grupo;
-
-      const filas: FilaHorarioAlumno[] = [];
-
-      item.horarios.forEach((h) => {
-        const aula = this.aulasPorId[h.aula];
-
-        const aulaTexto = aula
-          ? `${aula.edificio} ${aula.numero}`
-          : `Aula #${h.aula}`;
-
-        const dia =
-          this.diasSemanaLabels[h.dia_semana] ?? String(h.dia_semana);
-
-        filas.push({
-          dia,
-          hora_inicio: h.hora_inicio,
-          hora_fin: h.hora_fin,
-          aulaTexto,
-        });
-      });
-
-      grupos.push({
+      const grupo: GrupoCargaAlumno = {
         inscripcionId: item.inscripcion.id,
-        materiaNombre: materia.nombre,
-        materiaCodigo: materia.codigo,
-        grupoNombre: grupo.nombre,
-        grupoSemestre: grupo.semestre,
-        filas,
-      });
+        materiaNombre: item.materia?.nombre || '',
+        materiaCodigo: item.materia?.codigo || '',
+        grupoNombre: item.grupo?.nombre || '',
+        grupoSemestre: item.grupo?.semestre || 0,
+        filas: [],
+      };
+
+      // Construir filas de horario
+      if (item.horarios && item.horarios.length > 0) {
+        item.horarios.forEach((horario) => {
+          const diaLabel = this.getDiaLabel(horario.dia_semana);
+          const aulaTexto = this.getAulaTexto(horario.aula);
+
+          grupo.filas.push({
+            dia: diaLabel,
+            hora_inicio: horario.hora_inicio ? horario.hora_inicio.substring(0, 5) : '',
+            hora_fin: horario.hora_fin ? horario.hora_fin.substring(0, 5) : '',
+            aulaTexto,
+          });
+        });
+      }
+
+      grupos.push(grupo);
     });
 
     this.gruposCarga = grupos;
+  }
+
+  private getDiaLabel(diaIndex: number | null): string {
+    if (diaIndex === null || diaIndex === undefined) {
+      return '—';
+    }
+    return this.diasSemanaLabels[diaIndex] ?? String(diaIndex);
+  }
+
+  private getAulaTexto(aulaId: number | null): string {
+    if (!aulaId) {
+      return '—';
+    }
+    const aula = this.aulasPorId[aulaId];
+    if (!aula) {
+      return `Aula #${aulaId}`;
+    }
+    return `${aula.edificio} - ${aula.numero}`;
   }
 }

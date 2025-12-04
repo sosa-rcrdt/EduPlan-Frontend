@@ -1,18 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { MaestrosService } from 'src/app/services/maestros.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-registro-maestros',
   templateUrl: './registro-maestros.component.html',
   styleUrls: ['./registro-maestros.component.scss'],
 })
-export class RegistroMaestrosComponent implements OnInit {
-  @Input() rol: string = '';        // 'maestro' desde registro-screen
+export class RegistroMaestrosComponent implements OnInit, OnChanges {
+  @Input() rol: string = '';        // 'maestro' desde el registro-screen
   @Input() datos_user: any = {};    // datos precargados en edición
+  @Input() isSelfEdit: boolean = false; // modo auto-edición
 
   // Para contraseñas
   public hide_1: boolean = false;
@@ -54,8 +56,9 @@ export class RegistroMaestrosComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private location: Location,
-    public activatedRoute: ActivatedRoute
-  ) {}
+    public activatedRoute: ActivatedRoute,
+    private profileService: ProfileService
+  ) { }
 
   ngOnInit(): void {
     // Si hay ID en la URL -> edición
@@ -67,6 +70,21 @@ export class RegistroMaestrosComponent implements OnInit {
       // Datos llegan desde el registro-screen
       this.maestro = { ...this.datos_user };
 
+      // Normalizar fecha_nacimiento si viene con "T"
+      if (this.maestro.fecha_nacimiento) {
+        const parts = (this.maestro.fecha_nacimiento as string).split('T');
+        this.maestro.fecha_nacimiento = parts[0];
+      }
+
+      // Asegurar que materias_json sea array
+      if (!Array.isArray(this.maestro.materias_json)) {
+        this.maestro.materias_json = this.maestro.materias_json
+          ? [...this.maestro.materias_json]
+          : [];
+      }
+    } else if (this.isSelfEdit) {
+      this.editar = true;
+      this.maestro = { ...this.datos_user };
       // Normalizar fecha_nacimiento si viene con "T"
       if (this.maestro.fecha_nacimiento) {
         const parts = (this.maestro.fecha_nacimiento as string).split('T');
@@ -100,6 +118,28 @@ export class RegistroMaestrosComponent implements OnInit {
 
     this.token = this.authService.getAccessToken() || '';
     console.log('Maestro (form): ', this.maestro);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Reactively update maestro when datos_user changes from parent
+    if (changes['datos_user'] && changes['datos_user'].currentValue) {
+      this.maestro = { ...changes['datos_user'].currentValue };
+
+      // Normalizar fecha_nacimiento si viene con "T"
+      if (this.maestro.fecha_nacimiento) {
+        const parts = (this.maestro.fecha_nacimiento as string).split('T');
+        this.maestro.fecha_nacimiento = parts[0];
+      }
+
+      // Asegurar que materias_json sea array
+      if (!Array.isArray(this.maestro.materias_json)) {
+        this.maestro.materias_json = this.maestro.materias_json
+          ? [...this.maestro.materias_json]
+          : [];
+      }
+
+      console.log('Maestro actualizado desde ngOnChanges: ', this.maestro);
+    }
   }
 
   public regresar(): void {
@@ -156,6 +196,39 @@ export class RegistroMaestrosComponent implements OnInit {
       return;
     }
 
+    // Si es auto-edición, usar ProfileService
+    if (this.isSelfEdit) {
+      const payload = {
+        first_name: this.maestro.first_name,
+        last_name: this.maestro.last_name,
+        id_trabajador: this.maestro.id_trabajador,
+        fecha_nacimiento: this.maestro.fecha_nacimiento,
+        telefono: this.maestro.telefono,
+        rfc: this.maestro.rfc,
+        cubiculo: this.maestro.cubiculo,
+        area_investigacion: this.maestro.area_investigacion,
+        materias_json: this.maestro.materias_json || [],
+      };
+
+      this.profileService.updateProfile(payload).subscribe({
+        next: (response) => {
+          alert('Datos actualizados correctamente');
+          // Update localStorage profile
+          this.profileService.getProfile().subscribe({
+            next: (updatedProfile) => {
+              localStorage.setItem('user_profile', JSON.stringify(updatedProfile));
+              this.router.navigate(['/home']);
+            }
+          });
+        },
+        error: () => {
+          alert('No se pudieron actualizar los datos');
+        },
+      });
+      return;
+    }
+
+    // Modo normal de edición (admin editando a otro usuario)
     const payload = {
       id: this.maestro.id,
       id_trabajador: this.maestro.id_trabajador,
@@ -181,24 +254,21 @@ export class RegistroMaestrosComponent implements OnInit {
     });
   }
 
-  // Checkbox de materias
-  public checkboxChange(event: any): void {
-    const value = event.source.value;
-
+  // Checkbox de materias para el nuevo formulario
+  public checkboxChange(event: any, nombre: string): void {
+    const checked = (event.target as HTMLInputElement).checked;
     if (!Array.isArray(this.maestro.materias_json)) {
       this.maestro.materias_json = [];
     }
-
-    if (event.checked) {
-      if (!this.maestro.materias_json.includes(value)) {
-        this.maestro.materias_json.push(value);
+    if (checked) {
+      if (!this.maestro.materias_json.includes(nombre)) {
+        this.maestro.materias_json.push(nombre);
       }
     } else {
       this.maestro.materias_json = this.maestro.materias_json.filter(
-        (materia: string) => materia !== value
+        (materia: string) => materia !== nombre
       );
     }
-
     console.log('Array materias: ', this.maestro.materias_json);
   }
 

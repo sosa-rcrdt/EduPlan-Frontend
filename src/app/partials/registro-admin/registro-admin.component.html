@@ -1,164 +1,204 @@
 <div class="wrapper">
-    <!-- Va a englobar todo el formulario con la cabecera -->
     <div class="section-registro">
-        <div class="body-registro">
+        <div class="body-registro admin-form-wrapper">
+
+        <!-- Título -->
         <div class="row mt-3 mb-3">
-            <div class="form-group col-12">
-            <label class="title-user" for="tipo_usuario">
+            <div class="form-group col-24 text-center">
+            <h2 class="form-title" for="tipo_usuario">
                 Ingresa los datos del administrador
-            </label>
+            </h2>
             </div>
         </div>
 
-        <!-- Aquí empiezan los campos del formulario -->
-        <mat-form-field class="mat-input" appearance="outline">
-            <mat-label>ID de administrador</mat-label>
-            <input
-            matInput
-            [(ngModel)]="admin.clave_admin"
-            name="id"
-            placeholder="Escribe clave de administrador"
-            >
-        </mat-form-field>
-        <div *ngIf="errors.clave_admin" class="invalid-feedback">
+        <div class="input-group-custom">
+            <i class="bi bi-credit-card-2-front icon"></i>
+
+            <div class="input-group">
+            <input 
+                type="text"
+                id="id_admin"
+                placeholder="ID de administrador"
+                [(ngModel)]="admin.clave_admin"
+                name="id"
+            />
+            </div>
+
+            <div *ngIf="errors.clave_admin" class="invalid-feedback">
             {{ errors.clave_admin }}
+            </div>
         </div>
 
-        <mat-form-field class="mat-input" appearance="outline">
-            <mat-label>Nombre</mat-label>
-            <input
-            matInput
-            [(ngModel)]="admin.first_name"
-            placeholder="Escribe nombre"
-            (keypress)="soloLetras($event)"
-            >
-        </mat-form-field>
-        <div *ngIf="errors.first_name" class="invalid-feedback">
+        <div class="input-group-custom">
+            <i class="bi bi-person-fill icon"></i>
+
+            <div class="input-group">
+            <input 
+                type="text"
+                id="nombre"
+                placeholder="Nombre"
+                [(ngModel)]="admin.first_name"
+                (keypress)="soloLetras($event)"
+            />
+            </div>
+
+            <div *ngIf="errors.first_name" class="invalid-feedback">
             {{ errors.first_name }}
+            </div>
         </div>
 
-        <mat-form-field class="mat-input" appearance="outline">
-            <mat-label>Apellidos</mat-label>
-            <input
-            matInput
-            [(ngModel)]="admin.last_name"
-            placeholder="Escribe apellidos"
-            (keypress)="soloLetras($event)"
-            >
-        </mat-form-field>
-        <div *ngIf="errors.last_name" class="invalid-feedback">
+        <div class="input-group-custom">
+            <i class="bi bi-people-fill icon"></i>
+
+            <div class="input-group">
+            <input 
+                type="text"
+                id="apellidos"
+                placeholder="Apellidos"
+                [(ngModel)]="admin.last_name"
+                (keypress)="soloLetras($event)"
+            />
+            </div>
+
+            <div *ngIf="errors.last_name" class="invalid-feedback">
             {{ errors.last_name }}
+            </div>
         </div>
 
-        <mat-form-field class="mat-input" appearance="outline">
-            <mat-label>Correo electrónico</mat-label>
-            <input
-            matInput
-            [(ngModel)]="admin.email"
-            placeholder="Escribe correo electrónico"
-            [disabled]="editar"
-            >
-        </mat-form-field>
-        <div *ngIf="errors.email" class="invalid-feedback">
+        <!-- Correo electrónico -->
+        <div class="input-group-custom">
+            <i class="bi bi-envelope-fill icon"></i>
+
+            <div class="input-group">
+            <input 
+                type="email"
+                id="email"
+                placeholder="Correo electrónico"
+                [(ngModel)]="admin.email"
+                [readonly]="editar || isSelfEdit"
+            />
+            </div>
+
+            <div *ngIf="errors.email" class="invalid-feedback">
             {{ errors.email }}
+            </div>
         </div>
 
-        <mat-form-field class="mat-input" appearance="outline" *ngIf="!editar">
-            <mat-label>Contraseña</mat-label>
-            <input
-            matInput
-            [(ngModel)]="admin.password"
-            [type]="inputType_1"
-            placeholder="Escribe contraseña"
-            >
-            <mat-icon
-            matSuffix
-            class="eye-icon"
+        <div class="input-group-custom" *ngIf="!editar && !isSelfEdit">
+            <i class="bi bi-lock-fill icon"></i>
+
+            <div class="input-group">
+            <input 
+                id="password"
+                placeholder="Contraseña"
+                [(ngModel)]="admin.password"
+                [type]="inputType_1"
+            />
+            </div>
+
+            <i
+            class="bi eye-toggle"
+            [ngClass]="hide_1 ? 'bi-eye-slash-fill' : 'bi-eye-fill'"
             (click)="showPassword()"
-            >
-            {{ hide_1 ? 'visibility_off' : 'visibility' }}
-            </mat-icon>
-        </mat-form-field>
-        <div *ngIf="errors.password" class="invalid-feedback">
+            ></i>
+
+            <div *ngIf="errors.password" class="invalid-feedback">
             {{ errors.password }}
+            </div>
         </div>
 
-        <mat-form-field class="mat-input" appearance="outline" *ngIf="!editar">
-            <mat-label>Confirmar contraseña</mat-label>
-            <input
-            matInput
-            [(ngModel)]="admin.confirmar_password"
-            [type]="inputType_2"
-            placeholder="Confirma la contraseña"
-            >
-            <mat-icon
-            matSuffix
-            class="eye-icon"
+        <div class="input-group-custom" *ngIf="!editar && !isSelfEdit">
+            <i class="bi bi-lock-fill icon"></i>
+
+            <div class="input-group">
+            <input 
+                id="password_confirm"
+                placeholder="Confirmar contraseña"
+                [(ngModel)]="admin.confirmar_password"
+                [type]="inputType_2"
+            />
+            </div>
+
+            <i
+            class="bi eye-toggle"
+            [ngClass]="hide_2 ? 'bi-eye-slash-fill' : 'bi-eye-fill'"
             (click)="showPwdConfirmar()"
-            >
-            {{ hide_2 ? 'visibility_off' : 'visibility' }}
-            </mat-icon>
-        </mat-form-field>
-        <div *ngIf="errors.confirmar_password" class="invalid-feedback">
+            ></i>
+
+            <div *ngIf="errors.confirmar_password" class="invalid-feedback">
             {{ errors.confirmar_password }}
+            </div>
         </div>
 
-        <mat-form-field class="mat-input" appearance="outline">
-            <mat-label>Teléfono</mat-label>
-            <input
-            matInput
-            [(ngModel)]="admin.telefono"
-            mask="(000) 000-0000"
-            placeholder="Escribe teléfono"
-            >
-        </mat-form-field>
-        <div *ngIf="errors.telefono" class="invalid-feedback">
+        <div class="input-group-custom">
+            <i class="bi bi-telephone-fill icon"></i>
+
+            <div class="input-group">
+            <input 
+                id="telefono"
+                placeholder="Teléfono"
+                [(ngModel)]="admin.telefono"
+                mask="(000) 000-0000"
+            />
+            </div>
+
+            <div *ngIf="errors.telefono" class="invalid-feedback">
             {{ errors.telefono }}
+            </div>
         </div>
 
-        <mat-form-field class="mat-input mat-hint-margin" appearance="outline">
-            <mat-label>RFC</mat-label>
-            <input
-            matInput
-            minlength="12"
-            maxlength="13"
-            [(ngModel)]="admin.rfc"
-            placeholder="Escribe RFC"
-            style="text-transform: uppercase;"
-            >
-            <mat-hint align="end">
-            {{ admin.rfc?.length || 0 }}/13
-            </mat-hint>
-        </mat-form-field>
-        <div *ngIf="errors.rfc" class="invalid-feedback">
+        <div class="input-group-custom">
+            <i class="bi bi-file-earmark-person-fill icon"></i>
+
+            <div class="input-group">
+            <input 
+                id="rfc"
+                placeholder="RFC"
+                [(ngModel)]="admin.rfc"
+                minlength="12"
+                maxlength="13"
+                style="text-transform: uppercase;"
+            />
+            </div>
+
+            <div *ngIf="errors.rfc" class="invalid-feedback">
             {{ errors.rfc }}
+            </div>
         </div>
 
-        <mat-form-field class="mat-input" appearance="outline">
-            <mat-label>Edad</mat-label>
-            <input
-            matInput
-            [(ngModel)]="admin.edad"
-            mask="00"
-            placeholder="Escribe la edad"
-            >
-        </mat-form-field>
-        <div *ngIf="errors.edad" class="invalid-feedback">
+        <div class="input-group-custom">
+            <i class="bi bi-calendar3 icon"></i>
+
+            <div class="input-group">
+            <input 
+                id="edad"
+                placeholder="Edad"
+                [(ngModel)]="admin.edad"
+                mask="00"
+            />
+            </div>
+
+            <div *ngIf="errors.edad" class="invalid-feedback">
             {{ errors.edad }}
+            </div>
         </div>
 
-        <mat-form-field class="mat-input" appearance="outline">
-            <mat-label>Ocupación</mat-label>
-            <input
-            matInput
-            [(ngModel)]="admin.ocupacion"
-            placeholder="Escribe la ocupación"
-            >
-        </mat-form-field>
-        <div *ngIf="errors.ocupacion" class="invalid-feedback">
+        <div class="input-group-custom">
+            <i class="bi bi-briefcase-fill icon"></i>
+
+            <div class="input-group">
+            <input 
+                id="ocupacion"
+                placeholder="Ocupación"
+                [(ngModel)]="admin.ocupacion"
+            />
+            </div>
+
+            <div *ngIf="errors.ocupacion" class="invalid-feedback">
             {{ errors.ocupacion }}
+            </div>
         </div>
-
+        
         <div class="section-buttons">
             <button class="btn btn-danger" (click)="regresar()">
             Cancelar
@@ -182,6 +222,7 @@
             Actualizar
             </button>
         </div>
+
         </div>
     </div>
 </div>

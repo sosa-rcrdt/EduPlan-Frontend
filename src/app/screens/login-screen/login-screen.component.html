@@ -1,95 +1,92 @@
 <section class="login">
-    <div class="wrapper">
-        <!-- Sección izquierda con logos -->
-        <!-- <div class="section-left">
-        <img src="/assets/images/Buap.png" alt="" class="logo-buap">
-        <img src="/assets/images/FCCBuap.png" alt="" class="logo-fcc">
-        </div> -->
+    <!-- Fondo -->
+    <div class="background"></div>
 
-        <!-- Sección derecha con el formulario de inicio de sesión -->
-        <div class="section-right">
-        <div class="card">
-            <div class="card-body">
-            <h3 class="title">INICIO DE SESIÓN</h3>
+    <!-- Card -->
+    <div class="login-card">
+        <h2 class="title">Inicio de Sesión</h2>
 
-            <div class="container-inputs">
+        <div class="container-inputs">
+        <div class="input-group-custom">
+            <div class="input-group">
+            <span class="input-group-text">
+                <i class="bi bi-person-fill"></i>
+            </span>
 
-                <!-- Campo correo -->
-                <div class="pt-3 mb-3 w-100">
-                <input
-                    type="email"
-                    [(ngModel)]="username"
-                    class="form-control"
-                    id="email"
-                    placeholder="Correo electrónico"
-                    [ngClass]="{ 'is-invalid': errors.username }"
-                >
-                <div *ngIf="errors.username" class="invalid-feedback">
-                    {{ errors.username }}
-                </div>
-                </div>
-
-                <!-- Campo contraseña -->
-                <div class="pt-3 mb-3 w-100">
-                <div class="input-group input-group-merge">
-                    <input
-                    [type]="type"
-                    [(ngModel)]="password"
-                    id="password"
-                    name="password_user"
-                    class="form-control pwd"
-                    placeholder="Contraseña"
-                    (keyup.enter)="login()"
-                    [ngClass]="{ 'is-invalid': errors.password }"
-                    >
-                    <div class="input-group-text" id="show-password" data-password="false">
-                    <i
-                        *ngIf="type === 'password'"
-                        class="bi bi-eye-fill"
-                        (click)="showPassword()"
-                    ></i>
-                    <i
-                        *ngIf="type === 'text'"
-                        class="bi bi-eye-slash-fill"
-                        (click)="showPassword()"
-                    ></i>
-                    </div>
-                </div>
-                <div *ngIf="errors.password" class="invalid-feedback d-block">
-                    {{ errors.password }}
-                </div>
-                </div>
-
-                <!-- Error general de login -->
-                <div *ngIf="errors.general" class="mb-3 w-100 text-danger" style="font-size: 0.9rem;">
-                {{ errors.general }}
-                </div>
-
-                <!-- Botón login + enlace registro -->
-                <div class="d-flex flex-column align-items-center mb-3 w-100" style="text-align: center;">
-                <button
-                    class="btn btn-primary"
-                    type="button"
-                    (click)="login()"
-                    [disabled]="load"
-                >
-                    <!-- Si quieres luego puedes poner un spinner aquí cuando load = true -->
-                    Iniciar sesión
-                </button>
-
-                <label
-                    class="form-check-label pt-3"
-                    for="checkbox-signin"
-                    (click)="registrar()"
-                    style="cursor: pointer;"
-                >
-                    Registrarse
-                </label>
-                </div>
-
+            <input
+                type="email"
+                [(ngModel)]="username"
+                class="form-control"
+                id="email"
+                placeholder="Correo electrónico"
+                [ngClass]="{ 'is-invalid': errors.username }"
+            />
             </div>
+
+            <div *ngIf="errors.username" class="invalid-feedback">
+            {{ errors.username }}
             </div>
         </div>
+
+        <div class="input-group-custom">
+            <div class="input-group input-group-merge">
+            <span class="input-group-text">
+                <i class="bi bi-lock-fill"></i>
+            </span>
+
+            <input
+                [type]="type"
+                [(ngModel)]="password"
+                id="password"
+                name="password_user"
+                class="form-control pwd"
+                placeholder="Contraseña"
+                (keyup.enter)="login()"
+                [ngClass]="{ 'is-invalid': errors.password }"
+            />
+
+            <div
+                class="input-group-text"
+                id="show-password"
+                data-password="false"
+            >
+                <i
+                *ngIf="type === 'password'"
+                class="bi bi-eye-fill eye-toggle"
+                (click)="showPassword()"
+                ></i>
+                <i
+                *ngIf="type === 'text'"
+                class="bi bi-eye-slash-fill eye-toggle"
+                (click)="showPassword()"
+                ></i>
+            </div>
+            </div>
+
+            <div *ngIf="errors.password" class="invalid-feedback d-block">
+            {{ errors.password }}
+            </div>
+        </div>
+
+        <div *ngIf="errors.general" class="text-danger general-error">
+            {{ errors.general }}
+        </div>
+
+        <!-- Botón login -->
+        <button
+            class="btn-login"
+            type="button"
+            (click)="login()"
+            [disabled]="load"
+        >
+            Iniciar Sesión
+        </button>
+
+        <!-- Registro -->
+        <p class="signup-text">
+            ¿No tienes una cuenta?
+            <span (click)="registrar()">Registrarse</span>
+        </p>
         </div>
     </div>
 </section>

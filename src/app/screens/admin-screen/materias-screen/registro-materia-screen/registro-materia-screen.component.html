@@ -1,0 +1,72 @@
+<div class="container-fluid">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h2>{{ esEdicion ? 'Editar Materia' : 'Nueva Materia' }}</h2>
+    </div>
+  </div>
+
+  <div class="row justify-content-center" *ngIf="isLoading">
+    <div class="col-12 text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="mt-2 text-muted">Cargando información...</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-center" *ngIf="!isLoading">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          
+          <div class="alert alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+          </div>
+
+          <form (ngSubmit)="onSubmit()">
+            
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre de la Materia <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="nombre" name="nombre" 
+                     [(ngModel)]="materia.nombre" required placeholder="Ej. Matemáticas Discretas">
+            </div>
+
+            <!-- Código y Créditos -->
+            <div class="row">
+              <div class="col-12 col-md-6 mb-3">
+                <label for="codigo" class="form-label">Código (NRC) <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="codigo" name="codigo" 
+                       [(ngModel)]="materia.codigo" required placeholder="Ej. CCOM-101">
+              </div>
+              
+              <div class="col-12 col-md-6 mb-3">
+                <label for="creditos" class="form-label">Créditos <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="creditos" name="creditos" 
+                       [(ngModel)]="materia.creditos" required min="1" placeholder="Ej. 6">
+              </div>
+            </div>
+
+            <!-- Área Académica -->
+            <div class="mb-4">
+              <label for="area_academica" class="form-label">Área Académica <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="area_academica" name="area_academica" 
+                     [(ngModel)]="materia.area_academica" required placeholder="Ej. Ciencias de la Computación">
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-4">
+              <button type="button" class="btn btn-outline-secondary" (click)="cancelar()">
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                {{ esEdicion ? 'Guardar Cambios' : 'Crear Materia' }}
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
