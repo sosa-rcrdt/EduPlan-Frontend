@@ -1,0 +1,75 @@
+<div class="peticiones-container">
+  <div class="container-fluid py-4">
+    <h2 class="screen-title mb-4">Peticiones de Cambio de Horario</h2>
+
+    <!-- Loading -->
+    <div *ngIf="isLoading" class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="mt-2 text-muted">Procesando...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!isLoading && solicitudes.length === 0" class="alert alert-info text-center">
+      No hay solicitudes de cambio pendientes.
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Lista de Solicitudes -->
+    <div class="row" *ngIf="!isLoading && solicitudes.length > 0">
+      <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let solicitud of solicitudes">
+        <div class="card h-100 shadow-sm card-peticion">
+          <div class="card-header bg-white border-bottom-0 pt-3">
+            <div class="d-flex justify-content-between align-items-start">
+              <span class="badge bg-warning text-dark">{{ solicitud.estado | estadoSolicitud }}</span>
+              <small class="text-muted">{{ solicitud.fecha_creacion | date:'short' }}</small>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title mb-3">Solicitud #{{ solicitud.id }}</h5>
+            
+            <div class="mb-3">
+              <h6 class="text-muted mb-2">Cambio Solicitado:</h6>
+              <ul class="list-unstyled">
+                <li><strong>Día original:</strong> {{ solicitud.dia_semana_original | diaSemana }}</li>
+                <li><strong>Día propuesto:</strong> {{ solicitud.dia_semana_propuesto | diaSemana }}</li>
+                <li><strong>Horario propuesto:</strong> {{ solicitud.hora_inicio_propuesta }} - {{ solicitud.hora_fin_propuesta }}</li>
+                <li><strong>Grupo ID:</strong> {{ solicitud.grupo }}</li>
+              </ul>
+            </div>
+
+            <div class="mb-3" *ngIf="solicitud.motivo">
+              <h6 class="text-muted mb-1">Motivo:</h6>
+              <p class="small fst-italic mb-0">"{{ solicitud.motivo }}"</p>
+            </div>
+          </div>
+          <div class="card-footer bg-white border-top-0 pb-3">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button class="btn btn-outline-danger btn-sm me-md-2" (click)="rechazarSolicitud(solicitud)">
+                Rechazar
+              </button>
+              <button class="btn btn-success btn-sm" (click)="aceptarSolicitud(solicitud)">
+                Aceptar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+<app-confirmation-modal
+  #confirmationModal
+  [modalId]="'modalConfirmacionPeticion'"
+  [title]="modalTitle"
+  [message]="modalMessage"
+  [btnConfirmText]="modalBtnConfirmText"
+  [btnConfirmColor]="modalBtnConfirmColor"
+  (onConfirm)="onConfirmarAccion()"
+></app-confirmation-modal>

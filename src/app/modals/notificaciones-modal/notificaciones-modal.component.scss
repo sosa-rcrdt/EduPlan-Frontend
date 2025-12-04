@@ -1,0 +1,33 @@
+.modal-content {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.modal-header {
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  background-color: #f8f9fa;
+  border-radius: 16px 16px 0 0;
+}
+
+.modal-title {
+  font-weight: 600;
+  color: #3B657A;
+}
+
+.list-group-item {
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: background-color 0.2s;
+}
+
+.list-group-item:hover {
+  background-color: #fcfcfc;
+}
+
+.btn-link {
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  color: #dc3545 !important;
+}

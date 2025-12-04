@@ -1,0 +1,42 @@
+<div class="modal fade" [id]="modalId" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title">Notificaciones</h5>
+        <button type="button" class="btn-close" (click)="hide()" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body p-0">
+        <div *ngIf="isLoading" class="text-center py-4">
+          <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+        </div>
+
+        <div *ngIf="!isLoading && notificaciones.length === 0" class="text-center py-4 text-muted">
+          <i class="bi bi-bell-slash d-block fs-3 mb-2"></i>
+          No tienes notificaciones nuevas.
+        </div>
+
+        <div class="list-group list-group-flush" *ngIf="!isLoading && notificaciones.length > 0">
+          <div class="list-group-item d-flex align-items-start p-3" *ngFor="let notif of notificaciones">
+            <div class="me-3 mt-1">
+              <i class="bi fs-4" [ngClass]="getIconClass(notif.tipo)"></i>
+            </div>
+            <div class="flex-grow-1">
+              <p class="mb-1 text-dark">{{ notif.mensaje }}</p>
+              <small class="text-muted">{{ notif.fecha_creacion | date:'short' }}</small>
+            </div>
+            <button class="btn btn-link text-muted p-0 ms-2" (click)="eliminarNotificacion(notif.id)" title="Marcar como leída">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" (click)="hide()">Cerrar</button>
+      </div>
+
+    </div>
+  </div>
+</div>

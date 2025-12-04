@@ -1,0 +1,25 @@
+.peticiones-container {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.screen-title {
+  color: #3B657A;
+  font-weight: 700;
+}
+
+.card-peticion {
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-peticion:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+}
+
+.badge {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}

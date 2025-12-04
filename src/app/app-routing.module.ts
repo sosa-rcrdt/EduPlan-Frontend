@@ -21,6 +21,7 @@ import { AdminScreenComponent } from './screens/admin-screen/admin-screen.compon
 import { ReportesScreenComponent } from './screens/admin-screen/reportes-screen/reportes-screen.component';
 import { AlumnosScreenComponent } from './screens/alumnos-screen/alumnos-screen.component';
 import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-screen.component';
+import { PeticionesScreenComponent } from './screens/peticiones-screen/peticiones-screen.component';
 
 const routes: Routes = [
   // Rutas públicas (sin sidenav)
@@ -62,6 +63,7 @@ const routes: Routes = [
       { path: 'inscripciones/registro/:id', component: RegistroInscripcionScreenComponent },
 
       { path: 'reportes', component: ReportesScreenComponent },
+      { path: 'peticiones', component: PeticionesScreenComponent },
     ]
   }
 ];

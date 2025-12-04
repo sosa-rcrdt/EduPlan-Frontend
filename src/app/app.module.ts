@@ -64,6 +64,10 @@ import { EditProfileModalComponent } from './modals/edit-profile-modal/edit-prof
 import { InscripcionesScreenComponent } from './screens/admin-screen/inscripciones-screen/inscripciones-screen.component';
 import { RegistroInscripcionScreenComponent } from './screens/admin-screen/inscripciones-screen/registro-inscripcion-screen/registro-inscripcion-screen.component';
 import { ReportesScreenComponent } from './screens/admin-screen/reportes-screen/reportes-screen.component';
+import { PeticionesScreenComponent } from './screens/peticiones-screen/peticiones-screen.component';
+import { NotificacionesModalComponent } from './modals/notificaciones-modal/notificaciones-modal.component';
+import { DiaSemanaPipe } from './pipes/dia-semana.pipe';
+import { EstadoSolicitudPipe } from './pipes/estado-solicitud.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -94,7 +98,11 @@ import { ReportesScreenComponent } from './screens/admin-screen/reportes-screen/
     EditProfileModalComponent,
     InscripcionesScreenComponent,
     RegistroInscripcionScreenComponent,
-    ReportesScreenComponent
+    ReportesScreenComponent,
+    PeticionesScreenComponent,
+    NotificacionesModalComponent,
+    DiaSemanaPipe,
+    EstadoSolicitudPipe
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ export interface SolicitudCambio {
     id: number;
     docente: number;
     grupo: number;
+    dia_semana_original: number;
     dia_semana_propuesto: number | null;
     hora_inicio_propuesta: string | null;
     hora_fin_propuesta: string | null;
@@ -22,6 +23,7 @@ export interface SolicitudCambio {
 // El docente se toma del usuario autenticado en el backend.
 export interface SolicitudCreateRequest {
     grupo: number;
+    dia_semana_original: number;
     dia_semana_propuesto: number;
     hora_inicio_propuesta: string;
     hora_fin_propuesta: string;

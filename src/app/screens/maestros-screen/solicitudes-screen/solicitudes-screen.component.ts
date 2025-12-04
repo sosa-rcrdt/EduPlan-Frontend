@@ -45,6 +45,8 @@ export class SolicitudesScreenComponent implements OnInit {
 
   // Formulario
   public selectedGrupoId: number | null = null;
+  public diaOriginalSeleccionado: number | null = null;
+  public diasDisponiblesParaCambio: number[] = [];
   public diaSemanaPropuesto: number | null = null;
   public horaInicioPropuesta: string = '';
   public horaFinPropuesta: string = '';
@@ -111,6 +113,8 @@ export class SolicitudesScreenComponent implements OnInit {
   get esFormularioValido(): boolean {
     return (
       !!this.selectedGrupoId &&
+      this.diaOriginalSeleccionado !== null &&
+      this.diaOriginalSeleccionado !== undefined &&
       this.diaSemanaPropuesto !== null &&
       this.diaSemanaPropuesto !== undefined &&
       !!this.horaInicioPropuesta &&
@@ -230,6 +234,29 @@ export class SolicitudesScreenComponent implements OnInit {
     this.opcionesGrupo = opciones;
   }
 
+  // Cuando se selecciona un grupo, cargar los días disponibles
+  public onGrupoChange(): void {
+    this.diasDisponiblesParaCambio = [];
+    this.diaOriginalSeleccionado = null;
+    this.diaSemanaPropuesto = null;
+
+    if (!this.selectedGrupoId) {
+      return;
+    }
+
+    // Filtrar horarios del grupo seleccionado
+    const horariosGrupo = this.horariosDocente.filter(
+      (h) => h.grupo === this.selectedGrupoId
+    );
+
+    // Obtener días únicos
+    const diasUnicos = Array.from(
+      new Set(horariosGrupo.map((h) => h.dia_semana))
+    ).sort((a, b) => a - b);
+
+    this.diasDisponiblesParaCambio = diasUnicos;
+  }
+
   private obtenerSolicitudesDocente(): void {
     this.isLoadingSolicitudes = true;
 
@@ -264,6 +291,7 @@ export class SolicitudesScreenComponent implements OnInit {
 
     const payload: SolicitudCreateRequest = {
       grupo: this.selectedGrupoId,
+      dia_semana_original: this.diaOriginalSeleccionado as number,
       dia_semana_propuesto: this.diaSemanaPropuesto as number,
       hora_inicio_propuesta: this.horaInicioPropuesta,
       hora_fin_propuesta: this.horaFinPropuesta,
@@ -281,9 +309,11 @@ export class SolicitudesScreenComponent implements OnInit {
 
         // Limpiar campos del formulario
         this.motivo = '';
+        this.diaOriginalSeleccionado = null;
         this.diaSemanaPropuesto = null;
         this.horaInicioPropuesta = '';
         this.horaFinPropuesta = '';
+        this.diasDisponiblesParaCambio = [];
 
         // Recargar listado de solicitudes
         this.obtenerSolicitudesDocente();

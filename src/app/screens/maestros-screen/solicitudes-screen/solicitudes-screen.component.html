@@ -38,6 +38,7 @@
             <select
               class="form-select"
               [(ngModel)]="selectedGrupoId"
+              (ngModelChange)="onGrupoChange()"
               name="grupo"
               [disabled]="isLoadingInicial || opcionesGrupo.length === 0"
             >
@@ -56,17 +57,44 @@
             </div>
           </div>
 
+          <!-- Día original a cambiar (NUEVO) -->
+          <div class="mb-3">
+            <label class="form-label">Día a cambiar</label>
+            <select
+              class="form-select"
+              name="dia_original"
+              [(ngModel)]="diaOriginalSeleccionado"
+              [disabled]="isLoadingInicial || !selectedGrupoId || diasDisponiblesParaCambio.length === 0"
+            >
+              <option [ngValue]="null">
+                -- Selecciona el día que deseas cambiar --
+              </option>
+              <option
+                *ngFor="let diaIndex of diasDisponiblesParaCambio"
+                [ngValue]="diaIndex"
+              >
+                {{ diasSemanaLabels[diaIndex] }}
+              </option>
+            </select>
+            <div class="form-text" *ngIf="selectedGrupoId && diasDisponiblesParaCambio.length === 0">
+              No hay días disponibles para este grupo.
+            </div>
+            <div class="form-text" *ngIf="!selectedGrupoId">
+              Primero selecciona un grupo.
+            </div>
+          </div>
+
           <!-- Día de la semana propuesto -->
           <div class="mb-3">
-            <label class="form-label">Día de la semana propuesto</label>
+            <label class="form-label">Día propuesto (nuevo)</label>
             <select
               class="form-select"
               name="dia_semana_propuesto"
               [(ngModel)]="diaSemanaPropuesto"
-              [disabled]="isLoadingInicial || opcionesGrupo.length === 0"
+              [disabled]="isLoadingInicial || !diaOriginalSeleccionado"
             >
               <option [ngValue]="null">
-                -- Selecciona un día --
+                -- Selecciona el nuevo día --
               </option>
               <option
                 *ngFor="let dia of diasSemanaLabels; let i = index"
@@ -75,6 +103,9 @@
                 {{ dia }}
               </option>
             </select>
+            <div class="form-text" *ngIf="!diaOriginalSeleccionado">
+              Primero selecciona el día a cambiar.
+            </div>
           </div>
 
           <!-- Horario propuesto -->
@@ -164,6 +195,7 @@
               <thead>
                 <tr>
                   <th>Grupo / Materia</th>
+                  <th>Día original</th>
                   <th>Día propuesto</th>
                   <th>Horario propuesto</th>
                   <th>Motivo</th>
@@ -175,6 +207,9 @@
                 <tr *ngFor="let sol of solicitudes">
                   <td>
                     {{ getGrupoDisplay(sol.grupo) }}
+                  </td>
+                  <td>
+                    {{ getDiaLabel(sol.dia_semana_original) }}
                   </td>
                   <td>
                     {{ getDiaLabel(sol.dia_semana_propuesto) }}

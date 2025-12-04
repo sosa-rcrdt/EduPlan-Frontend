@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserProfile, User } from 'src/app/models/usuario.models';
 import { EditProfileModalComponent } from 'src/app/modals/edit-profile-modal/edit-profile-modal.component';
+import { NotificacionesModalComponent } from 'src/app/modals/notificaciones-modal/notificaciones-modal.component';
 
 type RolUsuario = 'alumno' | 'maestro' | 'administrador' | null;
 
@@ -11,7 +12,7 @@ interface MenuItem {
   label: string;
   icon: string;           // Material Icon name
   route?: string;         // ruta a navegar
-  action?: 'logout';      // acción especial
+  action?: 'logout' | 'notificaciones';      // acción especial
 }
 
 @Component({
@@ -22,6 +23,7 @@ interface MenuItem {
 export class SidenavComponent implements OnInit {
   @Output() closeSidenav = new EventEmitter<void>();
   @ViewChild('editProfileModal') editProfileModal!: EditProfileModalComponent;
+  @ViewChild('notificacionesModal') notificacionesModal!: NotificacionesModalComponent;
 
   profile: UserProfile = null;
   rol: RolUsuario = null;
@@ -68,6 +70,12 @@ export class SidenavComponent implements OnInit {
         icon: 'school',
         route: '/home',
       });
+      // Notificaciones para alumnos
+      items.push({
+        label: 'Notificaciones',
+        icon: 'notifications',
+        action: 'notificaciones'
+      });
     }
 
     if (this.rol === 'maestro') {
@@ -81,6 +89,12 @@ export class SidenavComponent implements OnInit {
           label: 'Solicitudes de cambio',
           icon: 'edit_note',
           route: '/home/solicitudes',
+        },
+        // Notificaciones para maestros
+        {
+          label: 'Notificaciones',
+          icon: 'notifications',
+          action: 'notificaciones'
         }
       );
     }
@@ -91,6 +105,11 @@ export class SidenavComponent implements OnInit {
           label: 'Dashboard',
           icon: 'dashboard',
           route: '/home',
+        },
+        {
+          label: 'Peticiones',
+          icon: 'notifications_active',
+          route: '/home/peticiones',
         },
         {
           label: 'Periodos',
@@ -161,6 +180,12 @@ export class SidenavComponent implements OnInit {
       return;
     }
 
+    if (item.action === 'notificaciones') {
+      this.notificacionesModal.show();
+      this.closeSidenav.emit();
+      return;
+    }
+
     if (item.route) {
       this.router.navigate([item.route]);
       this.closeSidenav.emit();
@@ -182,6 +207,8 @@ export class SidenavComponent implements OnInit {
     this.router.navigate(['/registro'], { queryParams: { mode: 'change-password' } });
     this.closeSidenav.emit();
   }
+
+
 
   private handleLogout(): void {
     const anyAuth = this.authService as any;
