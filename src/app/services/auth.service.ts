@@ -46,11 +46,13 @@ export class AuthService {
   logout(): Observable<LogoutResponse> {
     const url = `${this.apiUrl}/logout/`;
     const headers = this.getAuthHeaders();
+    const refresh_token = this.getRefreshToken();
 
-    // Limpiamos primero en el front
+    // Limpiamos primero en el front (o podríamos esperar a la respuesta, 
+    // pero por UX suele ser mejor limpiar inmediato o en el subscribe)
     this.clearSession();
 
-    return this.http.get<LogoutResponse>(url, { headers });
+    return this.http.post<LogoutResponse>(url, { refresh_token }, { headers });
   }
 
   // Devuelve el access token actual (o null si no hay).
