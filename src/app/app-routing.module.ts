@@ -6,9 +6,16 @@ import { RegistroScreenComponent } from './screens/registro-screen/registro-scre
 import { CambiarContrasenaScreenComponent } from './screens/cambiar-contrasena-screen/cambiar-contrasena-screen.component';
 import { LandingPageScreenComponent } from './screens/landing-page-screen/landing-page-screen.component';
 import { SolicitudesScreenComponent } from './screens/maestros-screen/solicitudes-screen/solicitudes-screen.component';
-import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component'; // Importar si se usa directamente
-import { AlumnosScreenComponent } from './screens/alumnos-screen/alumnos-screen.component'; // Importar si se usa directamente
-import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-screen.component'; // Importar si se usa directamente
+import { PeriodosScreenComponent } from './screens/admin-screen/periodos-screen/periodos-screen.component';
+import { RegistroPeriodoScreenComponent } from './screens/admin-screen/periodos-screen/registro-periodo-screen/registro-periodo-screen.component';
+import { MateriasScreenComponent } from './screens/admin-screen/materias-screen/materias-screen.component';
+import { RegistroMateriaScreenComponent } from './screens/admin-screen/materias-screen/registro-materia-screen/registro-materia-screen.component';
+import { GruposScreenComponent } from './screens/admin-screen/grupos-screen/grupos-screen.component';
+import { RegistroGrupoScreenComponent } from './screens/admin-screen/grupos-screen/registro-grupo-screen/registro-grupo-screen.component';
+import { AulasScreenComponent } from './screens/admin-screen/aulas-screen/aulas-screen.component';
+import { RegistroAulaScreenComponent } from './screens/admin-screen/aulas-screen/registro-aula-screen/registro-aula-screen.component';
+import { RegistroHorarioScreenComponent } from './screens/admin-screen/registro-horario-screen/registro-horario-screen.component';
+import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component';
 
 const routes: Routes = [
   // Rutas públicas (sin sidenav)
@@ -26,12 +33,25 @@ const routes: Routes = [
       { path: 'solicitudes', component: SolicitudesScreenComponent },
 
       // Rutas de Admin (aplanadas)
-      { path: 'periodos', component: AdminScreenComponent }, // Placeholder: Debería ser PeriodosScreenComponent
-      { path: 'materias', component: AdminScreenComponent }, // Placeholder: Debería ser MateriasScreenComponent
-      { path: 'grupos', component: AdminScreenComponent },   // Placeholder
-      { path: 'aulas', component: AdminScreenComponent },    // Placeholder
-      { path: 'horarios', component: AdminScreenComponent }, // Placeholder
-      { path: 'reportes', component: AdminScreenComponent }, // Placeholder
+      { path: 'periodos', component: PeriodosScreenComponent },
+      { path: 'periodos/registro', component: RegistroPeriodoScreenComponent },
+      { path: 'periodos/registro/:id', component: RegistroPeriodoScreenComponent },
+
+      { path: 'materias', component: MateriasScreenComponent },
+      { path: 'materias/registro', component: RegistroMateriaScreenComponent },
+      { path: 'materias/registro/:id', component: RegistroMateriaScreenComponent },
+
+      { path: 'grupos', component: GruposScreenComponent },
+      { path: 'grupos/registro', component: RegistroGrupoScreenComponent },
+      { path: 'grupos/registro/:id', component: RegistroGrupoScreenComponent },
+
+      { path: 'aulas', component: AulasScreenComponent },
+      { path: 'aulas/registro', component: RegistroAulaScreenComponent },
+      { path: 'aulas/registro/:id', component: RegistroAulaScreenComponent },
+
+      { path: 'horarios/registro', component: RegistroHorarioScreenComponent },
+      { path: 'horarios/registro/:id', component: RegistroHorarioScreenComponent },
+      { path: 'reportes', component: AdminScreenComponent },
     ]
   }
 ];

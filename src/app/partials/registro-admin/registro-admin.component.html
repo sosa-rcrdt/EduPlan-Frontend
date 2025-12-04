@@ -65,6 +65,7 @@
             </div>
         </div>
 
+        <!-- Correo electrónico -->
         <div class="input-group-custom">
             <i class="bi bi-envelope-fill icon"></i>
 
@@ -74,7 +75,7 @@
                 id="email"
                 placeholder="Correo electrónico"
                 [(ngModel)]="admin.email"
-                [disabled]="editar"
+                [readonly]="editar || isSelfEdit"
             />
             </div>
 
@@ -83,7 +84,7 @@
             </div>
         </div>
 
-        <div class="input-group-custom" *ngIf="!editar">
+        <div class="input-group-custom" *ngIf="!editar && !isSelfEdit">
             <i class="bi bi-lock-fill icon"></i>
 
             <div class="input-group">
@@ -106,7 +107,7 @@
             </div>
         </div>
 
-        <div class="input-group-custom" *ngIf="!editar">
+        <div class="input-group-custom" *ngIf="!editar && !isSelfEdit">
             <i class="bi bi-lock-fill icon"></i>
 
             <div class="input-group">

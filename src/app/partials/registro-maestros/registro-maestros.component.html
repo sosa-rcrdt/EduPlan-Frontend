@@ -69,7 +69,7 @@
             id="email"
             placeholder="Correo electrónico"
             [(ngModel)]="maestro.email"
-            [disabled]="editar"
+            [readonly]="editar || isSelfEdit"
           />
         </div>
         <div *ngIf="errors.email" class="invalid-feedback">
@@ -78,7 +78,7 @@
       </div>
 
       <!-- Contraseña -->
-      <div class="input-group-custom" *ngIf="!editar">
+      <div class="input-group-custom" *ngIf="!editar && !isSelfEdit">
         <i class="bi bi-lock-fill icon"></i>
         <div class="input-group">
           <input
@@ -99,7 +99,7 @@
       </div>
 
       <!-- Confirmar contraseña -->
-      <div class="input-group-custom" *ngIf="!editar">
+      <div class="input-group-custom" *ngIf="!editar && !isSelfEdit">
         <i class="bi bi-lock-fill icon"></i>
         <div class="input-group">
           <input

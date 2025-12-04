@@ -8,6 +8,9 @@
       <div class="user-name">{{ nombreUsuario }}</div>
       <div class="user-role">{{ etiquetaRol }}</div>
     </div>
+    <button class="btn-edit-profile" (click)="openEditProfileModal()" title="Editar perfil">
+      <mat-icon>edit</mat-icon>
+    </button>
   </div>
 
   <mat-divider></mat-divider>
@@ -30,3 +33,11 @@
     </a>
   </mat-nav-list>
 </div>
+
+<!-- Modal de Editar Perfil -->
+<app-edit-profile-modal
+  #editProfileModal
+  [modalId]="'editProfileModal'"
+  (onEditData)="navigateToEditData()"
+  (onChangePassword)="navigateToChangePassword()"
+></app-edit-profile-modal>

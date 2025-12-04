@@ -99,4 +99,11 @@ body {
   --mat-radio-checked-ripple-color: rgba(208, 208, 208, 0.3);
 }
 
+/* Fix global para el modal y backdrop */
+.modal-backdrop {
+    z-index: 1050 !important;
+}
 
+.modal {
+    z-index: 1060 !important;
+}

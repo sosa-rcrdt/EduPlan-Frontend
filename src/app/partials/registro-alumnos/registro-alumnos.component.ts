@@ -1,18 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { AlumnosService } from 'src/app/services/alumnos.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-registro-alumnos',
   templateUrl: './registro-alumnos.component.html',
   styleUrls: ['./registro-alumnos.component.scss'],
 })
-export class RegistroAlumnosComponent implements OnInit {
-  @Input() rol: string = '';        // 'alumno' desde registro-screen
+export class RegistroAlumnosComponent implements OnInit, OnChanges {
+  @Input() rol: string = '';        // 'alumno' desde el registro-screen
   @Input() datos_user: any = {};    // datos precargados cuando se edita
+  @Input() isSelfEdit: boolean = false; // modo auto-edición
 
   // Para contraseñas
   public hide_1: boolean = false;
@@ -31,8 +33,9 @@ export class RegistroAlumnosComponent implements OnInit {
     private location: Location,
     public activatedRoute: ActivatedRoute,
     private alumnosService: AlumnosService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private profileService: ProfileService
+  ) { }
 
   ngOnInit(): void {
     // Si hay id en la URL, estamos en modo edición
@@ -44,6 +47,14 @@ export class RegistroAlumnosComponent implements OnInit {
       // Datos vienen desde registro-screen como datos_user
       this.alumno = { ...this.datos_user };
 
+      // Normalizar fecha_nacimiento si viene como "YYYY-MM-DDTHH:mm:ssZ"
+      if (this.alumno.fecha_nacimiento) {
+        const parts = (this.alumno.fecha_nacimiento as string).split('T');
+        this.alumno.fecha_nacimiento = parts[0]; // "YYYY-MM-DD"
+      }
+    } else if (this.isSelfEdit) {
+      this.editar = true;
+      this.alumno = { ...this.datos_user };
       // Normalizar fecha_nacimiento si viene como "YYYY-MM-DDTHH:mm:ssZ"
       if (this.alumno.fecha_nacimiento) {
         const parts = (this.alumno.fecha_nacimiento as string).split('T');
@@ -70,6 +81,21 @@ export class RegistroAlumnosComponent implements OnInit {
 
     this.token = this.authService.getAccessToken() || '';
     console.log('Alumno (form): ', this.alumno);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Reactively update alumno when datos_user changes from parent
+    if (changes['datos_user'] && changes['datos_user'].currentValue) {
+      this.alumno = { ...changes['datos_user'].currentValue };
+
+      // Normalizar fecha_nacimiento si viene como "YYYY-MM-DDTHH:mm:ssZ"
+      if (this.alumno.fecha_nacimiento) {
+        const parts = (this.alumno.fecha_nacimiento as string).split('T');
+        this.alumno.fecha_nacimiento = parts[0];
+      }
+
+      console.log('Alumno actualizado desde ngOnChanges: ', this.alumno);
+    }
   }
 
   public regresar(): void {
@@ -148,6 +174,39 @@ export class RegistroAlumnosComponent implements OnInit {
       return;
     }
 
+    // Si es auto-edición, usar ProfileService
+    if (this.isSelfEdit) {
+      const payload = {
+        first_name: this.alumno.first_name,
+        last_name: this.alumno.last_name,
+        matricula: this.alumno.matricula,
+        curp: (this.alumno.curp || '').toUpperCase(),
+        rfc: (this.alumno.rfc || '').toUpperCase(),
+        fecha_nacimiento: this.alumno.fecha_nacimiento,
+        edad: this.alumno.edad ? Number(this.alumno.edad) : null,
+        telefono: this.alumno.telefono,
+        ocupacion: this.alumno.ocupacion,
+      };
+
+      this.profileService.updateProfile(payload).subscribe({
+        next: (response) => {
+          alert('Datos actualizados correctamente');
+          // Update localStorage profile
+          this.profileService.getProfile().subscribe({
+            next: (updatedProfile) => {
+              localStorage.setItem('user_profile', JSON.stringify(updatedProfile));
+              this.router.navigate(['/home']);
+            }
+          });
+        },
+        error: () => {
+          alert('No se pudieron actualizar los datos');
+        },
+      });
+      return;
+    }
+
+    // Modo normal de edición (admin editando a otro usuario)
     const payload = {
       id: this.alumno.id,
       matricula: this.alumno.matricula,

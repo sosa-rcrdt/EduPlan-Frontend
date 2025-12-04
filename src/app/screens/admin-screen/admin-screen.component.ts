@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { HorariosService } from 'src/app/services/horarios.service';
@@ -13,6 +14,7 @@ import { Aula } from 'src/app/models/aulas.models';
 import { Grupo } from 'src/app/models/grupos.models';
 import { Materia } from 'src/app/models/materias.models';
 import { PeriodoAcademico } from 'src/app/models/periodos.models';
+import { ConfirmationModalComponent } from 'src/app/modals/confirmation-modal/confirmation-modal.component';
 
 interface FilaHorarioAdmin {
   id: number;
@@ -35,6 +37,8 @@ interface GrupoHorariosAdmin {
   styleUrls: ['./admin-screen.component.scss'],
 })
 export class AdminScreenComponent implements OnInit {
+
+  @ViewChild('deleteModal') deleteModal!: ConfirmationModalComponent;
 
   // Usuario logueado (admin)
   public profile: UserProfile = null;
@@ -59,6 +63,7 @@ export class AdminScreenComponent implements OnInit {
   public isLoading: boolean = false;
   public errorMessage: string = '';
   public totalHorarios: number = 0;
+  public idHorarioEliminar: number | null = null;
 
   // Mapeo día numérico -> etiqueta
   private diasSemanaLabels: string[] = [
@@ -76,8 +81,9 @@ export class AdminScreenComponent implements OnInit {
     private aulasService: AulasService,
     private gruposService: GruposService,
     private materiasService: MateriasService,
-    private periodosService: PeriodosService
-  ) {}
+    private periodosService: PeriodosService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     // Perfil del usuario logueado
@@ -292,5 +298,39 @@ export class AdminScreenComponent implements OnInit {
     });
 
     this.gruposHorarios = grupos;
+  }
+
+  // =====================================================
+  //   CRUD Actions
+  // =====================================================
+  public irARegistroHorario(): void {
+    this.router.navigate(['/home/horarios/registro']);
+  }
+
+  public editarHorario(id: number): void {
+    this.router.navigate(['/home/horarios/registro', id]);
+  }
+
+  public confirmarEliminacion(id: number): void {
+    this.idHorarioEliminar = id;
+    this.deleteModal.show();
+  }
+
+  public eliminarHorario(): void {
+    if (this.idHorarioEliminar) {
+      this.horariosService.eliminarHorario(this.idHorarioEliminar).subscribe(
+        (response) => {
+          this.deleteModal.hide();
+          alert("Horario eliminado correctamente");
+          this.obtenerPeriodoActivoYHorarios();
+          this.idHorarioEliminar = null;
+        },
+        (error) => {
+          console.error("Error al eliminar horario", error);
+          this.deleteModal.hide();
+          alert("No se pudo eliminar el horario. Intenta nuevamente.");
+        }
+      );
+    }
   }
 }

@@ -1,0 +1,76 @@
+<div class="container-fluid">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h2>{{ esEdicion ? 'Editar Grupo' : 'Nuevo Grupo' }}</h2>
+    </div>
+  </div>
+
+  <div class="row justify-content-center" *ngIf="isLoading">
+    <div class="col-12 text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="mt-2 text-muted">Cargando información...</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-center" *ngIf="!isLoading">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          
+          <div class="alert alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+          </div>
+
+          <form (ngSubmit)="onSubmit()">
+            
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre del Grupo <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="nombre" name="nombre" 
+                     [(ngModel)]="grupo.nombre" required placeholder="Ej. A">
+            </div>
+
+            <!-- Semestre y Cupo -->
+            <div class="row">
+              <div class="col-12 col-md-6 mb-3">
+                <label for="semestre" class="form-label">Semestre <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="semestre" name="semestre" 
+                       [(ngModel)]="grupo.semestre" required min="1" max="12" placeholder="Ej. 1">
+              </div>
+
+              <div class="col-12 col-md-6 mb-3">
+                <label for="cupo_maximo" class="form-label">Cupo Máximo <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="cupo_maximo" name="cupo_maximo" 
+                       [(ngModel)]="grupo.cupo_maximo" required min="1" placeholder="Ej. 30">
+              </div>
+            </div>
+
+            <!-- Materia -->
+            <div class="mb-4">
+              <label for="materia" class="form-label">Materia <span class="text-danger">*</span></label>
+              <select class="form-select" id="materia" name="materia" [(ngModel)]="grupo.materia" required>
+                <option [ngValue]="null" disabled>Selecciona una materia</option>
+                <option *ngFor="let materia of materias" [value]="materia.id">
+                  {{ materia.nombre }} ({{ materia.codigo }})
+                </option>
+              </select>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-4">
+              <button type="button" class="btn btn-outline-secondary" (click)="cancelar()">
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                {{ esEdicion ? 'Guardar Cambios' : 'Crear Grupo' }}
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

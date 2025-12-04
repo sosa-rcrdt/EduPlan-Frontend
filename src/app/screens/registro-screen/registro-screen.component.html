@@ -12,8 +12,8 @@
         <img src="/assets/images/Letras_EduPlan2.png" class="logo-text" alt="logo texto">
         </div>
 
-        <!-- CARD: SELECCIÓN DE TIPO DE USUARIO -->
-        <div class="card card-roles">
+        <!-- CARD: SELECCIÓN DE TIPO DE USUARIO (oculto en self-edit y change-password) -->
+        <div class="card card-roles" *ngIf="!isSelfEdit && !isChangePassword">
 
         <h3 class="card-title">Tipo de Usuario</h3>
 
@@ -33,27 +33,73 @@
         <!-- CARD DEL FORMULARIO -->
         <div class="card card-form">
 
+        <!-- MODO: CAMBIAR CONTRASEÑA -->
+        <section *ngIf="isChangePassword">
+            <h3 class="card-title">Cambiar Contraseña</h3>
+            
+            <div class="alert alert-danger" *ngIf="errors.api">
+                {{ errors.api }}
+            </div>
+
+            <form (ngSubmit)="submitPasswordChange()">
+                <div class="form-group mb-3">
+                    <label for="current_password">Contraseña Actual <span class="text-danger">*</span></label>
+                    <input type="password" class="form-control" id="current_password" 
+                           [(ngModel)]="currentPassword" name="current_password" required>
+                    <div class="invalid-feedback" *ngIf="errors.current_password">
+                        {{ errors.current_password }}
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="new_password">Nueva Contraseña <span class="text-danger">*</span></label>
+                    <input type="password" class="form-control" id="new_password" 
+                           [(ngModel)]="newPassword" name="new_password" required>
+                    <div class="invalid-feedback" *ngIf="errors.new_password">
+                        {{ errors.new_password }}
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="confirm_password">Confirmar Nueva Contraseña <span class="text-danger">*</span></label>
+                    <input type="password" class="form-control" id="confirm_password" 
+                           [(ngModel)]="confirmPassword" name="confirm_password" required>
+                    <div class="invalid-feedback" *ngIf="errors.confirm_password">
+                        {{ errors.confirm_password }}
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" class="btn btn-secondary" routerLink="/home">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+                </div>
+            </form>
+        </section>
+
         <!-- FORMULARIO ADMIN -->
-        <section *ngIf="isAdmin">
+        <section *ngIf="isAdmin && !isChangePassword">
             <app-registro-admin
             [rol]="tipo_user"
             [datos_user]="user"
+            [isSelfEdit]="isSelfEdit"
             ></app-registro-admin>
         </section>
 
         <!-- FORMULARIO ALUMNO -->
-        <section *ngIf="isAlumno">
+        <section *ngIf="isAlumno && !isChangePassword">
             <app-registro-alumnos
             [rol]="tipo_user"
             [datos_user]="user"
+            [isSelfEdit]="isSelfEdit"
             ></app-registro-alumnos>
         </section>
 
         <!-- FORMULARIO MAESTRO -->
-        <section *ngIf="isMaestro">
+        <section *ngIf="isMaestro && !isChangePassword">
             <app-registro-maestros
             [rol]="tipo_user"
             [datos_user]="user"
+            [isSelfEdit]="isSelfEdit"
             ></app-registro-maestros>
         </section>
 

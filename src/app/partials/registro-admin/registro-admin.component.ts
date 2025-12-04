@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { AdministradoresService } from 'src/app/services/administradores.service';
+import { ProfileService } from 'src/app/services/profile.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,9 +11,10 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './registro-admin.component.html',
   styleUrls: ['./registro-admin.component.scss'],
 })
-export class RegistroAdminComponent implements OnInit {
+export class RegistroAdminComponent implements OnInit, OnChanges {
   @Input() rol: string = '';        // 'administrador' desde el registro-screen
   @Input() datos_user: any = {};    // datos precargados cuando se edita
+  @Input() isSelfEdit: boolean = false; // modo auto-edición
 
   // Para contraseñas
   public hide_1: boolean = false;
@@ -28,11 +30,12 @@ export class RegistroAdminComponent implements OnInit {
 
   constructor(
     private administradoresService: AdministradoresService,
+    private profileService: ProfileService,
     private authService: AuthService,
     private router: Router,
     private location: Location,
     public activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Si viene un id en la URL, es edición
@@ -40,6 +43,9 @@ export class RegistroAdminComponent implements OnInit {
       this.editar = true;
       this.idUser = Number(this.activatedRoute.snapshot.params['id']);
       // Se usan los datos que ya se cargaron en registro-screen (datos_user)
+      this.admin = { ...this.datos_user };
+    } else if (this.isSelfEdit) {
+      this.editar = true;
       this.admin = { ...this.datos_user };
     } else {
       // Alta nueva: esquema vacío básico
@@ -60,6 +66,14 @@ export class RegistroAdminComponent implements OnInit {
 
     this.token = this.authService.getAccessToken() || '';
     console.log('Admin (form): ', this.admin);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Reactively update admin when datos_user changes from parent
+    if (changes['datos_user'] && changes['datos_user'].currentValue) {
+      this.admin = { ...changes['datos_user'].currentValue };
+      console.log('Admin actualizado desde ngOnChanges: ', this.admin);
+    }
   }
 
   // Muestra/oculta la contraseña principal
@@ -136,6 +150,37 @@ export class RegistroAdminComponent implements OnInit {
       return;
     }
 
+    // Si es auto-edición, usar ProfileService
+    if (this.isSelfEdit) {
+      const payload = {
+        first_name: this.admin.first_name,
+        last_name: this.admin.last_name,
+        clave_admin: this.admin.clave_admin,
+        telefono: this.admin.telefono,
+        rfc: this.admin.rfc,
+        edad: this.admin.edad ? Number(this.admin.edad) : null,
+        ocupacion: this.admin.ocupacion,
+      };
+
+      this.profileService.updateProfile(payload).subscribe({
+        next: (response) => {
+          alert('Datos actualizados correctamente');
+          // Update localStorage profile
+          this.profileService.getProfile().subscribe({
+            next: (updatedProfile) => {
+              localStorage.setItem('user_profile', JSON.stringify(updatedProfile));
+              this.router.navigate(['/home']);
+            }
+          });
+        },
+        error: () => {
+          alert('No se pudieron actualizar los datos');
+        },
+      });
+      return;
+    }
+
+    // Modo normal de edición (admin editando a otro usuario)
     const payload = {
       id: this.admin.id,
       clave_admin: this.admin.clave_admin,
