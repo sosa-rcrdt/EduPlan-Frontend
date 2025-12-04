@@ -1,6 +1,72 @@
-/* Estilos opcionales para el modal */
-
-.modal {
-    z-index: 1055 !important; /* Asegurar que esté por encima del backdrop (1050) */
+/* --- HEADER igual al modal de editar --- */
+.custom-header {
+  background-color: white; /* igual que editar perfil */
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 1.25rem;
 }
 
+/* --- TEXTOS --- */
+.modal-title {
+  font-family: 'Nexa-Bold';
+  color: var(--color-3); // mismo color que el titulo de editar perfil
+}
+
+/* --- MODAL --- */
+.modal {
+  z-index: 1060 !important;
+}
+
+/* --- FOOTER: igual al modal 1 --- */
+.d-grid {
+  gap: 1rem !important;
+}
+
+/* --- BOTONES --- */
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-family: 'Nexa-Bold', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* botón principal (confirmar) */
+.btn-primary {
+  background-color: var(--color-4); // azul del modal editar
+  border-color: var(--color-4);
+  color: white;
+
+  &:hover {
+    background-color: var(--color-3);
+    border-color: var(--color-3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 101, 122, 0.3);
+  }
+}
+
+/* botón cancelar (mismo del modal editar) */
+.btn-secondary {
+  background-color: transparent;
+  border: 2px solid var(--color-4);
+  color: var(--color-4);
+
+  &:hover {
+    background-color: var(--color-4);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 101, 122, 0.2);
+  }
+}
+
+.footer-row {
+  display: flex;
+  justify-content: flex-end; /* botones alineados a la derecha */
+  gap: 1rem;
+  padding-top: 1rem;
+}
