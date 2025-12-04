@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AulasService } from 'src/app/services/aulas.service';
-import { AulaCreateRequest, AulaUpdateRequest, AulaEstado } from 'src/app/models/aulas.models';
+import { AulaCreateRequest, AulaUpdateRequest, AulaEstado } from 'src/app/shared/models/aulas.models';
 
 @Component({
     selector: 'app-registro-aula-screen',

@@ -3,7 +3,7 @@ import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { ReportesService } from 'src/app/services/reportes.service';
 import { PeriodosService } from 'src/app/services/periodos.service';
-import { PeriodoAcademico } from 'src/app/models/periodos.models';
+import { PeriodoAcademico } from 'src/app/shared/models/periodos.models';
 import { GruposService } from 'src/app/services/grupos.service';
 
 @Component({

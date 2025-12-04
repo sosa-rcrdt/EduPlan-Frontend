@@ -220,7 +220,7 @@
                   <td>{{ sol.motivo }}</td>
                   <td>{{ getEstadoLabel(sol.estado) }}</td>
                   <td>
-                    {{ sol.fecha_resolucion || '—' }}
+                    {{ sol.fecha_resolucion ? (sol.fecha_resolucion | fechaFormato:'largo') : '—' }}
                   </td>
                 </tr>
               </tbody>

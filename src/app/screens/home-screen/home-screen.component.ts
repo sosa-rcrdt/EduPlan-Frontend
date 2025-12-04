@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { UserRole } from 'src/app/models/auth.models';
+import { UserRole } from 'src/app/shared/models/auth.models';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({

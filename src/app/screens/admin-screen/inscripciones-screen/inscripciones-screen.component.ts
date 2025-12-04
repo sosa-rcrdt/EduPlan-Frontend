@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { InscripcionesService } from 'src/app/services/inscripciones.service';
-import { Inscripcion } from 'src/app/models/inscripciones.models';
+import { Inscripcion } from 'src/app/shared/models/inscripciones.models';
 import { AlumnosService } from 'src/app/services/alumnos.service';
 import { GruposService } from 'src/app/services/grupos.service';
 import { PeriodosService } from 'src/app/services/periodos.service';

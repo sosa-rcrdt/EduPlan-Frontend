@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PeriodosService } from 'src/app/services/periodos.service';
-import { PeriodoAcademico, PeriodoCreateRequest, PeriodoUpdateRequest } from 'src/app/models/periodos.models';
+import { PeriodoAcademico, PeriodoCreateRequest, PeriodoUpdateRequest } from 'src/app/shared/models/periodos.models';
 import { AlertService } from 'src/app/services/alert.service';
 
 @Component({

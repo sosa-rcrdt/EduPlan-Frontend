@@ -6,10 +6,10 @@ import { PeriodosService } from 'src/app/services/periodos.service';
 import { MateriasService } from 'src/app/services/materias.service';
 import { GruposService } from 'src/app/services/grupos.service';
 import { AlumnosService } from 'src/app/services/alumnos.service';
-import { PeriodoAcademico } from 'src/app/models/periodos.models';
-import { Materia } from 'src/app/models/materias.models';
-import { Grupo } from 'src/app/models/grupos.models';
-import { Alumno } from 'src/app/models/usuario.models';
+import { PeriodoAcademico } from 'src/app/shared/models/periodos.models';
+import { Materia } from 'src/app/shared/models/materias.models';
+import { Grupo } from 'src/app/shared/models/grupos.models';
+import { Alumno } from 'src/app/shared/models/usuario.models';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 

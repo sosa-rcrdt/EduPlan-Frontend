@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AulasService } from 'src/app/services/aulas.service';
-import { Aula } from 'src/app/models/aulas.models';
+import { Aula } from 'src/app/shared/models/aulas.models';
 import { ConfirmationModalComponent } from 'src/app/modals/confirmation-modal/confirmation-modal.component';
 
 @Component({

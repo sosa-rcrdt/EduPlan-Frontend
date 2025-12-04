@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { LoginRequest } from 'src/app/models/auth.models';
+import { LoginRequest } from 'src/app/shared/models/auth.models';
 import { Location } from '@angular/common';
 
 declare var $: any;

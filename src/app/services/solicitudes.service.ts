@@ -11,7 +11,7 @@ import {
   SolicitudUpdateRequest,
   SolicitudDeleteResponse,
   EstadoSolicitud,
-} from '../models/solicitudes.models';
+} from '../shared/models/solicitudes.models';
 
 @Injectable({
   providedIn: 'root',

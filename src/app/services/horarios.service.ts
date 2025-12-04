@@ -10,7 +10,7 @@ import {
   HorarioCreateResponse,
   HorarioUpdateRequest,
   HorarioDeleteResponse,
-} from '../models/horarios.models';
+} from '../shared/models/horarios.models';
 
 @Injectable({
   providedIn: 'root',

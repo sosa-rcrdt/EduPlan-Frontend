@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
-import { Administrador, DashboardCounts } from '../models/usuario.models';
+import { Administrador, DashboardCounts } from '../shared/models/usuario.models';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class AdministradoresService {
   constructor(
     private http: HttpClient,
     private authService: AuthService
-  ) {}
+  ) { }
 
   // Obtiene la lista completa de administradores activos.
   getAdministradores(): Observable<Administrador[]> {

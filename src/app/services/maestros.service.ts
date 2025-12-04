@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
-import { Maestro } from '../models/usuario.models';
+import { Maestro } from '../shared/models/usuario.models';
 
 @Injectable({
   providedIn: 'root',

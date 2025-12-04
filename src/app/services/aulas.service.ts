@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
-import { Aula, AulaCreateRequest, AulaCreateResponse, AulaUpdateRequest, AulaDeleteResponse } from '../models/aulas.models';
+import { Aula, AulaCreateRequest, AulaCreateResponse, AulaUpdateRequest, AulaDeleteResponse } from '../shared/models/aulas.models';
 
 @Injectable({
   providedIn: 'root',

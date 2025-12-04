@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GruposService } from 'src/app/services/grupos.service';
 import { MateriasService } from 'src/app/services/materias.service';
-import { GrupoCreateRequest, GrupoUpdateRequest } from 'src/app/models/grupos.models';
-import { Materia } from 'src/app/models/materias.models';
+import { GrupoCreateRequest, GrupoUpdateRequest } from 'src/app/shared/models/grupos.models';
+import { Materia } from 'src/app/shared/models/materias.models';
 
 @Component({
     selector: 'app-registro-grupo-screen',

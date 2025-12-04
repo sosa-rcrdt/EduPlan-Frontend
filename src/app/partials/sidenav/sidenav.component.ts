@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/services/auth.service';
-import { UserProfile, User } from 'src/app/models/usuario.models';
+import { UserProfile, User } from 'src/app/shared/models/usuario.models';
 import { EditProfileModalComponent } from 'src/app/modals/edit-profile-modal/edit-profile-modal.component';
 import { NotificacionesModalComponent } from 'src/app/modals/notificaciones-modal/notificaciones-modal.component';
 

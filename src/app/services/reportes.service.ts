@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
-import { ReporteUsoAulasItem, ReporteCargaDocenteItem, ReporteGrupoResponse, ReportePeriodoResumen, PublicSummaryResponse } from '../models/reportes.models';
+import { ReporteUsoAulasItem, ReporteCargaDocenteItem, ReporteGrupoResponse, ReportePeriodoResumen, PublicSummaryResponse } from '../shared/models/reportes.models';
 
 @Injectable({
   providedIn: 'root',

@@ -4,9 +4,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { InscripcionesService } from 'src/app/services/inscripciones.service';
 import { AulasService } from 'src/app/services/aulas.service';
 
-import { UserProfile, User } from 'src/app/models/usuario.models';
-import { CargaAcademicaItem } from 'src/app/models/inscripciones.models';
-import { Aula } from 'src/app/models/aulas.models';
+import { UserProfile, User } from 'src/app/shared/models/usuario.models';
+import { CargaAcademicaItem } from 'src/app/shared/models/inscripciones.models';
+import { Aula } from 'src/app/shared/models/aulas.models';
 
 interface FilaHorarioAlumno {
   dia: string;

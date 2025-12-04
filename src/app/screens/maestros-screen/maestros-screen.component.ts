@@ -7,12 +7,12 @@ import { GruposService } from 'src/app/services/grupos.service';
 import { MateriasService } from 'src/app/services/materias.service';
 import { PeriodosService } from 'src/app/services/periodos.service';
 
-import { UserProfile, User } from 'src/app/models/usuario.models';
-import { Horario } from 'src/app/models/horarios.models';
-import { Aula } from 'src/app/models/aulas.models';
-import { Grupo } from 'src/app/models/grupos.models';
-import { Materia } from 'src/app/models/materias.models';
-import { PeriodoAcademico } from 'src/app/models/periodos.models';
+import { UserProfile, User } from 'src/app/shared/models/usuario.models';
+import { Horario } from 'src/app/shared/models/horarios.models';
+import { Aula } from 'src/app/shared/models/aulas.models';
+import { Grupo } from 'src/app/shared/models/grupos.models';
+import { Materia } from 'src/app/shared/models/materias.models';
+import { PeriodoAcademico } from 'src/app/shared/models/periodos.models';
 
 interface FilaHorarioDocente {
   dia: string;

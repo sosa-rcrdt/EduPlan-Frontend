@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { ReportesService } from 'src/app/services/reportes.service';
-import { PublicSummaryResponse } from 'src/app/models/reportes.models';
+import { PublicSummaryResponse } from 'src/app/shared/models/reportes.models';
 
 @Component({
   selector: 'app-landing-page-screen',

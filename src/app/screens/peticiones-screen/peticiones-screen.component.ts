@@ -3,8 +3,8 @@ import { ConfirmationModalComponent } from 'src/app/modals/confirmation-modal/co
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import { HorariosService } from 'src/app/services/horarios.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { SolicitudCambio, EstadoSolicitud } from 'src/app/models/solicitudes.models';
-import { Horario } from 'src/app/models/horarios.models';
+import { SolicitudCambio, EstadoSolicitud } from 'src/app/shared/models/solicitudes.models';
+import { Horario } from 'src/app/shared/models/horarios.models';
 import { forkJoin } from 'rxjs';
 
 @Component({

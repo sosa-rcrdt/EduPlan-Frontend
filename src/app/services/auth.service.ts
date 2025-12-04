@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { LoginRequest, LoginResponse, RefreshTokenResponse, LogoutResponse, UserRole } from '../models/auth.models';
-import { UserProfile } from '../models/usuario.models';
+import { LoginRequest, LoginResponse, RefreshTokenResponse, LogoutResponse, UserRole } from '../shared/models/auth.models';
+import { UserProfile } from '../shared/models/usuario.models';
 
 @Injectable({
   providedIn: 'root',

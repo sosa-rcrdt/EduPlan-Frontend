@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
-import { Grupo, GrupoCreateRequest, GrupoCreateResponse, GrupoUpdateRequest, GrupoDeleteResponse } from '../models/grupos.models';
-import { Horario } from '../models/horarios.models';
+import { Grupo, GrupoCreateRequest, GrupoCreateResponse, GrupoUpdateRequest, GrupoDeleteResponse } from '../shared/models/grupos.models';
+import { Horario } from '../shared/models/horarios.models';
 
 @Injectable({
   providedIn: 'root',

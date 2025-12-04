@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
 import { HomeScreenComponent } from './screens/home-screen/home-screen.component';
 import { RegistroScreenComponent } from './screens/registro-screen/registro-screen.component';
-import { CambiarContrasenaScreenComponent } from './screens/cambiar-contrasena-screen/cambiar-contrasena-screen.component';
 import { LandingPageScreenComponent } from './screens/landing-page-screen/landing-page-screen.component';
 import { SolicitudesScreenComponent } from './screens/maestros-screen/solicitudes-screen/solicitudes-screen.component';
 import { PeriodosScreenComponent } from './screens/admin-screen/periodos-screen/periodos-screen.component';
@@ -18,21 +17,17 @@ import { RegistroHorarioScreenComponent } from './screens/admin-screen/registro-
 import { InscripcionesScreenComponent } from './screens/admin-screen/inscripciones-screen/inscripciones-screen.component';
 import { RegistroInscripcionScreenComponent } from './screens/admin-screen/inscripciones-screen/registro-inscripcion-screen/registro-inscripcion-screen.component';
 import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component';
-import { ReportesScreenComponent } from './screens/admin-screen/reportes-screen/reportes-screen.component';
-import { AlumnosScreenComponent } from './screens/alumnos-screen/alumnos-screen.component';
-import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-screen.component';
 import { PeticionesScreenComponent } from './screens/peticiones-screen/peticiones-screen.component';
 
-import { AuthGuard } from './guards/auth.guard';
-import { LoginGuard } from './guards/login.guard';
-import { RoleGuard } from './guards/role.guard';
+import { AuthGuard } from './shared/guards/auth.guard';
+import { LoginGuard } from './shared/guards/login.guard';
+import { RoleGuard } from './shared/guards/role.guard';
 
 const routes: Routes = [
   // Rutas públicas (sin sidenav)
   { path: '', component: LandingPageScreenComponent, pathMatch: 'full' },
   { path: 'login', component: LoginScreenComponent, pathMatch: 'full', canActivate: [LoginGuard] },
   { path: 'registro', component: RegistroScreenComponent, pathMatch: 'full', canActivate: [LoginGuard] },
-  { path: 'cambiar-contrasena', component: CambiarContrasenaScreenComponent, pathMatch: 'full', canActivate: [AuthGuard] },
 
   // Rutas privadas (con sidenav integrado en home)
   {

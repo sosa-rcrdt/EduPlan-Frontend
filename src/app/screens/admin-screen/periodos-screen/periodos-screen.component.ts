@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { PeriodosService } from 'src/app/services/periodos.service';
-import { PeriodoAcademico } from 'src/app/models/periodos.models';
+import { PeriodoAcademico } from 'src/app/shared/models/periodos.models';
 import { ConfirmationModalComponent } from 'src/app/modals/confirmation-modal/confirmation-modal.component';
 import { AlertService } from 'src/app/services/alert.service';
 

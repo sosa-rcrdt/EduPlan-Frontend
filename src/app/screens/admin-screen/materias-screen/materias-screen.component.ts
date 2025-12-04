@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MateriasService } from 'src/app/services/materias.service';
-import { Materia } from 'src/app/models/materias.models';
+import { Materia } from 'src/app/shared/models/materias.models';
 import { ConfirmationModalComponent } from 'src/app/modals/confirmation-modal/confirmation-modal.component';
 
 @Component({

@@ -40,7 +40,6 @@ import { NavbarComponent } from './partials/navbar/navbar.component';
 import { RegistroAdminComponent } from './partials/registro-admin/registro-admin.component';
 import { RegistroAlumnosComponent } from './partials/registro-alumnos/registro-alumnos.component';
 import { RegistroMaestrosComponent } from './partials/registro-maestros/registro-maestros.component';
-import { CambiarContrasenaScreenComponent } from './screens/cambiar-contrasena-screen/cambiar-contrasena-screen.component';
 import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component';
 import { AlumnosScreenComponent } from './screens/alumnos-screen/alumnos-screen.component';
 import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-screen.component';
@@ -66,8 +65,9 @@ import { RegistroInscripcionScreenComponent } from './screens/admin-screen/inscr
 import { ReportesScreenComponent } from './screens/admin-screen/reportes-screen/reportes-screen.component';
 import { PeticionesScreenComponent } from './screens/peticiones-screen/peticiones-screen.component';
 import { NotificacionesModalComponent } from './modals/notificaciones-modal/notificaciones-modal.component';
-import { DiaSemanaPipe } from './pipes/dia-semana.pipe';
-import { EstadoSolicitudPipe } from './pipes/estado-solicitud.pipe';
+import { DiaSemanaPipe } from './shared/pipes/dia-semana.pipe';
+import { EstadoSolicitudPipe } from './shared/pipes/estado-solicitud.pipe';
+import { FechaFormatoPipe } from './shared/pipes/fecha-formato.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,7 +78,6 @@ import { EstadoSolicitudPipe } from './pipes/estado-solicitud.pipe';
     RegistroAdminComponent,
     RegistroAlumnosComponent,
     RegistroMaestrosComponent,
-    CambiarContrasenaScreenComponent,
     AdminScreenComponent,
     AlumnosScreenComponent,
     MaestrosScreenComponent,
@@ -102,7 +101,8 @@ import { EstadoSolicitudPipe } from './pipes/estado-solicitud.pipe';
     PeticionesScreenComponent,
     NotificacionesModalComponent,
     DiaSemanaPipe,
-    EstadoSolicitudPipe
+    EstadoSolicitudPipe,
+    FechaFormatoPipe
   ],
   imports: [
     BrowserModule,

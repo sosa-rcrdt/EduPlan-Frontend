@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
-import { UserProfile } from '../models/usuario.models';
-import { ChangePasswordRequest, ChangePasswordResponse } from '../models/auth.models';
+import { UserProfile } from '../shared/models/usuario.models';
+import { ChangePasswordRequest, ChangePasswordResponse } from '../shared/models/auth.models';
 
 @Injectable({
   providedIn: 'root',

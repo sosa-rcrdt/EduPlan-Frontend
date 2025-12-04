@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MateriasService } from 'src/app/services/materias.service';
-import { MateriaCreateRequest, MateriaUpdateRequest } from 'src/app/models/materias.models';
+import { MateriaCreateRequest, MateriaUpdateRequest } from 'src/app/shared/models/materias.models';
 
 @Component({
     selector: 'app-registro-materia-screen',

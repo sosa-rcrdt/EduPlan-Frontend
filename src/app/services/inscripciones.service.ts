@@ -10,7 +10,7 @@ import {
   CrearInscripcionPayload,
   ActualizarInscripcionPayload,
   CargaAcademicaItem,
-} from '../models/inscripciones.models';
+} from '../shared/models/inscripciones.models';
 
 @Injectable({
   providedIn: 'root',

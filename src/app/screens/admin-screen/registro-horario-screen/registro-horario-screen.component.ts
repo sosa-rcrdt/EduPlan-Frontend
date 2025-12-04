@@ -7,12 +7,12 @@ import { MateriasService } from 'src/app/services/materias.service';
 import { AulasService } from 'src/app/services/aulas.service';
 import { MaestrosService } from 'src/app/services/maestros.service';
 import { AlertService } from 'src/app/services/alert.service';
-import { HorarioCreateRequest, HorarioUpdateRequest, HorarioEstado, DiaSemana } from 'src/app/models/horarios.models';
-import { PeriodoAcademico } from 'src/app/models/periodos.models';
-import { Grupo } from 'src/app/models/grupos.models';
-import { Materia } from 'src/app/models/materias.models';
-import { Aula } from 'src/app/models/aulas.models';
-import { Maestro } from 'src/app/models/usuario.models';
+import { HorarioCreateRequest, HorarioUpdateRequest, HorarioEstado, DiaSemana } from 'src/app/shared/models/horarios.models';
+import { PeriodoAcademico } from 'src/app/shared/models/periodos.models';
+import { Grupo } from 'src/app/shared/models/grupos.models';
+import { Materia } from 'src/app/shared/models/materias.models';
+import { Aula } from 'src/app/shared/models/aulas.models';
+import { Maestro } from 'src/app/shared/models/usuario.models';
 
 @Component({
     selector: 'app-registro-horario-screen',

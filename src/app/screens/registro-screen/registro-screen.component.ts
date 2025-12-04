@@ -8,7 +8,7 @@ import { AlumnosService } from 'src/app/services/alumnos.service';
 import { MaestrosService } from 'src/app/services/maestros.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { Administrador, Alumno, Maestro } from 'src/app/models/usuario.models';
+import { Administrador, Alumno, Maestro } from 'src/app/shared/models/usuario.models';
 
 @Component({
   selector: 'app-registro-screen',
