@@ -14,11 +14,8 @@ import { GruposScreenComponent } from './screens/admin-screen/grupos-screen/grup
 import { RegistroGrupoScreenComponent } from './screens/admin-screen/grupos-screen/registro-grupo-screen/registro-grupo-screen.component';
 import { AulasScreenComponent } from './screens/admin-screen/aulas-screen/aulas-screen.component';
 import { RegistroAulaScreenComponent } from './screens/admin-screen/aulas-screen/registro-aula-screen/registro-aula-screen.component';
-import { HorariosScreenComponent } from './screens/admin-screen/horarios-screen/horarios-screen.component';
-import { RegistroHorarioScreenComponent } from './screens/admin-screen/horarios-screen/registro-horario-screen/registro-horario-screen.component';
-import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component'; // Importar si se usa directamente
-import { AlumnosScreenComponent } from './screens/alumnos-screen/alumnos-screen.component'; // Importar si se usa directamente
-import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-screen.component'; // Importar si se usa directamente
+import { RegistroHorarioScreenComponent } from './screens/admin-screen/registro-horario-screen/registro-horario-screen.component';
+import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component';
 
 const routes: Routes = [
   // Rutas públicas (sin sidenav)
@@ -52,10 +49,9 @@ const routes: Routes = [
       { path: 'aulas/registro', component: RegistroAulaScreenComponent },
       { path: 'aulas/registro/:id', component: RegistroAulaScreenComponent },
 
-      { path: 'horarios', component: HorariosScreenComponent }, // Placeholder
-      { path: 'horarios/registro', component: RegistroHorarioScreenComponent }, // Placeholder
-      { path: 'horarios/registro/:id', component: RegistroHorarioScreenComponent }, // Placeholder
-      { path: 'reportes', component: AdminScreenComponent }, // Placeholder
+      { path: 'horarios/registro', component: RegistroHorarioScreenComponent },
+      { path: 'horarios/registro/:id', component: RegistroHorarioScreenComponent },
+      { path: 'reportes', component: AdminScreenComponent },
     ]
   }
 ];

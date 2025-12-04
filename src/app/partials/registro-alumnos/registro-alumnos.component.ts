@@ -52,6 +52,14 @@ export class RegistroAlumnosComponent implements OnInit, OnChanges {
         const parts = (this.alumno.fecha_nacimiento as string).split('T');
         this.alumno.fecha_nacimiento = parts[0]; // "YYYY-MM-DD"
       }
+    } else if (this.isSelfEdit) {
+      this.editar = true;
+      this.alumno = { ...this.datos_user };
+      // Normalizar fecha_nacimiento si viene como "YYYY-MM-DDTHH:mm:ssZ"
+      if (this.alumno.fecha_nacimiento) {
+        const parts = (this.alumno.fecha_nacimiento as string).split('T');
+        this.alumno.fecha_nacimiento = parts[0]; // "YYYY-MM-DD"
+      }
     } else {
       // Alta nueva: inicializamos el objeto alumno
       this.alumno = {
@@ -79,13 +87,13 @@ export class RegistroAlumnosComponent implements OnInit, OnChanges {
     // Reactively update alumno when datos_user changes from parent
     if (changes['datos_user'] && changes['datos_user'].currentValue) {
       this.alumno = { ...changes['datos_user'].currentValue };
-      
+
       // Normalizar fecha_nacimiento si viene como "YYYY-MM-DDTHH:mm:ssZ"
       if (this.alumno.fecha_nacimiento) {
         const parts = (this.alumno.fecha_nacimiento as string).split('T');
         this.alumno.fecha_nacimiento = parts[0];
       }
-      
+
       console.log('Alumno actualizado desde ngOnChanges: ', this.alumno);
     }
   }

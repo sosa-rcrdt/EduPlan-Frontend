@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 
 declare var $: any;
 
@@ -7,15 +7,28 @@ declare var $: any;
     templateUrl: './edit-profile-modal.component.html',
     styleUrls: ['./edit-profile-modal.component.scss']
 })
-export class EditProfileModalComponent implements OnInit {
+export class EditProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @Input() modalId: string = 'editProfileModal';
     @Output() onEditData = new EventEmitter<void>();
     @Output() onChangePassword = new EventEmitter<void>();
 
-    constructor() { }
+    constructor(private elementRef: ElementRef) { }
 
     ngOnInit(): void {
+    }
+
+    ngAfterViewInit(): void {
+        // Mover el modal al body para evitar problemas de z-index/backdrop
+        document.body.appendChild(this.elementRef.nativeElement);
+    }
+
+    ngOnDestroy(): void {
+        // Limpiar el elemento del DOM al destruir el componente
+        this.elementRef.nativeElement.remove();
+        // Asegurar que el backdrop también se elimine si el modal estaba abierto
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
     }
 
     public editData(): void {
@@ -40,12 +53,5 @@ export class EditProfileModalComponent implements OnInit {
 
     public hide(): void {
         $(`#${this.modalId}`).modal('hide');
-        // Force remove backdrop
-        setTimeout(() => {
-            $('.modal-backdrop').remove();
-            $('body').removeClass('modal-open');
-            $('body').css('overflow', '');
-            $('body').css('padding-right', '');
-        }, 200);
     }
 }

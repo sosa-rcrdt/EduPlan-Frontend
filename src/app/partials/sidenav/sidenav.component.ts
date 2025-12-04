@@ -113,11 +113,6 @@ export class SidenavComponent implements OnInit {
           route: '/home/aulas',
         },
         {
-          label: 'Horarios',
-          icon: 'schedule',
-          route: '/home/horarios',
-        },
-        {
           label: 'Reportes',
           icon: 'bar_chart',
           route: '/home/reportes',

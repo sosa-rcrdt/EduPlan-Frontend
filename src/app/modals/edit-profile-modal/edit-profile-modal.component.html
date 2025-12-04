@@ -1,26 +1,20 @@
-\u003cdiv class=\"modal fade\" [id]=\"modalId\" tabindex=\"-1\" [attr.aria-labelledby]=\"modalId + 'Label'\" aria-hidden=\"true\" data-bs-backdrop=\"true\" data-bs-keyboard=\"true\"\u003e
-  \u003cdiv class=\"modal-dialog modal-dialog-centered\"\u003e
-    \u003cdiv class=\"modal-content\"\u003e
-      \u003cdiv class=\"modal-header bg-primary text-white\"\u003e
-        \u003ch5 class=\"modal-title\" [id]=\"modalId + 'Label'\"\u003eEditar Perfil\u003c/h5\u003e
-        \u003cbutton type=\"button\" class=\"btn-close btn-close-white\" data-bs-dismiss=\"modal\" aria-label=\"Close\"\u003e\u003c/button\u003e
-      \u003c/div\u003e
-      \u003cdiv class=\"modal-body\"\u003e
-        \u003cp class=\"mb-3\"\u003e¿Qué deseas modificar?\u003c/p\u003e
-        \u003cdiv class=\"d-grid gap-2\"\u003e
-          \u003cbutton type=\"button\" class=\"btn btn-outline-primary\" (click)=\"editData()\"\u003e
-            \u003ci class=\"bi bi-person-fill me-2\"\u003e\u003c/i\u003e
+<div class="modal fade" [id]="modalId" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editProfileModalLabel">Editar Perfil</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="hide()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary" type="button" (click)="editData()">
             Editar Datos de Usuario
-          \u003c/button\u003e
-          \u003cbutton type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"changePassword()\"\u003e
-            \u003ci class=\"bi bi-key-fill me-2\"\u003e\u003c/i\u003e
+          </button>
+          <button class="btn btn-secondary" type="button" (click)="changePassword()">
             Cambiar Contraseña
-          \u003c/button\u003e
-        \u003c/div\u003e
-      \u003c/div\u003e
-      \u003cdiv class=\"modal-footer\"\u003e
-        \u003cbutton type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\"\u003eCancelar\u003c/button\u003e
-      \u003c/div\u003e
-    \u003c/div\u003e
-  \u003c/div\u003e
-\u003c/div\u003e
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

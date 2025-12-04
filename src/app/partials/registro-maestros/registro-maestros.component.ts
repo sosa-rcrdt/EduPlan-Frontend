@@ -82,6 +82,21 @@ export class RegistroMaestrosComponent implements OnInit, OnChanges {
           ? [...this.maestro.materias_json]
           : [];
       }
+    } else if (this.isSelfEdit) {
+      this.editar = true;
+      this.maestro = { ...this.datos_user };
+      // Normalizar fecha_nacimiento si viene con "T"
+      if (this.maestro.fecha_nacimiento) {
+        const parts = (this.maestro.fecha_nacimiento as string).split('T');
+        this.maestro.fecha_nacimiento = parts[0];
+      }
+
+      // Asegurar que materias_json sea array
+      if (!Array.isArray(this.maestro.materias_json)) {
+        this.maestro.materias_json = this.maestro.materias_json
+          ? [...this.maestro.materias_json]
+          : [];
+      }
     } else {
       // Alta nueva
       this.maestro = {
@@ -109,20 +124,20 @@ export class RegistroMaestrosComponent implements OnInit, OnChanges {
     // Reactively update maestro when datos_user changes from parent
     if (changes['datos_user'] && changes['datos_user'].currentValue) {
       this.maestro = { ...changes['datos_user'].currentValue };
-      
+
       // Normalizar fecha_nacimiento si viene con "T"
       if (this.maestro.fecha_nacimiento) {
         const parts = (this.maestro.fecha_nacimiento as string).split('T');
         this.maestro.fecha_nacimiento = parts[0];
       }
-      
+
       // Asegurar que materias_json sea array
       if (!Array.isArray(this.maestro.materias_json)) {
         this.maestro.materias_json = this.maestro.materias_json
           ? [...this.maestro.materias_json]
           : [];
       }
-      
+
       console.log('Maestro actualizado desde ngOnChanges: ', this.maestro);
     }
   }

@@ -57,8 +57,7 @@ import { GruposScreenComponent } from './screens/admin-screen/grupos-screen/grup
 import { RegistroGrupoScreenComponent } from './screens/admin-screen/grupos-screen/registro-grupo-screen/registro-grupo-screen.component';
 import { AulasScreenComponent } from './screens/admin-screen/aulas-screen/aulas-screen.component';
 import { RegistroAulaScreenComponent } from './screens/admin-screen/aulas-screen/registro-aula-screen/registro-aula-screen.component';
-import { HorariosScreenComponent } from './screens/admin-screen/horarios-screen/horarios-screen.component';
-import { RegistroHorarioScreenComponent } from './screens/admin-screen/horarios-screen/registro-horario-screen/registro-horario-screen.component';
+import { RegistroHorarioScreenComponent } from './screens/admin-screen/registro-horario-screen/registro-horario-screen.component';
 import { EditProfileModalComponent } from './modals/edit-profile-modal/edit-profile-modal.component';
 @NgModule({
   declarations: [
@@ -86,7 +85,6 @@ import { EditProfileModalComponent } from './modals/edit-profile-modal/edit-prof
     RegistroGrupoScreenComponent,
     AulasScreenComponent,
     RegistroAulaScreenComponent,
-    HorariosScreenComponent,
     RegistroHorarioScreenComponent,
     EditProfileModalComponent
   ],

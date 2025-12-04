@@ -44,6 +44,9 @@ export class RegistroAdminComponent implements OnInit, OnChanges {
       this.idUser = Number(this.activatedRoute.snapshot.params['id']);
       // Se usan los datos que ya se cargaron en registro-screen (datos_user)
       this.admin = { ...this.datos_user };
+    } else if (this.isSelfEdit) {
+      this.editar = true;
+      this.admin = { ...this.datos_user };
     } else {
       // Alta nueva: esquema vacío básico
       this.admin = {
