@@ -1,66 +1,129 @@
-<div class="container-fluid dashboard-container">
-    <div class="header-section">
-      <h1 class="title">Dashboard de Reportes</h1>
-      
-      <mat-form-field appearance="outline" class="periodo-selector">
-        <mat-label>Periodo Académico</mat-label>
-        <mat-select [(value)]="periodo_seleccionado" (selectionChange)="onPeriodoChange()">
-          <mat-option *ngFor="let p of lista_periodos" [value]="p.id">
-            {{ p.nombre }} ({{ p.estado }})
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  
-    <div class="charts-grid">
-      
-      <!-- Chart 1: Uso de Aulas -->
-      <div class="chart-card mat-elevation-z4">
-        <div class="chart-container">
-          <canvas baseChart
-            [data]="barChartData"
-            [options]="barChartOptions"
-            [type]="barChartType">
-          </canvas>
-        </div>
-      </div>
-  
-      <!-- Chart 2: Carga Docente -->
-      <div class="chart-card mat-elevation-z4">
-        <div class="chart-container">
-          <canvas baseChart
-            [data]="docenteChartData"
-            [options]="docenteChartOptions"
-            [type]="barChartType">
-          </canvas>
-        </div>
-      </div>
-  
-      <!-- Chart 3: Por Grupo (Cupo/Carga) -->
-      <div class="chart-card mat-elevation-z4">
-        <div class="chart-container">
-          <canvas baseChart
-            [data]="grupoChartData"
-            [options]="grupoChartOptions"
-            [type]="barChartType">
-          </canvas>
-        </div>
-      </div>
+<div class="admin-screen-container">
+  <div class="container-fluid py-4">
+    <div class="row mb-3">
+      <div class="col-12">
+        <h2 class="screen-title">Dashboard del Administrador</h2>
+        <p class="mb-1" *ngIf="name_user">
+          Bienvenido,
+          <strong>{{ name_user }}</strong>
+        </p>
 
-      <!-- Chart 4: Resumen Periodo -->
-      <div class="chart-card mat-elevation-z4">
-        <div class="chart-container pie-container">
-          <canvas baseChart
-            [data]="pieChartData"
-            [options]="pieChartOptions"
-            [type]="pieChartType">
-          </canvas>
+        <p class="text-muted" *ngIf="periodoNombre">
+          Periodo Académico:
+          <strong>{{ periodoNombre }}</strong>
+        </p>
+
+        <p class="text-muted" *ngIf="totalHorarios > 0">
+          Total de horarios registrados: <strong>{{ totalHorarios }}</strong>
+          &nbsp;|&nbsp;
+          Grupos con horario: <strong>{{ gruposHorarios.length }}</strong>
+        </p>
+      </div>
+      
+      <div class="col-12 col-md-6 text-md-end mt-3 mt-md-0">
+        <button class="btn btn-primary" (click)="irARegistroHorario()">
+          <i class="bi bi-plus-lg me-1"></i> Nuevo Horario
+        </button>
+      </div>
+    </div>
+
+    <!-- Estado de carga -->
+    <div class="row mb-2" *ngIf="isLoading">
+      <div class="col-12 text-center">
+        <span class="text-muted">Cargando horarios...</span>
+      </div>
+    </div>
+
+    <!-- Sin horarios -->
+    <div
+      class="row mb-2"
+      *ngIf="!isLoading && !errorMessage && gruposHorarios.length === 0"
+    >
+      <div class="col-12">
+        <div class="alert alert-info mb-0">
+          No hay horarios registrados para el periodo activo.
         </div>
       </div>
-  
     </div>
-  
-    <div *ngIf="!periodo_seleccionado" class="no-data">
-      <p>Seleccione un periodo o cree uno nuevo para ver reportes.</p>
+
+    <!-- Error general -->
+    <div class="row" *ngIf="errorMessage">
+      <div class="col-12">
+        <div class="alert alert-danger mt-2 mb-3">
+          {{ errorMessage }}
+        </div>
+      </div>
     </div>
+
+    <!-- Horarios agrupados por grupo -->
+    <div class="row" *ngIf="!isLoading && gruposHorarios.length > 0">
+      <div class="col-12">
+
+        <section
+          class="card mb-3 admin-horarios-card"
+          *ngFor="let grupo of gruposHorarios"
+        >
+          <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+            <div>
+              <h5 class="mb-1">
+                {{ grupo.display }}
+              </h5>
+              <p class="mb-0 text-muted" *ngIf="grupo.semestre !== null">
+                Semestre: {{ grupo.semestre }}
+              </p>
+            </div>
+            <div class="text-muted small mt-2 mt-md-0">
+              {{ grupo.filas.length }} horario(s) asignado(s)
+            </div>
+          </div>
+
+          <div class="card-body p-2 p-md-3">
+            <div class="table-responsive mb-0">
+              <table class="table table-sm table-striped align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th>Día</th>
+                    <th>Hora inicio</th>
+                    <th>Hora fin</th>
+                    <th>Aula</th>
+                    <th class="text-end">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let fila of grupo.filas">
+                    <td>{{ fila.dia }}</td>
+                    <td>{{ fila.hora_inicio }}</td>
+                    <td>{{ fila.hora_fin }}</td>
+                    <td>{{ fila.aulaTexto }}</td>
+                    <td class="text-end">
+                      <button class="btn btn-sm btn-outline-primary me-2" (click)="editarHorario(fila.id)" title="Editar">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger" (click)="confirmarEliminacion(fila.id)" title="Eliminar">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
   </div>
+</div>
+
+<!-- Modal de Confirmación de Eliminación -->
+<app-confirmation-modal
+  #deleteModal
+  [modalId]="'modalEliminarHorario'"
+  [title]="'Eliminar Horario'"
+  [message]="'¿Estás seguro de que deseas eliminar este horario? Esta acción no se puede deshacer.'"
+  [btnConfirmText]="'Eliminar'"
+  [btnCancelText]="'Cancelar'"
+  [btnConfirmColor]="'btn-danger'"
+  (onConfirm)="eliminarHorario()"
+></app-confirmation-modal>

@@ -18,6 +18,7 @@ import { RegistroHorarioScreenComponent } from './screens/admin-screen/registro-
 import { InscripcionesScreenComponent } from './screens/admin-screen/inscripciones-screen/inscripciones-screen.component';
 import { RegistroInscripcionScreenComponent } from './screens/admin-screen/inscripciones-screen/registro-inscripcion-screen/registro-inscripcion-screen.component';
 import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component';
+import { ReportesScreenComponent } from './screens/admin-screen/reportes-screen/reportes-screen.component';
 
 const routes: Routes = [
   // Rutas públicas (sin sidenav)
@@ -58,7 +59,7 @@ const routes: Routes = [
       { path: 'inscripciones/registro', component: RegistroInscripcionScreenComponent },
       { path: 'inscripciones/registro/:id', component: RegistroInscripcionScreenComponent },
 
-      { path: 'reportes', component: AdminScreenComponent },
+      { path: 'reportes', component: ReportesScreenComponent },
     ]
   }
 ];

@@ -62,6 +62,7 @@ import { RegistroHorarioScreenComponent } from './screens/admin-screen/registro-
 import { EditProfileModalComponent } from './modals/edit-profile-modal/edit-profile-modal.component';
 import { InscripcionesScreenComponent } from './screens/admin-screen/inscripciones-screen/inscripciones-screen.component';
 import { RegistroInscripcionScreenComponent } from './screens/admin-screen/inscripciones-screen/registro-inscripcion-screen/registro-inscripcion-screen.component';
+import { ReportesScreenComponent } from './screens/admin-screen/reportes-screen/reportes-screen.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,7 +92,8 @@ import { RegistroInscripcionScreenComponent } from './screens/admin-screen/inscr
     RegistroHorarioScreenComponent,
     EditProfileModalComponent,
     InscripcionesScreenComponent,
-    RegistroInscripcionScreenComponent
+    RegistroInscripcionScreenComponent,
+    ReportesScreenComponent
   ],
   imports: [
     BrowserModule,
