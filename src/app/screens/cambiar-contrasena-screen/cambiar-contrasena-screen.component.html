@@ -1,13 +1,7 @@
 <section class="login">
   <div class="wrapper">
-    <!-- Puedes reutilizar tu sección izquierda con logos si quieres
-    <div class="section-left d-none d-md-flex">
-      <img src="/assets/images/Buap.png" alt="" class="logo-buap">
-      <img src="/assets/images/FCCBuap.png" alt="" class="logo-fcc">
-    </div> -->
-
     <div class="section-right">
-      <div class="card">
+      <div class="glass-card">
         <div class="card-body">
           <h3 class="title">CAMBIAR CONTRASEÑA</h3>
 
@@ -18,101 +12,71 @@
 
           <div class="container-inputs">
             <!-- Contraseña actual -->
-            <div class="pt-3 mb-3">
+            <div class="input-group-custom">
               <label for="current_password" class="form-label">Contraseña actual</label>
-              <div class="input-group input-group-merge">
+              <div class="glass-input-wrapper">
                 <input
                   [type]="typeCurrent"
                   [(ngModel)]="currentPassword"
                   id="current_password"
-                  class="form-control"
                   placeholder="Ingresa tu contraseña actual"
                 >
-                <div class="input-group-text">
-                  <i
-                    *ngIf="typeCurrent === 'password'"
-                    class="bi bi-eye-fill"
-                    (click)="toggleCurrent()"
-                    style="cursor: pointer;"
-                  ></i>
-                  <i
-                    *ngIf="typeCurrent === 'text'"
-                    class="bi bi-eye-slash-fill"
-                    (click)="toggleCurrent()"
-                    style="cursor: pointer;"
-                  ></i>
-                </div>
               </div>
-              <div *ngIf="errors.current_password" class="invalid-feedback d-block">
+              <i
+                class="bi eye-toggle"
+                [ngClass]="typeCurrent === 'password' ? 'bi-eye-fill' : 'bi-eye-slash-fill'"
+                (click)="toggleCurrent()"
+              ></i>
+              <div *ngIf="errors.current_password" class="invalid-feedback">
                 {{ errors.current_password }}
               </div>
             </div>
 
             <!-- Nueva contraseña -->
-            <div class="pt-3 mb-3">
+            <div class="input-group-custom">
               <label for="new_password" class="form-label">Nueva contraseña</label>
-              <div class="input-group input-group-merge">
+              <div class="glass-input-wrapper">
                 <input
                   [type]="typeNew"
                   [(ngModel)]="newPassword"
                   id="new_password"
-                  class="form-control"
                   placeholder="Ingresa tu nueva contraseña"
                 >
-                <div class="input-group-text">
-                  <i
-                    *ngIf="typeNew === 'password'"
-                    class="bi bi-eye-fill"
-                    (click)="toggleNew()"
-                    style="cursor: pointer;"
-                  ></i>
-                  <i
-                    *ngIf="typeNew === 'text'"
-                    class="bi bi-eye-slash-fill"
-                    (click)="toggleNew()"
-                    style="cursor: pointer;"
-                  ></i>
-                </div>
               </div>
-              <div *ngIf="errors.new_password" class="invalid-feedback d-block">
+              <i
+                class="bi eye-toggle"
+                [ngClass]="typeNew === 'password' ? 'bi-eye-fill' : 'bi-eye-slash-fill'"
+                (click)="toggleNew()"
+              ></i>
+              <div *ngIf="errors.new_password" class="invalid-feedback">
                 {{ errors.new_password }}
               </div>
             </div>
 
             <!-- Confirmar nueva contraseña -->
-            <div class="pt-3 mb-4">
+            <div class="input-group-custom">
               <label for="confirm_password" class="form-label">Confirmar nueva contraseña</label>
-              <div class="input-group input-group-merge">
+              <div class="glass-input-wrapper">
                 <input
                   [type]="typeConfirm"
                   [(ngModel)]="confirmPassword"
                   id="confirm_password"
-                  class="form-control"
                   placeholder="Confirma tu nueva contraseña"
                   (keyup.enter)="changePassword()"
                 >
-                <div class="input-group-text">
-                  <i
-                    *ngIf="typeConfirm === 'password'"
-                    class="bi bi-eye-fill"
-                    (click)="toggleConfirm()"
-                    style="cursor: pointer;"
-                  ></i>
-                  <i
-                    *ngIf="typeConfirm === 'text'"
-                    class="bi bi-eye-slash-fill"
-                    (click)="toggleConfirm()"
-                    style="cursor: pointer;"
-                  ></i>
-                </div>
               </div>
-              <div *ngIf="errors.confirm_password" class="invalid-feedback d-block">
+              <i
+                class="bi eye-toggle"
+                [ngClass]="typeConfirm === 'password' ? 'bi-eye-fill' : 'bi-eye-slash-fill'"
+                (click)="toggleConfirm()"
+              ></i>
+              <div *ngIf="errors.confirm_password" class="invalid-feedback">
                 {{ errors.confirm_password }}
               </div>
             </div>
 
             <!-- Botones -->
-            <div class="d-flex justify-content-between mt-3">
+            <div class="section-buttons">
               <button
                 class="btn btn-secondary"
                 type="button"

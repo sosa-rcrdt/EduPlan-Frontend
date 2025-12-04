@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileService } from 'src/app/services/profile.service';
 import { ChangePasswordRequest } from 'src/app/models/auth.models';
@@ -6,7 +6,8 @@ import { ChangePasswordRequest } from 'src/app/models/auth.models';
 @Component({
   selector: 'app-cambiar-contrasena-screen',
   templateUrl: './cambiar-contrasena-screen.component.html',
-  styleUrls: ['./cambiar-contrasena-screen.component.scss']
+  styleUrls: ['./cambiar-contrasena-screen.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CambiarContrasenaScreenComponent implements OnInit {
   currentPassword: string = '';
@@ -24,9 +25,9 @@ export class CambiarContrasenaScreenComponent implements OnInit {
   constructor(
     private router: Router,
     private profileService: ProfileService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   // Toggle de visibilidad de campos
   toggleCurrent(): void {

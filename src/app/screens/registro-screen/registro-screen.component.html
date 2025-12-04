@@ -5,6 +5,10 @@
 
     <!-- CONTENEDOR PRINCIPAL -->
     <div class="registro-container">
+        <div class="back-arrow" (click)="volver()">
+            <i class="bi bi-arrow-left"></i>
+        </div>
+
 
         <!-- LOGO SUPERIOR -->
         <div class="logo-container">
@@ -36,41 +40,84 @@
         <!-- MODO: CAMBIAR CONTRASEÑA -->
         <section *ngIf="isChangePassword">
             <h3 class="card-title">Cambiar Contraseña</h3>
-            
+
             <div class="alert alert-danger" *ngIf="errors.api">
                 {{ errors.api }}
             </div>
 
             <form (ngSubmit)="submitPasswordChange()">
-                <div class="form-group mb-3">
-                    <label for="current_password">Contraseña Actual <span class="text-danger">*</span></label>
-                    <input type="password" class="form-control" id="current_password" 
-                           [(ngModel)]="currentPassword" name="current_password" required>
+                <!-- Contraseña actual -->
+                <div class="input-group-custom">
+                    <label class="form-label">Contraseña actual <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <i class="bi bi-lock-fill icon"></i>
+                        <input
+                            [type]="typeCurrent"
+                            id="current_password"
+                            [(ngModel)]="currentPassword"
+                            name="current_password"
+                            placeholder="Ingresa tu contraseña actual"
+                            required
+                        />
+                        <i
+                            class="bi eye-toggle"
+                            [ngClass]="typeCurrent === 'password' ? 'bi-eye-fill' : 'bi-eye-slash-fill'"
+                            (click)="toggleCurrent()"
+                        ></i>
+                    </div>
                     <div class="invalid-feedback" *ngIf="errors.current_password">
                         {{ errors.current_password }}
                     </div>
                 </div>
 
-                <div class="form-group mb-3">
-                    <label for="new_password">Nueva Contraseña <span class="text-danger">*</span></label>
-                    <input type="password" class="form-control" id="new_password" 
-                           [(ngModel)]="newPassword" name="new_password" required>
+                <!-- Nueva contraseña -->
+                <div class="input-group-custom">
+                    <label class="form-label">Nueva contraseña <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <i class="bi bi-lock-fill icon"></i>
+                        <input
+                            [type]="typeNew"
+                            id="new_password"
+                            [(ngModel)]="newPassword"
+                            name="new_password"
+                            placeholder="Ingresa tu nueva contraseña"
+                        />
+                        <i
+                            class="bi eye-toggle"
+                            [ngClass]="typeNew === 'password' ? 'bi-eye-fill' : 'bi-eye-slash-fill'"
+                            (click)="toggleNew()"
+                        ></i>
+                    </div>
                     <div class="invalid-feedback" *ngIf="errors.new_password">
                         {{ errors.new_password }}
                     </div>
                 </div>
 
-                <div class="form-group mb-3">
-                    <label for="confirm_password">Confirmar Nueva Contraseña <span class="text-danger">*</span></label>
-                    <input type="password" class="form-control" id="confirm_password" 
-                           [(ngModel)]="confirmPassword" name="confirm_password" required>
+                <!-- Confirmar nueva contraseña -->
+                <div class="input-group-custom">
+                    <label class="form-label">Confirmar contraseña <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <i class="bi bi-lock-fill icon"></i>
+                        <input
+                            [type]="typeConfirm"
+                            id="confirm_password"
+                            [(ngModel)]="confirmPassword"
+                            name="confirm_password"
+                            placeholder="Confirma tu nueva contraseña"
+                        />
+                        <i
+                            class="bi eye-toggle"
+                            [ngClass]="typeConfirm === 'password' ? 'bi-eye-fill' : 'bi-eye-slash-fill'"
+                            (click)="toggleConfirm()"
+                        ></i>
+                    </div>
                     <div class="invalid-feedback" *ngIf="errors.confirm_password">
                         {{ errors.confirm_password }}
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-between mt-4">
-                    <button type="button" class="btn btn-secondary" routerLink="/home">Cancelar</button>
+                <div class="section-buttons">
+                    <button type="button" class="btn btn-secondary" (click)="volver()">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
                 </div>
             </form>
