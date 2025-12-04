@@ -65,8 +65,14 @@
 }
 
 .footer-row {
-  display: flex;
-  justify-content: flex-end; /* botones alineados a la derecha */
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: flex-end;
+  align-items: center;
   gap: 1rem;
-  padding-top: 1rem;
+  flex-wrap: nowrap !important; /* >>> Esto evita que se bajen <<< */
+}
+
+.footer-row .btn {
+  white-space: nowrap; /* opcional: evita que se parta el texto */
 }
