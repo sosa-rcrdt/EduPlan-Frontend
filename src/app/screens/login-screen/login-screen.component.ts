@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginRequest } from 'src/app/models/auth.models';
+import { Location } from '@angular/common';
 
 declare var $: any;
 
@@ -19,10 +20,11 @@ export class LoginScreenComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private location: Location
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   // Inicia sesión usando AuthService y redirige al home
   public login(): void {
@@ -78,6 +80,10 @@ export class LoginScreenComponent implements OnInit {
       $('#show-password').attr('data-password', false);
       this.type = 'password';
     }
+  }
+
+  public volver(): void {
+    this.location.back();
   }
 }
 
